@@ -1,0 +1,10 @@
+useDynLib(qckit)
+import(zlibbioc)
+
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+importFrom("grDevices", "dev.off", "pdf")
+importFrom("graphics", "plot", "rug")
+importFrom("stats", "density", "median")
+importFrom("utils", "write.csv")
+importFrom("magrittr","%>%")
