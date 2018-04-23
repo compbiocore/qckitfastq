@@ -11,16 +11,16 @@
 
 using namespace Rcpp;
 
+// [[Rcpp::plugins(cpp11)]]
+
 //' calculate Over Rep seqs
-//'
 //'
 //' @param infile  A string giving the path for the fastqfile
 //' @param out_prefix A string giving the prefix to be used for outputs
 //' @param buffer_size An int for the number of lines to keep in memory
 //' @export
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
- void process_fastq (std::string infile, std::string out_prefix, int buffer_size)
+void process_fastq (std::string infile, std::string out_prefix, int buffer_size)
   {
   std::map<char, int> ascii_map;
   ascii_map['!'] = 0;
@@ -224,7 +224,6 @@ using namespace Rcpp;
 //'
 //' Description
 //' @param inmat A matrix of score vectors per position
-// [[Rcpp::plugins(cpp11)]]
 
 std::vector<std::vector<int> > qual_score_per_position (const std::map<int,std::vector<uint8_t> > &inmat)
 {
@@ -404,7 +403,10 @@ Rcpp::List qual_score_per_read (std::string infile)
           }
           else
           {
-            qual_score_matrix.insert(std::pair<int,uint8_t>(pos_counter,ascii_map.find(*it)->second ));
+            std::vector<uint8_t> tmp_qual;
+            tmp_qual.push_back(ascii_map.find(*it)->second);
+            std::pair<int,std::vector<uint8_t>> tmp = std::pair<int,std::vector<uint8_t>>(pos_counter,tmp_qual);
+            qual_score_matrix.insert(tmp);
           }
           pos_counter++;
       }

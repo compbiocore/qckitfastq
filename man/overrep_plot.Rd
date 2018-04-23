@@ -4,10 +4,12 @@
 \alias{overrep_plot}
 \title{Plot the top 5 seqeunces}
 \usage{
-overrep_plot(overrep_order, prefix)
+overrep_plot(overrep_order, writefile = FALSE, prefix)
 }
 \arguments{
 \item{overrep_order}{the table that sorts the sequence content and corresponding counts in descending order}
+
+\item{writefile}{boolean of whether to save file}
 
 \item{prefix}{the prefix to the file saved}
 }

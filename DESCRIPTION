@@ -3,7 +3,7 @@ Type: Package
 Title: FASTQ Quality Control
 Version: 0.1.0
 Author: Wenyue Xing
-Maintainer: Wenyue Xing  <wenyue_xing@brown.edu>
+Maintainer: August Guang <august.guang@gmail.com>
 Description: Assessment of FASTQ file format with multiple metrics including quality score, sequence content, overrepresented sequence and Kmers.  
 License: Artistic-2.0
 Encoding: UTF-8

@@ -4,13 +4,17 @@
 \alias{basic_stat}
 \title{Generate the data frame that includes percentiles of quality score per position}
 \usage{
-basic_stat(infile)
+basic_stat(infile, writefile = FALSE, prefix)
 }
 \arguments{
 \item{infile}{the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function}
+
+\item{writefile}{the boolean of whether to write output as file}
+
+\item{prefix}{the string of customized prefix of write-out file}
 }
 \value{
-boxplot of per position quality score distribution
+table of quality score statistics
 }
 \description{
 Generate the data frame that includes percentiles of quality score per position
