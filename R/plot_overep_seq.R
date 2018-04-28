@@ -7,7 +7,7 @@
 #' @export
 
 
-overrep_plot <- function(overrep_order,writefile=FALSE,prefix){
+plot_overrep_seq <- function(overrep_order,writefile=FALSE,prefix){
 
   if (writefile==TRUE){
   pdf(file = paste0(prefix,"OverrepresentedSequencePlot.pdf"))

@@ -9,7 +9,7 @@
 #' @return ggplot line plot of all nucleotide content inclding  A, T, G, C and N
 #' @export
 
-plotSeqContent<- function(fseq,nr,nc,writefile=FALSE,prefix){
+plot_sequence_content<- function(fseq,nr,nc,writefile=FALSE,prefix){
 
   G_content<- sequence_content(fseq,"G")
   C_content<- sequence_content(fseq,"C")

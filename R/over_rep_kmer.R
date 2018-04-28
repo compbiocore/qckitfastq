@@ -4,10 +4,12 @@
 #' @param k the length of the sequence looking for
 #' @param nc number of positions
 #' @param nr number of reads
+#' @param writefile TRUE for writing the output to csv file
+#' @param prefix prefix of output file if writefile is TRUE
+#'
 #' @return the index of reads that has overrepresented kmers
 #' @export
-
-overrep_kmer <- function(path,k,nc,nr){
+overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
   fseq <- seqTools::fastqq(path)
   fseq_count <- seqTools::fastqKmerLocs(path,k)[[1]]
 
@@ -75,8 +77,7 @@ overrep_kmer <- function(path,k,nc,nr){
   index = do.call(rbind,sapply(index_split,simplify=FALSE, function(x)x[order(x$row,decreasing=TRUE),][1,]))
   indexes <- index_overt %>% dplyr::group_by(row) %>% dplyr::top_n(1,obsexp_ratio)
 
-  #indexes <- data.table::data.table(index)[order(-obsexp_ratio,row)]
   indexes$kmer <- rownames(fseq_count_log)[indexes$row]
-  write.csv(file="OverrepresentedKmers.csv",indexes)
+  if (writefile==TRUE){write.csv(file=paste0(prefix,"OverrepresentedKmers.csv"),indexes)}
   return(indexes)
 }

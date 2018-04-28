@@ -4,10 +4,14 @@
 \alias{GC_content}
 \title{Extract GC content separately and calculate GC content percentage for each sequence read}
 \usage{
-GC_content(infile)
+GC_content(infile, writefile = FALSE, prefix)
 }
 \arguments{
 \item{infile}{the object that is the path to the FASTQ file}
+
+\item{writefile}{TRUE for writing the output to csv file}
+
+\item{prefix}{the prefix of the output file if writefile is TRUE}
 }
 \value{
 plot of GC content

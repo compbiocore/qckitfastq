@@ -9,5 +9,7 @@ sequence_content <- function(fseq,content){
 
   nucCount_seq <- seqTools::nucFreq(fseq,1)
   specific_content <- nucCount_seq[tolower(content),]
+  #seq_content <- nucCount_seq[c(a,t,g,c,n)]
+  if (writefile==TRUE){write.csv(file=paste0(prefix,"Sequence_Content.csv"),specific_content)}
   return(as.vector(specific_content))
 }
