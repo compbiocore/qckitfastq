@@ -120,7 +120,7 @@ The *plot_GC_content_plot* function takes the input from previous function and g
 
 ```{r}
 
-plot_GC_content(nc,gc_df)
+GC_content_plot(nc,gc_df)
 
 
 ```
@@ -167,7 +167,7 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 ```{r}
 
-overrep_seq <- qckit::overrepresented_sequence(infile,nr,"test")
+plot_overrep_seq <- qckit::overrep_sequence(infile,nr,"test")
 knitr::kable(head(overrep_seq,n = 5))
 
 ```
