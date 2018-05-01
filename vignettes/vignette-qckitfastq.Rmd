@@ -167,7 +167,7 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 ```{r}
 
-plot_overrep_seq <- qckit::overrep_sequence(infile,nr,"test")
+plot_overrep_seq <- qckit::overrep_sequence(infile,nr,FALSE,"test")
 knitr::kable(head(overrep_seq,n = 5))
 
 ```
