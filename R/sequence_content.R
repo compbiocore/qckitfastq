@@ -5,7 +5,7 @@
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}
 #' @export
 
-sequence_content <- function(fseq,content){
+sequence_content <- function(fseq,writefile=FALSE,content){
 
   nucCount_seq <- seqTools::nucFreq(fseq,1)
   specific_content <- nucCount_seq[tolower(content),]

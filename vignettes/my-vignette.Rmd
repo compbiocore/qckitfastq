@@ -110,7 +110,7 @@ plot_quality_score(bs,writefile=FALSE)
 ```{r}
 
 
-scA <- sequence_content(fseq, content = "A")
+scA <- sequence_content(fseq, writefile=FALSE,content = "A")
 scA
 
 
