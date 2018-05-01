@@ -120,7 +120,7 @@ The *plot_GC_content_plot* function takes the input from previous function and g
 
 ```{r}
 
-GC_content_plot(nc,gc_df)
+plot_GC_content(nc,gc_df)
 
 
 ```
