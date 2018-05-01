@@ -17,7 +17,7 @@ We first install the package from github by using `devtools`
 ```{R,include=FALSE}
 
 library(devtools)
-install_github("compbiocore/qckitfastq")
+install_github("compbiocore/qckitfastq",ref="devel")
 
 
 ```
