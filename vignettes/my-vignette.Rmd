@@ -57,7 +57,7 @@ Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr*
 ```{R,include=FALSE}
 
 library(devtools)
-install_github("winnie0521/qckit",ref="cplusdocumentation")
+install_github("compbiocore/qckitfastq",ref="devel")
 
 
 ```
