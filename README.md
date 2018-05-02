@@ -4,7 +4,7 @@ This package contains tools for the comprehensive quality control of FASTQC form
 
 We enable efficient processing of FASTQ format data by implementing efficient c++ functions using `Rcpp`. 
 
-The metrices that `qckit` provides are as following:
+The metrices that `qckitfastq` provides are as following:
 1. data dimension
 2. per base sequence content
 3. per base quality score statisitcs

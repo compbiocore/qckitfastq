@@ -1,4 +1,4 @@
 library(testthat)
-library(qckit)
+library(qckitfastq)
 
-test_check("qckit")
+test_check("qckitfastq")

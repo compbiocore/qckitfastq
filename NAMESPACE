@@ -1,4 +1,4 @@
-useDynLib(qckit)
+useDynLib(qckitfastq)
 import(zlibbioc)
 
 exportPattern("^[[:alpha:]]+")

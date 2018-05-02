@@ -1,5 +1,4 @@
 #' Plot the per position nucleotide content
-#' \code{plotSeqContent}
 #' @param fseq the object that is the processed intermediate product of seqTools fastqq
 #' @param nr the number of reads of the FASTQ file, acquired through previous functions
 #' @param nc the number of positions of the FASTQ file, acquired through previous functions
