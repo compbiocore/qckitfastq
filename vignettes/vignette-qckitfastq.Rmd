@@ -27,8 +27,8 @@ Then we specify the path to the FASTQ file and run analysis and visualization fu
 Here, for example, we use a system file with 25,000 reads as an example. 
 
 ```{r}
-library(qckit)
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckit")
+library(qckitfastq)
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 
 ```
 To open FASTQ files, we can replace the infile argument with path to the FASTQ file. 
