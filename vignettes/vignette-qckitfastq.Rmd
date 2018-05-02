@@ -17,7 +17,7 @@ We first install the package from github by using `devtools`
 ```{R,include=FALSE}
 
 library(devtools)
-install_github("compbiocore/qckitfastq")
+install_github("compbiocore/qckitfastq",ref="devel")
 
 
 ```
@@ -87,7 +87,7 @@ plot_quality_score(bs,writefile=FALSE)
 
 *sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. 
 ```{r}
-scA <- sequence_content(fseq, content = "A")
+scA <- sequence_content(fseq, content = "A",writefile=FALSE)
 scA
 ```
 
@@ -167,7 +167,7 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 ```{r}
 
-overrep_seq <- qckit::overrepresented_sequence(infile,nr,"test")
+overrep_seq <- qckit::overrep_sequence(infile,nr,FALSE,"test")
 knitr::kable(head(overrep_seq,n = 5))
 
 ```
@@ -178,7 +178,7 @@ Function *overrepresented_plot* would take the overrepresented sequence table as
 ```{r}
 
 
-overrep_plot(overrep_seq,FALSE)
+plot_overrep_seq(overrep_seq,FALSE)
 
 
 ```
