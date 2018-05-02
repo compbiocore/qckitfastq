@@ -17,15 +17,8 @@ We first install the package from github by using `devtools`
 ```{R,include=FALSE}
 
 library(devtools)
-<<<<<<< HEAD
-<<<<<<< HEAD:vignettes/vignette-qckitfastq.Rmd
-install_github("compbiocore/qckitfastq",ref="devel")
-=======
-install_github("compbiocore/qckitfastq")
->>>>>>> 8b7a35974eaf430eec131d25a46bd2daad66fa61:vignettes/vignette-qckitfastq.Rmd
-=======
-install_github("compbiocore/qckitfastq",ref="devel")
->>>>>>> bbc964f5e70df180af1d32612ec47e9370dd901f
+
+install_github("compbiocore/qckitfastq",build_vignettes=TRUE)
 
 
 ```
