@@ -71,7 +71,7 @@ overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
 
   #find the index of large value and detect the kmer they belong to
 
-  index_over <- which(fseq_count_log>=2,arr.ind = T)
+  index_over <- which(fseq_count_log>=2,arr.ind = TRUE)
   obsexp_ratio <- fseq_count_log[cbind(index_over[,1],index_over[,2])]
   index_over <- cbind(index_over,obsexp_ratio)
 

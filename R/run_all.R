@@ -8,6 +8,7 @@
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' run_all(infile,FALSE,FALSE)
+#' @return  generate files from all functions
 #' @export
 run_all<- function(infile,foption,poption,pref){
   fseq <- seqTools::fastqq(infile)

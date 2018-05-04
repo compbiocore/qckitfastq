@@ -15,6 +15,9 @@ calc_over_rep_seq(infile, out_prefix, min_size = 5L, buffer_size = 1000000L)
 
 \item{buffer_size}{An int for the number of lines to keep in memory}
 }
+\value{
+calculate overrepresented sequence count
+}
 \description{
 Calculate sequece counts for each unique sequence and create a table with unique sequences and corresponding counts
 }

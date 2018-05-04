@@ -13,6 +13,9 @@ process_fastq(infile, out_prefix, buffer_size)
 
 \item{buffer_size}{An int for the number of lines to keep in memory}
 }
+\value{
+process fastq and generate sequence and quality score tables
+}
 \description{
 calculate Over Rep seqs
 }
