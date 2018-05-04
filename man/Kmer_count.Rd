@@ -21,3 +21,8 @@ Kmers counts per sequence
 \description{
 Return kmer count per sequence for the length of kmer desired
 }
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+Kmer_count(infile,k=4)
+}

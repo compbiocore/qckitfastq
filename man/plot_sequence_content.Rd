@@ -2,8 +2,7 @@
 % Please edit documentation in R/plot_sequence_content.R
 \name{plot_sequence_content}
 \alias{plot_sequence_content}
-\title{Plot the per position nucleotide content
-\code{plotSeqContent}}
+\title{Plot the per position nucleotide content}
 \usage{
 plot_sequence_content(fseq, nr, nc, writefile = FALSE, prefix)
 }
@@ -23,5 +22,10 @@ ggplot line plot of all nucleotide content inclding  A, T, G, C and N
 }
 \description{
 Plot the per position nucleotide content
-\code{plotSeqContent}
+}
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+fseq <- seqTools::fastqq(infile,k=6)
+plot_sequence_content(fseq,nr=25000,nc=100)
 }

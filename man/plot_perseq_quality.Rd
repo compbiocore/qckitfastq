@@ -21,3 +21,8 @@ plot of mean quality score per read
 plot the mean quality score per read in histograms
 \code{plot_perseq_quality}
 }
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+plot_perseq_quality(infile)
+}

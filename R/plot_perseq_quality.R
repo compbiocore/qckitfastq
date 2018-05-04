@@ -3,7 +3,10 @@
 #' @param infile the object that is the path to the file that
 #' @param writefile the object indicating intent to save the plot as pdf file, set default as FALSE
 #' @param prefix the prefix for the output file of the plot
+#' @examples
 #'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' plot_perseq_quality(infile)
 #' @return plot of mean quality score per read
 #' @export
 

@@ -18,3 +18,7 @@ run_all(infile, foption, poption, pref)
 \description{
 One function to run them all
 }
+\examples{
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+run_all(infile,FALSE,FALSE)
+}

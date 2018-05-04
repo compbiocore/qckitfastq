@@ -19,3 +19,8 @@ plot of GC content
 \description{
 Extract GC content separately and calculate GC content percentage for each sequence read
 }
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+GC_content(infile,FALSE)
+}

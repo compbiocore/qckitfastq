@@ -19,3 +19,10 @@ plot of the top 5 overrepresented sequences
 \description{
 Plot the top 5 seqeunces
 }
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+overrep_order <- overrep_sequence(infile,nr=25000)
+plot_overrep_seq(overrep_order)
+
+}

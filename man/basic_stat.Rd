@@ -19,6 +19,11 @@ table of quality score statistics
 \description{
 Generate the data frame that includes percentiles of quality score per position
 }
+\examples{
+
+basic_stat(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),FALSE)
+
+}
 \author{
 Wenyue Xing, \email{wenyue_xing@brown.edu}
 }

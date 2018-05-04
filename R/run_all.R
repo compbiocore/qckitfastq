@@ -5,9 +5,10 @@
 #' @param poption TRUE for saving all plots to file, FALSE for displaying all plots
 #' @param pref  if any above choice is TRUE, give the prefix to the customized output filename prefix
 #' @importMethodsFrom seqTools fastqq
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' run_all(infile,FALSE,FALSE)
 #' @export
-
-
 run_all<- function(infile,foption,poption,pref){
   fseq <- seqTools::fastqq(infile)
 

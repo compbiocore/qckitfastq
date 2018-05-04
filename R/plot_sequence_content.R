@@ -4,7 +4,11 @@
 #' @param nc the number of positions of the FASTQ file, acquired through previous functions
 #' @param writefile the boolean object to write the plot as PDF file, default is FALSE
 #' @param prefix the prefix to add to the file name
+#' @examples
 #'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' fseq <- seqTools::fastqq(infile,k=6)
+#' plot_sequence_content(fseq,nr=25000,nc=100)
 #' @return ggplot line plot of all nucleotide content inclding  A, T, G, C and N
 #' @export
 

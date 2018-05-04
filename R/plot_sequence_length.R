@@ -2,7 +2,11 @@
 #' @param  fseq the object that is the seqTools processed result
 #' @param  writefile the boolean object to write the plot as PDF file, default is FALSE
 #' @param  prefix the prefix to add to the file name
+#' @examples
 #'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' fseq <- seqTools::fastqq(infile,k=6)
+#' plot_sequence_length(fseq)
 #' @return the plot of the sequence distribution among all reads
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}
 #' @export

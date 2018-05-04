@@ -3,6 +3,10 @@
 #' @param content an object of string type that specifies the content in question, "A","T","G","C","N"(either capital or lower case)
 #' @param writefile boolean true/false for whether to write file
 #' @return the per position
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' fseq <- seqTools::fastqq(infile,k=6)
+#' suquence_content(fseq,"A")
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}
 #' @export
 

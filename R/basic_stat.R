@@ -3,6 +3,10 @@
 #' @param writefile the boolean of whether to write output as file
 #' @param prefix the string of customized prefix of write-out file
 #' @return table of quality score statistics
+#' @examples
+#'
+#' basic_stat(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),FALSE)
+#'
 #' @export
 #'
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}

@@ -6,6 +6,12 @@
 #'
 #' @return  table of sequnces sortted by count
 #' @return  density plot of sequence length with top 5 marked by rugs, saved as PDF file
+#'
+#' @examples
+#'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' overrep_sequence(infile,nr=25000)
+#'
 #' @export
 overrep_sequence <- function(infile,nr,writefile=FALSE,prefix){
 

@@ -13,8 +13,14 @@ dimensions(fseq, selection)
 }
 \value{
 a numeric value of the number of reads or the number of positions
-#' @export
 }
 \description{
 \code{ncolumn}use seqTool to extract the dimensions of a Fastq G zipped file
+}
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+fseq <- seqTools::fastqq(infile,k=6)
+dimensions(fseq,"reads")
+
 }

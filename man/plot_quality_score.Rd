@@ -7,15 +7,20 @@
 plot_quality_score(basic_statistics, writefile = FALSE, prefix)
 }
 \arguments{
+\item{basic_statistics}{the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function}
+
 \item{writefile}{the object indicating intent to save the plot as pdf file, set default as FALSE}
 
 \item{prefix}{the prefix for the output file of the plot}
-
-\item{bs}{the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function}
 }
 \value{
 boxplot of per position quality score distribution
 }
 \description{
 Generate a boxplot of the per posistion quality score from basic statistics results
+}
+\examples{
+
+basic_statistics <- basic_stat(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),FALSE)
+plot_quality_score(basic_statistics)
 }
