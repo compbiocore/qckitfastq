@@ -22,7 +22,7 @@ Extract nucleoctide sequence content per position from fastq file
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 fseq <- seqTools::fastqq(infile,k=6)
-suquence_content(fseq,"A")
+sequence_content(fseq,"A")
 }
 \author{
 Wenyue Xing, \email{wenyue_xing@brown.edu}

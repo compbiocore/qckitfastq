@@ -156,7 +156,7 @@ The function generates list of overrepresented kmers with its maximum obs/exp ra
 
 ```{r}
 
-overkm <-qckit::overrep_kmer(infile,7,nc,nr)
+overkm <-overrep_kmer(infile,7,nc,nr)
 knitr::kable(head(overkm,n=10))
 
 
@@ -169,7 +169,7 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 ```{r}
 
-overrep_seq <- qckit::overrep_sequence(infile,nr,FALSE,"test")
+overrep_seq <- overrep_sequence(infile,nr,prefix="test")
 knitr::kable(head(overrep_seq,n = 5))
 
 ```

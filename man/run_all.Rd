@@ -21,7 +21,3 @@ generate files from all functions
 \description{
 One function to run them all
 }
-\examples{
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-run_all(infile,FALSE,FALSE)
-}
