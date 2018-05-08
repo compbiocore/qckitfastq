@@ -4,7 +4,7 @@
 \alias{sequence_content}
 \title{Extract nucleoctide sequence content per position from fastq file}
 \usage{
-sequence_content(fseq, content, writefile = FALSE)
+sequence_content(fseq, content, writefile = FALSE, prefix)
 }
 \arguments{
 \item{fseq}{an object that is the read result from seq.read function}
@@ -12,6 +12,8 @@ sequence_content(fseq, content, writefile = FALSE)
 \item{content}{an object of string type that specifies the content in question, "A","T","G","C","N"(either capital or lower case)}
 
 \item{writefile}{boolean true/false for whether to write file}
+
+\item{prefix}{to the output file if writefile=TRUE}
 }
 \value{
 the per position
