@@ -7,6 +7,7 @@
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' fseq <- seqTools::fastqq(infile,k=6)
 #' plot_sequence_length(fseq)
+#' @importMethodsFrom dplyr count
 #' @return the plot of the sequence distribution among all reads
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}
 #' @export
