@@ -1,7 +1,7 @@
 Package: qckitfastq
 Type: Package
 Title: FASTQ Quality Control
-Version:0.99.10
+Version:0.99.11
 Author: Wenyue Xing
 Maintainer: August Guang <august.guang@gmail.com>
 Description: Assessment of FASTQ file format with multiple metrics including quality score, sequence content, overrepresented sequence and Kmers.  
