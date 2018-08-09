@@ -5,6 +5,10 @@
 #' @param prefix the prefix of the output file if writefile is TRUE
 #'
 #' @return  Kmers counts per sequence
+#' @examples
+#'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' Kmer_count(infile,k=4)
 #' @export
 Kmer_count <- function(infile,k,writefile=FALSE,prefix){
   fseq_count <- seqTools::fastqKmerLocs(infile,k)[[1]]

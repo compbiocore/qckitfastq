@@ -1,6 +1,6 @@
 testthat::test_that("Test kmer",{
 
-  kmer<-seqTools::fastqKmerLocs(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckit"),k=6)
+  kmer<-seqTools::fastqKmerLocs(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),k=6)
   #check the dimension of the kmer count
   testthat::expect_equal(dim(kmer[[1]]),c(4096,95))
   #check the kmer sequence

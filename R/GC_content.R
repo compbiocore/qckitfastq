@@ -3,6 +3,10 @@
 #' @param writefile TRUE for writing the output to csv file
 #' @param prefix the prefix of the output file if writefile is TRUE
 #' @return plot of GC content
+#' @examples
+#'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' GC_content(infile,FALSE)
 #' @export
 GC_content <- function(infile,writefile=FALSE,prefix){
 

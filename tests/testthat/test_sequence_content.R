@@ -1,5 +1,5 @@
 testthat::test_that("Test sequence content",{
-  fseq <- seqTools::fastqq(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckit"),6)
+  fseq <- seqTools::fastqq(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),6)
 
   #test the dimensions of the dataset
   testthat::expect_equal( length(sequence_content(fseq,"g")),dimensions(fseq,"positions"))

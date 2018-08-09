@@ -15,6 +15,9 @@ run_all(infile, foption, poption, pref)
 
 \item{pref}{if any above choice is TRUE, give the prefix to the customized output filename prefix}
 }
+\value{
+generate files from all functions
+}
 \description{
 One function to run them all
 }

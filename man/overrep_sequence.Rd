@@ -4,16 +4,14 @@
 \alias{overrep_sequence}
 \title{Sort all sequences per read by count along with a density plot of all counts with top 5 repreated sequences marked}
 \usage{
-overrep_sequence(infile, nr, writefile = FALSE, prefix)
+overrep_sequence(infile, nr, prefix)
 }
 \arguments{
 \item{infile}{the object that is the path to gzippped FASTQ file}
 
 \item{nr}{the number of reads of the FASTQ file}
 
-\item{writefile}{TRUE for writing the output to csv file}
-
-\item{prefix}{prefix of output file if writefile is TRUE}
+\item{prefix}{prefix of output file}
 }
 \value{
 table of sequnces sortted by count
@@ -22,4 +20,10 @@ density plot of sequence length with top 5 marked by rugs, saved as PDF file
 }
 \description{
 Sort all sequences per read by count along with a density plot of all counts with top 5 repreated sequences marked
+}
+\examples{
+
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+overrep_sequence(infile,nr=25000,prefix="test")
+
 }

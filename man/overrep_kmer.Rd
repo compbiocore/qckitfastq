@@ -25,3 +25,9 @@ the index of reads that has overrepresented kmers
 \description{
 Generate overrepresented kmers from all kmer counts results
 }
+\examples{
+
+path <-system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+overrep_kmer(path,k=4,nc=100,nr=25000)
+
+}

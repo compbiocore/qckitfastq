@@ -1,10 +1,13 @@
 #' Generate a boxplot of the per posistion quality score from basic statistics results
-#' @param bs the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function
+#' @param basic_statistics the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function
 #' @param writefile the object indicating intent to save the plot as pdf file, set default as FALSE
 #' @param prefix the prefix for the output file of the plot
 #'
 #' @export
+#' @examples
 #'
+#' basic_statistics <- basic_stat(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),FALSE)
+#' plot_quality_score(basic_statistics)
 #' @return boxplot of per position quality score distribution
 
 

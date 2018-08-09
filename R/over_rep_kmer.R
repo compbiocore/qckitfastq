@@ -8,6 +8,11 @@
 #' @param prefix prefix of output file if writefile is TRUE
 #'
 #' @return the index of reads that has overrepresented kmers
+#' @examples
+#'
+#' path <-system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' overrep_kmer(path,k=4,nc=100,nr=25000)
+#'
 #' @export
 overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
   fseq <- seqTools::fastqq(path)
@@ -66,7 +71,7 @@ overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
 
   #find the index of large value and detect the kmer they belong to
 
-  index_over <- which(fseq_count_log>=2,arr.ind = T)
+  index_over <- which(fseq_count_log>=2,arr.ind = TRUE)
   obsexp_ratio <- fseq_count_log[cbind(index_over[,1],index_over[,2])]
   index_over <- cbind(index_over,obsexp_ratio)
 

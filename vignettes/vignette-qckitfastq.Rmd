@@ -89,6 +89,7 @@ plot_quality_score(bs,writefile=FALSE)
 
 *sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. 
 ```{r}
+
 scA <- sequence_content(fseq, content = "A",writefile=FALSE)
 scA
 ```
@@ -165,7 +166,7 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 
 ```{r}
-overrep_seq <- overrep_sequence(infile,nr,FALSE,"test")
+overrep_sequence(infile,nr,prefix="test")
 knitr::kable(head(overrep_seq,n = 5))
 ```
 

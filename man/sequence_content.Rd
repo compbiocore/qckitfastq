@@ -4,18 +4,27 @@
 \alias{sequence_content}
 \title{Extract nucleoctide sequence content per position from fastq file}
 \usage{
-sequence_content(fseq, content)
+sequence_content(fseq, content, writefile = FALSE, prefix)
 }
 \arguments{
 \item{fseq}{an object that is the read result from seq.read function}
 
 \item{content}{an object of string type that specifies the content in question, "A","T","G","C","N"(either capital or lower case)}
+
+\item{writefile}{boolean true/false for whether to write file}
+
+\item{prefix}{to the output file if writefile=TRUE}
 }
 \value{
 the per position
 }
 \description{
 Extract nucleoctide sequence content per position from fastq file
+}
+\examples{
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+fseq <- seqTools::fastqq(infile,k=6)
+sequence_content(fseq,"A")
 }
 \author{
 Wenyue Xing, \email{wenyue_xing@brown.edu}

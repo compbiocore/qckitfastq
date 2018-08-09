@@ -4,6 +4,13 @@
 #' @param writefile the object indicating intent to save the plot as pdf file, set default as FALSE
 #' @param prefix the prefix for the output file of the plot
 #' @return a ggplot of the GC content acorss all positions
+#'
+#' @examples
+#'
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' gc_df<-GC_content(infile,FALSE)
+#' plot_GC_content(nc=100,gc_df)
+#'
 #' @export
 
 plot_GC_content <- function(nc,gc_df, writefile=FALSE,prefix){

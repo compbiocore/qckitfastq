@@ -5,9 +5,9 @@
 #' @param poption TRUE for saving all plots to file, FALSE for displaying all plots
 #' @param pref  if any above choice is TRUE, give the prefix to the customized output filename prefix
 #' @importMethodsFrom seqTools fastqq
+#'
+#' @return  generate files from all functions
 #' @export
-
-
 run_all<- function(infile,foption,poption,pref){
   fseq <- seqTools::fastqq(infile)
 
@@ -30,11 +30,11 @@ run_all<- function(infile,foption,poption,pref){
   colnames(seq_count) <- seq(1,100)
   if (foption==TRUE){write.csv(file=paste0(pref,"Seq_Content.csv"),seq_count)}
 
-  plot_sequence_ontent(fseq,nr,nc,writefile = poption,prefix=pref)
+  plot_sequence_content(fseq,nr,nc,writefile = poption,prefix=pref)
 
   #extract GC content per read
   gc_df <- GC_content(infile,writefile = foption,prefix=pref)
-  gc_plot<- GC_content_plot(nc,gc_df,writefile = poption,prefix=pref)
+  gc_plot<- plot_GC_content(nc,gc_df,writefile = poption,prefix=pref)
 
   #Per read sequence quality score
   plot_perseq_quality(infile,writefile=FALSE,prefix=pref)
@@ -44,7 +44,7 @@ run_all<- function(infile,foption,poption,pref){
   overkm <-overrep_kmer(infile,7,nc,nr,writefile = foption,prefix=pref)
 
   #overrep sequence
-  overrep_seq <- overrepresented_sequence(infile,nr,writefile = foption,prefix = pref)
+  overrep_seq <- overrep_sequence(infile,nr,prefix = pref)
   plot_overrep_seq(overrep_seq,writefile = poption,prefix=pref)
   }
 

@@ -1,5 +1,8 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
+^\.Rproj\.user
+.Rhistory
+.Rapp.history
 src/*.so
 src/*.o
 src/*.dll
+^\.Rproj\.user$
