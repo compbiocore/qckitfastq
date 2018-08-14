@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensions.R
 \name{dimensions}
 \alias{dimensions}
-\title{Extract the dimensions for Fastq file}
+\title{Extract the number of columns and rows for a FASTQ file using seqTools.}
 \usage{
 dimensions(fseq, selection)
 }
@@ -15,7 +15,7 @@ dimensions(fseq, selection)
 a numeric value of the number of reads or the number of positions
 }
 \description{
-\code{ncolumn}use seqTool to extract the dimensions of a Fastq G zipped file
+Extract the number of columns and rows for a FASTQ file using seqTools.
 }
 \examples{
 

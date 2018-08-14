@@ -4,7 +4,6 @@
 #' @param foption TRUE for saving all output results to file, FALSE for explicitly outputting the output tables
 #' @param poption TRUE for saving all plots to file, FALSE for displaying all plots
 #' @param pref  if any above choice is TRUE, give the prefix to the customized output filename prefix
-#' @importMethodsFrom seqTools fastqq
 #'
 #' @return  generate files from all functions
 #' @export

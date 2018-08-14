@@ -33,7 +33,7 @@ As is described on the [qckit project page](http://compbiocore.github.io/qckit),
 
 ## Pre-processing of FASTQ files
 
-Generally to process FASTQ files...
+...
 
 Then we specify the path to the FASTQ file and run analysis and visualization functions on it. 
 Here, for example, we use a system file with 25,000 reads as an example. 
@@ -44,19 +44,19 @@ infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"
 ```
 To open FASTQ files, we can replace the infile argument with path to the FASTQ file. 
 
-For some functions based on `seqTools`, we will first process the file through seqTools and then let qckitfastq functions proceed with the analysis. 
+Some functions in this package are based on `seqTools` given that their functions are relatively fast. Thus, we will first process the file through seqTools and then let qckitfastq functions proceed with the analysis. 
 
 ```{r}
 fseq <- seqTools::fastqq(infile)
 ```
 
-# Metrics of FASTQ quality control
+The rest of this vignette will be divided into functions that make use of `seqTools::fastqq` and those that use more customized C++ code.
 
-The FASTQ quality control metrics provided...
+# seqTools::fastqq based metrics
 
-## Data dimension
+## Basic metrics
 
-*dimensions* function obtains the number of reads and number of positions from a `seqTools` processed FASTQ file. The sample file has 25,000 reads and 100 positions. This section allows us to examine whether the sequence length are uniform throughout the entire file. The results from this section can also help with further analysis like *overrepresented_kmer*, where dimensionality of data is important for calculation. 
+We provide some basic metrics such as the number of reads and number of positions under the function *dimensions*. Here the sample file has 25,000 reads and 100 positions. This allows us to examine whether the sequence lengths are uniform throughout the entire file. The results from this section are useful for certain analyses where dimensionality of data is important for calculation, such as *overrep_kmer*,. 
 
 ```{r}
 nc <- dimensions(fseq,"positions")
@@ -66,17 +66,17 @@ nr <- dimensions(fseq,"reads")
 nr
 ```
 
-*plot_sequence_length* function generates distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have the same sequence length with no deviations. The following plot shows that all reads in the file have sequence length of 100. 
+*plot_sequence_length* generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have the same sequence length with no deviations. The following plot shows that all reads in the file have sequence length of 100.
 
 ```{r}
-plot_sequence_length(fseq,writefile=FALSE)
-
-
+plot_read_length(fseq)
 ```
+
+# FASTQ metrics
 
 ## Per base quality score statistics
 
-*basic_statistics* function calculates the quality score per sequence statistics including mean, median and quantiles. We will use the result to create a quality score distribution per position plot to present the overall dispersion and concentration of quality score per position of the FASTQ file.   
+The *basic_statistics* function calculates the quality score per sequence statistics including mean, median and quantiles. We can use the result to create a quality score distribution per position plot to present the overall dispersion and concentration of quality score per position of the FASTQ file.
 
 ```{r}
 bs <- basic_stat(infile,FALSE)
@@ -167,12 +167,12 @@ Taking in the output generated from *cal_over_rep_seq*, function *overrepresente
 
 ```{r}
 overrep_sequence(infile,nr,prefix="test")
-knitr::kable(head(overrep_seq,n = 5))
+knitr::kable(head(overrep_sequence,n = 5))
 ```
 
 Function *overrepresented_plot* would take the overrepresented sequence table as input and present a density plot of the counts and mark the top 5 overrepresented sequence in red. 
 
 
 ```{r}
-plot_overrep_seq(overrep_seq,FALSE)
+plot_overrep_seq(overrep_sequence,FALSE)
 ```

@@ -4,7 +4,8 @@
 \alias{calc_over_rep_seq}
 \title{calculate Over Rep seqs}
 \usage{
-calc_over_rep_seq(infile, out_prefix, min_size = 5L, buffer_size = 1000000L)
+calc_over_rep_seq(infile, out_prefix, min_size = 5L,
+  buffer_size = 1000000L)
 }
 \arguments{
 \item{infile}{A string giving the path for the fastqfile}

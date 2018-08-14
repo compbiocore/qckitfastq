@@ -3,7 +3,7 @@ r: bioc-release
 cache: packages
 
 r_packages:
-	- covr
+  - covr
 
 after_success:
-	- Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'library(covr); codecov()'

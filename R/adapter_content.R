@@ -1,7 +1,8 @@
-#' Search through your sequences and return the total proportion of your library which contains
+#' Search through sequences and return the total proportion of the library which contains
 #' adapter sequences, predefined in the file adapters.txt. It is also possible for the user to
 #' give a different file as input; the function is relatively generic. Sequences however must
-#' be in the same format as adapters.txt.
+#' be in the same format as adapters.txt, that is name\tsequence.
+#'
 #' @param infile the path to the FASTQ file
 #' @param writefile if TRUE, write output to csv file. FALSE by default.
 #' @param prefix the prefix of the output file if writefile is TRUE
@@ -19,3 +20,9 @@ adapter_content <- function(infile, writefile, prefix, adapter_file) {
 #' Helper function to process adapter file.
 #' @param adapter_file
 #' @return data table
+process_adapter_file <- function(adapter_file) {
+  file<-read.csv(file=adapter_file, comment.char="#",sep="\t",col.names=c("name","sequence")) %>%
+    dplyr::mutate(nchar(as.character(sequence))) %>%
+    group_by(nc)
+  return(file)
+}

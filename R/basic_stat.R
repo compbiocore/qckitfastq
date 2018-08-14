@@ -1,4 +1,5 @@
 #' Generate the data frame that includes percentiles of quality score per position
+#'
 #' @param infile the object that is the dataframe of the mean, median and quantiles of the FASTQ file from basic statistics function
 #' @param writefile the boolean of whether to write output as file
 #' @param prefix the string of customized prefix of write-out file

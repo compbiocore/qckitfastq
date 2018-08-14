@@ -1,6 +1,5 @@
-#' Extract the dimensions for Fastq file
+#' Extract the number of columns and rows for a FASTQ file using seqTools.
 #'
-#' \code{ncolumn}use seqTool to extract the dimensions of a Fastq G zipped file
 #' @param fseq an object that is the read result of the seq.read function
 #' @param selection "reads' for number of reads/rows, 'positions' for number of positions/columns
 #' @return a numeric value of the number of reads or the number of positions
@@ -11,8 +10,6 @@
 #' dimensions(fseq,"reads")
 #'
 #' @export
-
-
 dimensions <- function(fseq,selection){
   ncolumn <- fseq@maxSeqLen
   nrow <- fseq@nReads

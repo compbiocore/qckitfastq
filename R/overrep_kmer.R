@@ -13,6 +13,7 @@
 #' path <-system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' overrep_kmer(path,k=4,nc=100,nr=25000)
 #'
+#' @importFrom dplyr %>%
 #' @export
 overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
   fseq <- seqTools::fastqq(path)
