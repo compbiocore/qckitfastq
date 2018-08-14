@@ -66,13 +66,11 @@ nr <- dimensions(fseq,"reads")
 nr
 ```
 
-*plot_sequence_length* generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have the same sequence length with no deviations. The following plot shows that all reads in the file have sequence length of 100.
+*plot_read_length* generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have the same sequence length with no deviations. The following plot shows that all reads in the file have sequence length of 100.
 
 ```{r}
 plot_read_length(fseq)
 ```
-
-# FASTQ metrics
 
 ## Per base quality score statistics
 

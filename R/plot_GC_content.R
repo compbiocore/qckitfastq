@@ -19,3 +19,4 @@ plot_GC_content <- function(nc,gc_df, writefile=FALSE,prefix){
   if (writefile==TRUE){ggplot2::ggsave(file=paste0(prefix,"GC_content.pdf"),p_GC)}
   return(p_GC)
 }
+
