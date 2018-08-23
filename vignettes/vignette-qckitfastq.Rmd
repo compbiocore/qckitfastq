@@ -9,6 +9,11 @@ vignette: >
 bibliography: qckitfastq.bib
 ---
 
+```{r, setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
 # Introduction
 
 `qckitfastq` is part of the `qckit` suite of packages, the description of which can be found at
@@ -23,7 +28,17 @@ Indeed there are many other quality control packages for FASTQ files existing al
   2. quality control analyses of the entire FASTQ file
   3. fast file processing
   
-To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortReads provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not contain any of these limitations.
+To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortRead provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not contain any of these limitations.
+
+```{r, comparison_table}
+qckitfastq <- c("yes","yes+","yes")
+seqTools <- c("yes","yes","yes")
+ShortRead <- c("no","no","yes")
+FASTQC <- c("yes*","yes*","yes*")
+metrics <- data.frame(qckitfastq,seqTools,ShortRead,FASTQC)
+rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "blah2")
+kable(metrics)
+```
 
 ## Planned improvements
 
@@ -31,30 +46,54 @@ As is described on the [qckit project page](http://compbiocore.github.io/qckit),
 
 # Running qckitfastq
 
-## Pre-processing of FASTQ files
+`qckitfastq` provides the following metrics:
 
-...
+  * Per base sequence quality
+  * GC content
+  * Kmer count
+  * Adapter content
+  * (fill out as we go thru man pages)
 
-Then we specify the path to the FASTQ file and run analysis and visualization functions on it. 
-Here, for example, we use a system file with 25,000 reads as an example. 
+We provide a single command that the user can run to get a report of all of the included metrics, `run_all` but also provide the ability to run each metric separately and examine the results as a data frame.
 
+# Individual metrics
+
+Our example in this vignette has 25,000 reads, each 100bp long. The majority of metrics are run on the path to the FASTQ file. Some functions for quality control in this package are simply wrappers around `seqTools` due to the fact that their functions are fast. We provide these wrappers for the sake of completeness in quality control metrics. These wrappers require processing the FASTQ data through the `seqTools::fastqq` command first:
 ```{r, loading_file}
 library(qckitfastq)
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-```
-To open FASTQ files, we can replace the infile argument with path to the FASTQ file. 
-
-Some functions in this package are based on `seqTools` given that their functions are relatively fast. Thus, we will first process the file through seqTools and then let qckitfastq functions proceed with the analysis. 
-
-```{r}
 fseq <- seqTools::fastqq(infile)
 ```
 
 The rest of this vignette will be divided into functions that make use of `seqTools::fastqq` and those that use more customized C++ code.
 
-# seqTools::fastqq based metrics
+## C++ based metrics
 
-## Basic metrics
+### Per base quality score statistics
+
+The *per_base_quality* function calculates quality score per base summary statistics including mean, median and quantiles across sequences. We can use the result to create a quality score distribution per position plot to present the overall dispersion and concentration of quality score per position of the FASTQ file.
+
+```{r}
+bs <- per_base_quality(infile)
+knitr::kable(head(bs))
+plot_per_base_quality(bs)
+```
+
+### Benchmarking
+
+To demonstrate the utility of our functions on large datasets...
+(need to benchmark against ShortRead)
+
+```{r}
+library(seqTools)
+library(ShortRead)
+library(rbenchmark)
+sampler <- FastqSampler('E-MTAB-1147/fastq/ERR127302_1.fastq.gz', 20000)
+```
+
+## seqTools::fastqq based metrics
+
+### Basic metrics
 
 We provide some basic metrics such as the number of reads and number of positions under the function *dimensions*. Here the sample file has 25,000 reads and 100 positions. This allows us to examine whether the sequence lengths are uniform throughout the entire file. The results from this section are useful for certain analyses where dimensionality of data is important for calculation, such as *overrep_kmer*,. 
 
@@ -72,32 +111,16 @@ nr
 plot_read_length(fseq)
 ```
 
-## Per base quality score statistics
+*plot_per_base_quality* function generates a boxplot of the quality score distribution per base. In this section, we would like to examine whether certain portion of the sequences have generally low quality score. If a subset of seqences have quality score generally small(<30) [what was Winnie going for here?]
 
-The *basic_statistics* function calculates the quality score per sequence statistics including mean, median and quantiles. We can use the result to create a quality score distribution per position plot to present the overall dispersion and concentration of quality score per position of the FASTQ file.
+### Nucleotide sequence content
 
-```{r}
-bs <- basic_stat(infile,FALSE)
-knitr::kable(head(bs))
-plot_quality_score(bs,writefile=FALSE)
-```
-*plot_quality_score* function generates boxplot of quality score distribution per base.In this section, we would like to examine whether certain portion of the sequences have generally low quality score. If a subset of seqences have quality score generally small(<30) 
-
-## Nucleotide sequence content
-
-*sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. 
-```{r}
-
-scA <- sequence_content(fseq, content = "A",writefile=FALSE)
-scA
-```
-
-*plot_sequence_conent* use the *sequence_content* function and plot the percentage of all nucleotide sequence content per position. The plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is not significantly larger than other nucleotide sequence contents. In this section, we examine whether each nucleotide sequence content are distributed evenly at all bases. The data is problematic if any sequence bias greatly from other sequence content in any subset of sequences. 
+*sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. *plot_sequence_conent* uses the *sequence_content* function and plots the percentage of all nucleotide sequence content per position. The plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is not significantly larger than other nucleotide sequence contents. In this section, we examine whether each nucleotide sequence content are distributed evenly at all bases. The data is problematic if any sequence bias greatly from other sequence content in any subset of sequences.
 
 ```{r}
-
+scA <- sequence_content(fseq, content = "A")
+head(scA)
 plot_sequence_content(fseq,nr,nc)
-
 ```
 
 

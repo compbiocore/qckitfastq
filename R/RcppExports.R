@@ -27,9 +27,8 @@ process_fastq <- function(infile, out_prefix, buffer_size) {
     invisible(.Call('_qckitfastq_process_fastq', PACKAGE = 'qckitfastq', infile, out_prefix, buffer_size))
 }
 
-#' calculate mean quality per read
-#'
 #' Calculate the mean quality score per read of the FASTQ gzipped file
+#' 
 #' @param infile A string giving the path for the fastqfile
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")

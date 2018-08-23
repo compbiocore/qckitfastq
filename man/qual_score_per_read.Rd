@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{qual_score_per_read}
 \alias{qual_score_per_read}
-\title{calculate mean quality per read}
+\title{Calculate the mean quality score per read of the FASTQ gzipped file}
 \usage{
 qual_score_per_read(infile)
 }

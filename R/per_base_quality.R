@@ -1,16 +1,15 @@
-#' Generate the data frame that includes percentiles of quality score per position
+#' Compute the mean, median, and percentiles of quality score per base. This is returned
+#' as a data frame.
 #'
 #' @param infile  from basic statistics function
 #' @param output_file File to write results in CSV format to. Will not write to file if NA. Default NA.
 #' @return A dataframe of the mean, median and quantiles of the FASTQ file
 #' @examples
-#'
-#' basic_stat(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"),FALSE)
-#'
+#' per_base_quality(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"))
 #' @export
 #'
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}, August Guang, \email{august_guang@@brown.edu}
-basic_stat <- function(infile,output_file=NA){
+per_base_quality <- function(infile,output_file=NA){
 
   qs <- qual_score_per_read(infile)
   bs <- data.frame(q01 = qs$q01_per_position,
@@ -18,6 +17,6 @@ basic_stat <- function(infile,output_file=NA){
                                  median = qs$q50_per_position,
                                  q75 = qs$q75_per_position,
                                  q99 = qs$q99_per_position)
-  if (output_file) write.csv(file=output_file,bs)
+  if (!is.na(output_file)) write.csv(file=output_file,bs)
   return(bs)
 }

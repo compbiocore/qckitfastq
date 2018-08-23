@@ -2,17 +2,14 @@
 #' @param fseq the object that is the processed intermediate product of seqTools fastqq
 #' @param nr the number of reads of the FASTQ file, acquired through previous functions
 #' @param nc the number of positions of the FASTQ file, acquired through previous functions
-#' @param writefile the boolean object to write the plot as PDF file, default is FALSE
-#' @param prefix the prefix to add to the file name
+#' @param output_file File to save plot to. Will not write to file if NA. Default NA.
 #' @examples
-#'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' fseq <- seqTools::fastqq(infile,k=6)
 #' plot_sequence_content(fseq,nr=25000,nc=100)
 #' @return ggplot line plot of all nucleotide content inclding  A, T, G, C and N
 #' @export
-
-plot_sequence_content<- function(fseq,nr,nc,writefile=FALSE,prefix){
+plot_sequence_content<- function(fseq,nr,nc,output_file=NA){
 
   G_content<- sequence_content(fseq,"G")
   C_content<- sequence_content(fseq,"C")
@@ -26,6 +23,6 @@ plot_sequence_content<- function(fseq,nr,nc,writefile=FALSE,prefix){
   p1 <- with(dfm, ggplot2::ggplot(dfm,ggplot2::aes(x= as.numeric(position),y=value,colour = variable))+ggplot2::geom_line())
   p2 <- p1 + ggplot2::labs(x = "Position", y= "Percentage of content", title = "Per base sequence content percentage")
   p_content <- p2 + ggplot2::guides(fill=ggplot2::guide_legend(title="Sequence Content"))
-  if (writefile==TRUE){ggplot2::ggsave(file=paste0(prefix,"Seqeunce_content.pdf"),p_content)}
+  if(!is.na(output_file)){ggplot2::ggsave(file=output_file,p_content)}
   return(p_content)
 }

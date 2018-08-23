@@ -4,7 +4,7 @@
 \alias{plot_sequence_content}
 \title{Plot the per position nucleotide content}
 \usage{
-plot_sequence_content(fseq, nr, nc, writefile = FALSE, prefix)
+plot_sequence_content(fseq, nr, nc, output_file = NA)
 }
 \arguments{
 \item{fseq}{the object that is the processed intermediate product of seqTools fastqq}
@@ -13,9 +13,7 @@ plot_sequence_content(fseq, nr, nc, writefile = FALSE, prefix)
 
 \item{nc}{the number of positions of the FASTQ file, acquired through previous functions}
 
-\item{writefile}{the boolean object to write the plot as PDF file, default is FALSE}
-
-\item{prefix}{the prefix to add to the file name}
+\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
 }
 \value{
 ggplot line plot of all nucleotide content inclding  A, T, G, C and N
@@ -24,7 +22,6 @@ ggplot line plot of all nucleotide content inclding  A, T, G, C and N
 Plot the per position nucleotide content
 }
 \examples{
-
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 fseq <- seqTools::fastqq(infile,k=6)
 plot_sequence_content(fseq,nr=25000,nc=100)
