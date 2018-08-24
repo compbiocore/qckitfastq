@@ -3,7 +3,7 @@ r: bioc-release
 cache: packages
 
 before_install:
-  - bash configure
+  - bash configure.sh
 
 r_packages:
   - covr
