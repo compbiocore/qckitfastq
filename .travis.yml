@@ -1,6 +1,17 @@
 language: r
 r: bioc-release
 cache: packages
+sudo: false
+matrix:
+  include:
+    - os: linux
+      env: COMPILER_NAME=gcc CXX=g++-6 CC=gcc-6
+      addons:
+        apt:
+          packages:
+            - g++-6
+          sources:
+            - ubuntu-toolchain-r-test
 
 before_install:
   - bash configure.sh

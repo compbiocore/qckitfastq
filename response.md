@@ -26,8 +26,16 @@ only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not c
 
 6. This has been addressed in the `# Individual metrics` section of the vignette. Essentially, some functions in `qckitfastq` are simply wrappers around `seqTools` functions, and are there for the sake of completeness if the user wants to run a report of all possible quality control metrics for FASTQ data.
 
-7.
+7. [Please briefly comment the result of each step of the analysis]
 
-8. 
+8. This has been removed.
 
-9. 
+9. Man pages have been updated.
+
+10.
+
+11.
+
+12.
+
+13. 

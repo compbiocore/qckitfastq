@@ -1,7 +1,7 @@
-#' Extract GC content separately and calculate GC content percentage for each sequence read
+#' Calculates GC content percentage for each read in the dataset.
+#' 
 #' @param infile the object that is the path to the FASTQ file
-#' @param writefile TRUE for writing the output to csv file
-#' @param prefix the prefix of the output file if writefile is TRUE
+#' @param output_file File to write results in CSV format to. Will not write to file if NA. Default NA.
 #' @return plot of GC content
 #' @examples
 #'

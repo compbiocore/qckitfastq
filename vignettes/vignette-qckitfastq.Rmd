@@ -49,6 +49,7 @@ As is described on the [qckit project page](http://compbiocore.github.io/qckit),
 `qckitfastq` provides the following metrics:
 
   * Per base sequence quality
+  * Nucleotide sequence content
   * GC content
   * Kmer count
   * Adapter content
@@ -77,6 +78,31 @@ The *per_base_quality* function calculates quality score per base summary statis
 bs <- per_base_quality(infile)
 knitr::kable(head(bs))
 plot_per_base_quality(bs)
+```
+
+## GC content
+
+
+Function *GC_content* utilizes the result from the C++_calling function *GC_per_read* and produce the data frame that is more suitable for the plotting purpose as well as for saving to data file for later access. The result is the GC content percentage per read and will be saved in resulting table. 
+
+```{r}
+
+gc_df <- GC_content(infile)
+
+knitr::kable(head(gc_df))
+
+
+```
+
+
+The *plot_GC_content_plot* function takes the input from previous function and generates plot of distribution of GC nucleotide sequence content percentage. The graph would be an indication of good data quality when the  GC percentage concentrated around 30 to 50 and the results do not differ among different bases. 
+
+
+```{r}
+
+plot_GC_content(nc,gc_df)
+
+
 ```
 
 ### Benchmarking
@@ -122,33 +148,6 @@ scA <- sequence_content(fseq, content = "A")
 head(scA)
 plot_sequence_content(fseq,nr,nc)
 ```
-
-
-## GC content
-
-
-Function *GC_content* utilizes the result from the C++_calling function *GC_per_read* and produce the data frame that is more suitable for the plotting purpose as well as for saving to data file for later access. The result is the GC content percentage per read and will be saved in resulting table. 
-
-```{r}
-
-gc_df <- GC_content(infile)
-
-knitr::kable(head(gc_df))
-
-
-```
-
-
-The *plot_GC_content_plot* function takes the input from previous function and generates plot of distribution of GC nucleotide sequence content percentage. The graph would be an indication of good data quality when the  GC percentage concentrated around 30 to 50 and the results do not differ among different bases. 
-
-
-```{r}
-
-plot_GC_content(nc,gc_df)
-
-
-```
-
 
 ## Per read sequence quality score
 

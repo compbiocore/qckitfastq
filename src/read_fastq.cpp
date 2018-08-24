@@ -451,8 +451,6 @@ Rcpp::List qual_score_per_read (std::string infile)
   }
 
 
-//' calculate GC percent per read
-//'
 //' Calculate GC nucleotide sequence content per read of the FASTQ gzipped file
 //' @param infile A string giving the path for the fastqfile
 //' @examples
