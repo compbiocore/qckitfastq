@@ -6,15 +6,12 @@
 #' @examples
 #'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' GC_content(infile,FALSE)
+#' GC_content(infile)
 #' @export
-GC_content <- function(infile,writefile=FALSE,prefix){
-
+GC_content <- function(infile,output_file=NULL){
   gc_result <- gc_per_read(infile)
-
   gc_df <- as.data.frame(gc_result*100)
   colnames(gc_df) = c("meanGC")
-  if (writefile==TRUE) write.csv(file=paste0(prefix,"GCcontent.csv"),gc_df)
+  if (!is.na(output_file)) write.csv(file=output_file,gc_df)
   return(gc_df)
 }
-

@@ -36,7 +36,7 @@ seqTools <- c("yes","yes","yes")
 ShortRead <- c("no","no","yes")
 FASTQC <- c("yes*","yes*","yes*")
 metrics <- data.frame(qckitfastq,seqTools,ShortRead,FASTQC)
-rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "blah2")
+rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "GC Content")
 kable(metrics)
 ```
 
