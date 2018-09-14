@@ -1,7 +1,5 @@
 language: r
 r: bioc-release
-cache: packages
-sudo: false
 matrix:
   include:
     - os: linux
@@ -18,9 +16,12 @@ matrix:
 before_install:
   - eval "${MATRIX_EVAL}"
   - bash configure.sh
+  - cat DESCRIPTION
+
+install:
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
   - gcc --version
   - g++ --version
-  - cat DESCRIPTION
 
 r_packages:
   - covr
