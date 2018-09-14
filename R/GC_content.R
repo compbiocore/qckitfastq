@@ -8,7 +8,7 @@
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' GC_content(infile)
 #' @export
-GC_content <- function(infile,output_file=NULL){
+GC_content <- function(infile,output_file=NA){
   gc_result <- gc_per_read(infile)
   gc_df <- as.data.frame(gc_result*100)
   colnames(gc_df) = c("meanGC")
