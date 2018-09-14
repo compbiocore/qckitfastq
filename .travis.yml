@@ -17,11 +17,11 @@ before_install:
   - eval "${MATRIX_EVAL}"
   - bash configure.sh
   - cat DESCRIPTION
-
-install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
   - gcc --version
   - g++ --version
+
+install:
 
 r_packages:
   - covr
