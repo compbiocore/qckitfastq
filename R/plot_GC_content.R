@@ -1,22 +1,21 @@
-#' Generate GC content plot from the GC content
-#' @param nc the object that is the number of positions of the FASTQ files
+#' Generate GC content plot 
+#' @param nc The number of base pairs to bin by
 #' @param gc_df the object that is the GC content vectors generated from GC content function
-#' @param writefile the object indicating intent to save the plot as pdf file, set default as FALSE
-#' @param prefix the prefix for the output file of the plot
-#' @return a ggplot of the GC content acorss all positions
+#' @param output_file File to write results in CSV format to. Will not write to file if NA. Default NA.
+#' @return A histogram of the GC content acorss all positions
 #'
 #' @examples
 #'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' gc_df<-GC_content(infile,FALSE)
+#' gc_df<-GC_content(infile)
 #' plot_GC_content(nc=100,gc_df)
 #'
 #' @export
 
-plot_GC_content <- function(nc,gc_df, writefile=FALSE,prefix){
-  p1 <- with(gc_df, ggplot2::ggplot(data=gc_df, ggplot2::aes(meanGC)) +ggplot2::geom_histogram(breaks=seq(0, nc, by=1)))
+plot_GC_content <- function(nc,gc_df,output_file=NA){
+  p1 <- with(gc_df, ggplot2::ggplot(data=gc_df, ggplot2::aes(meanGC)) + 
+               ggplot2::geom_histogram(breaks=seq(0, nc, by=1)))
   p_GC <- p1 + ggplot2::labs(title = "Histograms for GC content percentage", x= "Mean GC content percentage" , y = "Frequency")
-  if (writefile==TRUE){ggplot2::ggsave(file=paste0(prefix,"GC_content.pdf"),p_GC)}
+  if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p_GC)}
   return(p_GC)
 }
-

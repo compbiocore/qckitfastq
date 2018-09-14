@@ -25,8 +25,9 @@ package is to run quality control on FASTQ files from genome sequencing.
 Indeed there are many other quality control packages for FASTQ files existing already, including ShortReads [@shortread] and seqTools [@seqtools] for R and the popular FASTQC [@Andrews2010] Java-based program. qckitfastq offers a few advantages compared to these 3 programs for users who need such features:
 
   1. access to raw sequence and quality data
-  2. quality control analyses of the entire FASTQ file
-  3. fast file processing
+  2. access to data frames of the quality control results in addition to plots
+  3. quality control analyses of the entire FASTQ file
+  4. fast file processing
   
 To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortRead provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not contain any of these limitations.
 
@@ -39,6 +40,8 @@ metrics <- data.frame(qckitfastq,seqTools,ShortRead,FASTQC)
 rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "GC Content")
 kable(metrics)
 ```
+
+Here, '*' indicates that the program truncates the file or computes on only the first x samples
 
 ## Planned improvements
 
@@ -68,7 +71,7 @@ fseq <- seqTools::fastqq(infile)
 
 ### Basic metrics
 
-After pre-processing with `seqTools::fastqq` we provide some basic metrics such as the number of reads and number of positions under the function *dimensions*. Here the sample file has 25,000 reads and 100 positions. This allows us to examine whether the sequence lengths are uniform throughout the entire file. The results from this section are useful for certain analyses where dimensionality of data is important for calculation, such as *overrep_kmer*,. 
+After pre-processing with `seqTools::fastqq` we provide some basic metrics such as the number of reads and number of positions under the function *dimensions*. Here the sample file has 25,000 reads and 100 positions. This allows us to examine whether the sequence lengths are uniform throughout the entire file. The results from this section are useful for certain analyses where dimensionality of data is important for calculation, such as *overrep_kmer*. 
 ```{r}
 nc <- dimensions(fseq,"positions")
 nc
@@ -93,12 +96,12 @@ plot_per_base_quality(bs)
 
 ## GC content
 
-
-Function *GC_content* utilizes the result from the C++_calling function *GC_per_read* and produce the data frame that is more suitable for the plotting purpose as well as for saving to data file for later access. The result is the GC content percentage per read and will be saved in resulting table. 
+The *GC_content* function computes the GC nucleotide content percentage per read. As a general rule, an indication of good data quality is when the GC content percentage is between 30 and 50%.
 
 ```{r}
 gc_df <- GC_content(infile)
 knitr::kable(head(gc_df))
+plot_GC_content(nc,gc_df)
 ```
 
 
@@ -106,7 +109,7 @@ The *plot_GC_content_plot* function takes the input from previous function and g
 
 
 ```{r}
-plot_GC_content(nc,gc_df)
+
 
 ```
 
