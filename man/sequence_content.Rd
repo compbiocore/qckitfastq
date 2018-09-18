@@ -7,7 +7,7 @@
 sequence_content(fseq, content, output_file = NA)
 }
 \arguments{
-\item{fseq}{an object that is the read result from seq.read function}
+\item{fseq}{a seqTools::fastqq object}
 
 \item{content}{an object of string type that specifies the content in question, "A","T","G","C","N"(either capital or lower case)}
 

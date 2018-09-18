@@ -16,15 +16,14 @@ NULL
 #' calculate Over Rep seqs
 #'
 #' @param infile  A string giving the path for the fastqfile
-#' @param out_prefix A string giving the prefix to be used for outputs
 #' @param buffer_size An int for the number of lines to keep in memory
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' process_fastq(infile,"test",10000)
 #' @return process fastq and generate sequence and quality score tables
 #' @export
-process_fastq <- function(infile, out_prefix, buffer_size) {
-    invisible(.Call('_qckitfastq_process_fastq', PACKAGE = 'qckitfastq', infile, out_prefix, buffer_size))
+process_fastq <- function(infile, buffer_size) {
+    invisible(.Call('_qckitfastq_process_fastq', PACKAGE = 'qckitfastq', infile, buffer_size))
 }
 
 #' Calculate the mean quality score per read of the FASTQ gzipped file
@@ -39,8 +38,6 @@ qual_score_per_read <- function(infile) {
     .Call('_qckitfastq_qual_score_per_read', PACKAGE = 'qckitfastq', infile)
 }
 
-#' calculate GC percent per read
-#'
 #' Calculate GC nucleotide sequence content per read of the FASTQ gzipped file
 #' @param infile A string giving the path for the fastqfile
 #' @examples
@@ -52,16 +49,14 @@ gc_per_read <- function(infile) {
     .Call('_qckitfastq_gc_per_read', PACKAGE = 'qckitfastq', infile)
 }
 
-#' calculate Over Rep seqs
-#'
-#' Calculate sequece counts for each unique sequence and create a table with unique sequences and corresponding counts
+#' Calculate sequece counts for each unique sequence and create a table with unique sequences
+#' and corresponding counts
 #' @param infile A string giving the path for the fastqfile
-#' @param out_prefix A string giving the prefix to be used for outputs
 #' @param min_size An int for thhresholding over representation
 #' @param buffer_size An int for the number of lines to keep in memory
 #' @return calculate overrepresented sequence count
 #' @export
-calc_over_rep_seq <- function(infile, out_prefix, min_size = 5L, buffer_size = 1000000L) {
-    .Call('_qckitfastq_calc_over_rep_seq', PACKAGE = 'qckitfastq', infile, out_prefix, min_size, buffer_size)
+calc_over_rep_seq <- function(infile, min_size = 5L, buffer_size = 1000000L) {
+    .Call('_qckitfastq_calc_over_rep_seq', PACKAGE = 'qckitfastq', infile, min_size, buffer_size)
 }
 

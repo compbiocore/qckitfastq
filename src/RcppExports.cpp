@@ -16,14 +16,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // process_fastq
-void process_fastq(std::string infile, std::string out_prefix, int buffer_size);
-RcppExport SEXP _qckitfastq_process_fastq(SEXP infileSEXP, SEXP out_prefixSEXP, SEXP buffer_sizeSEXP) {
+void process_fastq(std::string infile, int buffer_size);
+RcppExport SEXP _qckitfastq_process_fastq(SEXP infileSEXP, SEXP buffer_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type infile(infileSEXP);
-    Rcpp::traits::input_parameter< std::string >::type out_prefix(out_prefixSEXP);
     Rcpp::traits::input_parameter< int >::type buffer_size(buffer_sizeSEXP);
-    process_fastq(infile, out_prefix, buffer_size);
+    process_fastq(infile, buffer_size);
     return R_NilValue;
 END_RCPP
 }
@@ -50,26 +49,25 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_over_rep_seq
-std::map<std::string,int> calc_over_rep_seq(std::string infile, std::string out_prefix, int min_size, int buffer_size);
-RcppExport SEXP _qckitfastq_calc_over_rep_seq(SEXP infileSEXP, SEXP out_prefixSEXP, SEXP min_sizeSEXP, SEXP buffer_sizeSEXP) {
+std::map<std::string,int> calc_over_rep_seq(std::string infile, int min_size, int buffer_size);
+RcppExport SEXP _qckitfastq_calc_over_rep_seq(SEXP infileSEXP, SEXP min_sizeSEXP, SEXP buffer_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type infile(infileSEXP);
-    Rcpp::traits::input_parameter< std::string >::type out_prefix(out_prefixSEXP);
     Rcpp::traits::input_parameter< int >::type min_size(min_sizeSEXP);
     Rcpp::traits::input_parameter< int >::type buffer_size(buffer_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_over_rep_seq(infile, out_prefix, min_size, buffer_size));
+    rcpp_result_gen = Rcpp::wrap(calc_over_rep_seq(infile, min_size, buffer_size));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_qckitfastq_main", (DL_FUNC) &_qckitfastq_main, 0},
-    {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 3},
+    {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 2},
     {"_qckitfastq_qual_score_per_read", (DL_FUNC) &_qckitfastq_qual_score_per_read, 1},
     {"_qckitfastq_gc_per_read", (DL_FUNC) &_qckitfastq_gc_per_read, 1},
-    {"_qckitfastq_calc_over_rep_seq", (DL_FUNC) &_qckitfastq_calc_over_rep_seq, 4},
+    {"_qckitfastq_calc_over_rep_seq", (DL_FUNC) &_qckitfastq_calc_over_rep_seq, 3},
     {NULL, NULL, 0}
 };
 

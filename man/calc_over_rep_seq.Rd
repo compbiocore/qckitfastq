@@ -2,15 +2,13 @@
 % Please edit documentation in R/RcppExports.R
 \name{calc_over_rep_seq}
 \alias{calc_over_rep_seq}
-\title{calculate Over Rep seqs}
+\title{Calculate sequece counts for each unique sequence and create a table with unique sequences
+and corresponding counts}
 \usage{
-calc_over_rep_seq(infile, out_prefix, min_size = 5L,
-  buffer_size = 1000000L)
+calc_over_rep_seq(infile, min_size = 5L, buffer_size = 1000000L)
 }
 \arguments{
 \item{infile}{A string giving the path for the fastqfile}
-
-\item{out_prefix}{A string giving the prefix to be used for outputs}
 
 \item{min_size}{An int for thhresholding over representation}
 
@@ -20,5 +18,6 @@ calc_over_rep_seq(infile, out_prefix, min_size = 5L,
 calculate overrepresented sequence count
 }
 \description{
-Calculate sequece counts for each unique sequence and create a table with unique sequences and corresponding counts
+Calculate sequece counts for each unique sequence and create a table with unique sequences
+and corresponding counts
 }

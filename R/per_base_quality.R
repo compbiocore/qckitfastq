@@ -12,11 +12,11 @@
 per_base_quality <- function(infile,output_file=NA){
 
   qs <- qual_score_per_read(infile)
-  bs <- data.frame(q01 = qs$q01_per_position,
+  bs <- data.frame(q10 = qs$q10_per_position,
                                  q25 = qs$q25_per_position,
                                  median = qs$q50_per_position,
                                  q75 = qs$q75_per_position,
-                                 q99 = qs$q99_per_position)
+                                 q90 = qs$q90_per_position)
   if (!is.na(output_file)) write.csv(file=output_file,bs)
   return(bs)
 }

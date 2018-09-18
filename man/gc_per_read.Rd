@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{gc_per_read}
 \alias{gc_per_read}
-\title{calculate GC percent per read}
+\title{Calculate GC nucleotide sequence content per read of the FASTQ gzipped file}
 \usage{
 gc_per_read(infile)
 }

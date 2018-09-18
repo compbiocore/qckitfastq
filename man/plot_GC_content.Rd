@@ -2,29 +2,27 @@
 % Please edit documentation in R/plot_GC_content.R
 \name{plot_GC_content}
 \alias{plot_GC_content}
-\title{Generate GC content plot from the GC content}
+\title{Generate GC content plot}
 \usage{
-plot_GC_content(nc, gc_df, writefile = FALSE, prefix)
+plot_GC_content(nc, gc_df, output_file = NA)
 }
 \arguments{
-\item{nc}{the object that is the number of positions of the FASTQ files}
+\item{nc}{The number of base pairs to bin by}
 
 \item{gc_df}{the object that is the GC content vectors generated from GC content function}
 
-\item{writefile}{the object indicating intent to save the plot as pdf file, set default as FALSE}
-
-\item{prefix}{the prefix for the output file of the plot}
+\item{output_file}{File to write results in CSV format to. Will not write to file if NA. Default NA.}
 }
 \value{
-a ggplot of the GC content acorss all positions
+A histogram of the GC content acorss all positions
 }
 \description{
-Generate GC content plot from the GC content
+Generate GC content plot
 }
 \examples{
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-gc_df<-GC_content(infile,FALSE)
+gc_df<-GC_content(infile)
 plot_GC_content(nc=100,gc_df)
 
 }

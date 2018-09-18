@@ -4,14 +4,14 @@
 \alias{overrep_sequence}
 \title{Sort all sequences per read by count along with a density plot of all counts with top 5 repreated sequences marked}
 \usage{
-overrep_sequence(infile, nr, prefix)
+overrep_sequence(infile, nr, output_file = NA)
 }
 \arguments{
 \item{infile}{the object that is the path to gzippped FASTQ file}
 
 \item{nr}{the number of reads of the FASTQ file}
 
-\item{prefix}{prefix of output file}
+\item{output_file}{File to save data frame to. Will not write to file if NA. Default NA.}
 }
 \value{
 table of sequnces sortted by count

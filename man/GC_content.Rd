@@ -2,25 +2,24 @@
 % Please edit documentation in R/GC_content.R
 \name{GC_content}
 \alias{GC_content}
-\title{Extract GC content separately and calculate GC content percentage for each sequence read}
+\title{Calculates GC content percentage for each read in the dataset.}
 \usage{
-GC_content(infile, writefile = FALSE, prefix)
+GC_content(infile, output_file = NA)
 }
 \arguments{
 \item{infile}{the object that is the path to the FASTQ file}
 
-\item{writefile}{TRUE for writing the output to csv file}
-
-\item{prefix}{the prefix of the output file if writefile is TRUE}
+\item{output_file}{File to write results in CSV format to. Will not write to file if NA. Default NA.}
 }
 \value{
 plot of GC content
 }
 \description{
-Extract GC content separately and calculate GC content percentage for each sequence read
+Calculates GC content percentage for each read in the dataset.
 }
 \examples{
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-GC_content(infile,FALSE)
+GC_content(infile)
+
 }

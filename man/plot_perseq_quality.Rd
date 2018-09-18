@@ -2,27 +2,26 @@
 % Please edit documentation in R/plot_perseq_quality.R
 \name{plot_perseq_quality}
 \alias{plot_perseq_quality}
-\title{plot the mean quality score per read in histograms
+\title{Plot the mean quality score per sequence as a histogram.
+High quality sequences are those mostly distributed over 30. Low quality sequences are those mostly under 30.
 \code{plot_perseq_quality}}
 \usage{
-plot_perseq_quality(infile, writefile = FALSE, prefix)
+plot_perseq_quality(infile, output_file = NA)
 }
 \arguments{
-\item{infile}{the object that is the path to the file that}
+\item{infile}{Path to FASTQ file}
 
-\item{writefile}{the object indicating intent to save the plot as pdf file, set default as FALSE}
-
-\item{prefix}{the prefix for the output file of the plot}
+\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
 }
 \value{
-plot of mean quality score per read
+Plot of mean quality score per read
 }
 \description{
-plot the mean quality score per read in histograms
+Plot the mean quality score per sequence as a histogram.
+High quality sequences are those mostly distributed over 30. Low quality sequences are those mostly under 30.
 \code{plot_perseq_quality}
 }
 \examples{
-
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 plot_perseq_quality(infile)
 }

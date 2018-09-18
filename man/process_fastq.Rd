@@ -4,12 +4,10 @@
 \alias{process_fastq}
 \title{calculate Over Rep seqs}
 \usage{
-process_fastq(infile, out_prefix, buffer_size)
+process_fastq(infile, buffer_size)
 }
 \arguments{
 \item{infile}{A string giving the path for the fastqfile}
-
-\item{out_prefix}{A string giving the prefix to be used for outputs}
 
 \item{buffer_size}{An int for the number of lines to keep in memory}
 }
