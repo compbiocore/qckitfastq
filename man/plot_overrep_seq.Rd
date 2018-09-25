@@ -4,14 +4,12 @@
 \alias{plot_overrep_seq}
 \title{Plot the top 5 seqeunces}
 \usage{
-plot_overrep_seq(overrep_order, writefile = FALSE, prefix)
+plot_overrep_seq(overrep_order, output_file = NA)
 }
 \arguments{
 \item{overrep_order}{the table that sorts the sequence content and corresponding counts in descending order}
 
-\item{writefile}{boolean of whether to save file}
-
-\item{prefix}{the prefix to the file saved}
+\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
 }
 \value{
 plot of the top 5 overrepresented sequences

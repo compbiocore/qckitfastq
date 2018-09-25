@@ -11,7 +11,7 @@ plot_GC_content(nc, gc_df, output_file = NA)
 
 \item{gc_df}{the object that is the GC content vectors generated from GC content function}
 
-\item{output_file}{File to write results in CSV format to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to write plot to. Will not write to file if NA. Default NA.}
 }
 \value{
 A histogram of the GC content acorss all positions

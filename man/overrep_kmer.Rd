@@ -2,28 +2,36 @@
 % Please edit documentation in R/overrep_kmer.R
 \name{overrep_kmer}
 \alias{overrep_kmer}
-\title{Generate overrepresented kmers from all kmer counts results}
+\title{Generate overrepresented kmers of length k based on their observed to expected ratio at each position
+across all sequences in the dataset. The expected proportion of a length k kmer assumes site independence
+and is computed as the sum of the count of each base pair in the kmer times the probability of observing
+that base pair in the data set, i.e. P(A)count_in_kmer(A) + P(C)count_in_kmer(C) + ... The observed to expected
+ratio is computed as log2(obs/exp). Those with obsexp_ratio > 2 are considered to be overrepresented and appear
+in the returned data frame along with their position in the sequence.}
 \usage{
-overrep_kmer(path, k, nc, nr, writefile = FALSE, prefix)
+overrep_kmer(path, k, nc, nr, output_file = NA)
 }
 \arguments{
-\item{path}{the path to the gz file}
+\item{path}{path to the FASTQ file}
 
-\item{k}{the length of the sequence looking for}
+\item{k}{the kmer length}
 
 \item{nc}{number of positions}
 
 \item{nr}{number of reads}
 
-\item{writefile}{TRUE for writing the output to csv file}
-
-\item{prefix}{prefix of output file if writefile is TRUE}
+\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
 }
 \value{
-the index of reads that has overrepresented kmers
+A data frame with the columns: Position (in the read), Obsexp_ratio, and Kmer
 }
 \description{
-Generate overrepresented kmers from all kmer counts results
+Generate overrepresented kmers of length k based on their observed to expected ratio at each position
+across all sequences in the dataset. The expected proportion of a length k kmer assumes site independence
+and is computed as the sum of the count of each base pair in the kmer times the probability of observing
+that base pair in the data set, i.e. P(A)count_in_kmer(A) + P(C)count_in_kmer(C) + ... The observed to expected
+ratio is computed as log2(obs/exp). Those with obsexp_ratio > 2 are considered to be overrepresented and appear
+in the returned data frame along with their position in the sequence.
 }
 \examples{
 

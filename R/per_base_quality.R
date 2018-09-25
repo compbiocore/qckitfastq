@@ -6,6 +6,7 @@
 #' @return A dataframe of the mean, median and quantiles of the FASTQ file
 #' @examples
 #' per_base_quality(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"))
+#' @importFrom utils write.csv
 #' @export
 #'
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}, August Guang, \email{august_guang@@brown.edu}

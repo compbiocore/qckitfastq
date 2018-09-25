@@ -11,7 +11,7 @@ plot_perseq_quality(infile, output_file = NA)
 \arguments{
 \item{infile}{Path to FASTQ file}
 
-\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to write plot to. Will not write to file if NA. Default NA.}
 }
 \value{
 Plot of mean quality score per read

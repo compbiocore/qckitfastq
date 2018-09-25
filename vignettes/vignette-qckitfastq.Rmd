@@ -31,7 +31,7 @@ Indeed there are many other quality control packages for FASTQ files existing al
   
 To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortRead provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not contain any of these limitations.
 
-```{r, comparison_table}
+```{r, comparison_table, include=FALSE,eval=FALSE}
 qckitfastq <- c("yes","yes+","yes")
 seqTools <- c("yes","yes","yes")
 ShortRead <- c("no","no","yes")
@@ -40,9 +40,8 @@ metrics <- data.frame(qckitfastq,seqTools,ShortRead,FASTQC)
 rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "GC Content")
 kable(metrics)
 # need to do per read sequence quality
+# Here, '*' indicates that the program truncates the file or computes on only the first x samples
 ```
-
-Here, '*' indicates that the program truncates the file or computes on only the first x samples
 
 ## Planned improvements
 
@@ -52,14 +51,16 @@ As is described on the [qckit project page](http://compbiocore.github.io/qckit),
 
 `qckitfastq` provides the following metrics:
 
+  * Read length distribution
   * Per base sequence quality
-  * Nucleotide sequence content
+  * Per read sequence quality
   * GC content
+  * Nucleotide sequence content
   * Kmer count
-  * Adapter content
-  * (fill out as we go thru man pages)
+  * Overrepresented kmers
+  * Overrepresented sequences
 
-We provide a single command that the user can run to get a report of all of the included metrics, `run_all` but also provide the ability to run each metric separately and examine the results as a data frame.
+The simplest way to run `qckitfastq` is by executing `run_all`, a single command that will produce a report of all of the included metrics in a user-provided directory with some default parameters. However, each metric can also be run separately for closer examination.
 
 # Individual metrics
 
@@ -113,12 +114,21 @@ knitr::kable(head(gc_df))
 plot_GC_content(nc,gc_df)
 ```
 
-### Benchmarking
+### Overrepresented sequences
 
-To demonstrate the utility of our functions on large datasets...
-(need to benchmark against ShortRead)
+Taking in the output generated from *cal_over_rep_seq*, function *overrepresented_sequence* produce the overrepresented sequence table by selecting the unique sequences that have counts larger than 0.1% of the total reads of the data file. The results would be displayed as table with decreasing order of counts. Function *overrepresented_plot* would take the overrepresented sequence table as input and present a density plot of the counts and mark the top 5 overrepresented sequence in red. 
 
 ```{r}
+overrep_seq<-overrep_sequence(infile,nr)
+knitr::kable(head(overrep_sequence,n = 5))
+plot_overrep_seq(overrep_seq)
+```
+
+```{r, eval=FALSE, include=FALSE}
+### Benchmarking
+
+#To demonstrate the utility of our functions on large datasets...
+#(need to benchmark against ShortRead)
 #library(seqTools)
 #library(ShortRead)
 #library(rbenchmark)
@@ -148,32 +158,16 @@ plot_sequence_content(fseq,nr,nc)
 *kmer_count* function produces the per position kmer count with given path to the FASTQ file and the kmer length specified. 
 
 ```{r}
-km <- Kmer_count(infile,k=6)
+km <- kmer_count(infile,k=6)
 knitr::kable(km[1:20,1:10])
 ```
 
 ## Overrepresented kmers
-The function generates list of overrepresented kmers with its maximum obs/exp ratio and the position of maximum obs/exp ratio. 
 
+The function generates list of overrepresented kmers with its maximum log2(observed/expected) ratio and the position of the maximum obs/exp ratio in descending order. Only those kmers with a ratio greater than 2 are returned in the data frame. We can also create a boxplot of the obs/exp ratio thatn includes plotting the top 2 (or n) kmer outliers.
 
 ```{r}
 overkm <-overrep_kmer(infile,7,nc,nr)
 knitr::kable(head(overkm,n=10))
-```
-
-## Overrepresented sequences
-
-Taking in the output generated from *cal_over_rep_seq*, function *overrepresented_sequence* produce the overrepresented sequence table by selecting the unique sequences that have counts larger than 0.1% of the total reads of the data file. The results would be displayed as table with decreasing order of counts.
-
-
-```{r}
-overrep_seq<-overrep_sequence(infile,nr)
-knitr::kable(head(overrep_sequence,n = 5))
-```
-
-Function *overrepresented_plot* would take the overrepresented sequence table as input and present a density plot of the counts and mark the top 5 overrepresented sequence in red. 
-
-
-```{r}
-plot_overrep_seq(overrep_seq,FALSE)
+plot_overrep_kmer(overkm)
 ```

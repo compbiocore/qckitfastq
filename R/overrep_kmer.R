@@ -1,21 +1,26 @@
-#' Generate overrepresented kmers from all kmer counts results
+#' Generate overrepresented kmers of length k based on their observed to expected ratio at each position
+#' across all sequences in the dataset. The expected proportion of a length k kmer assumes site independence
+#' and is computed as the sum of the count of each base pair in the kmer times the probability of observing
+#' that base pair in the data set, i.e. P(A)count_in_kmer(A) + P(C)count_in_kmer(C) + ... The observed to expected
+#' ratio is computed as log2(obs/exp). Those with obsexp_ratio > 2 are considered to be overrepresented and appear
+#' in the returned data frame along with their position in the sequence.
 #'
-#' @param path the path to the gz file
-#' @param k the length of the sequence looking for
+#' @param path path to the FASTQ file
+#' @param k the kmer length
 #' @param nc number of positions
 #' @param nr number of reads
-#' @param writefile TRUE for writing the output to csv file
-#' @param prefix prefix of output file if writefile is TRUE
+#' @param output_file File to save plot to. Will not write to file if NA. Default NA.
 #'
-#' @return the index of reads that has overrepresented kmers
+#' @return A data frame with the columns: Position (in the read), Obsexp_ratio, and Kmer
 #' @examples
 #'
 #' path <-system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' overrep_kmer(path,k=4,nc=100,nr=25000)
 #'
 #' @importFrom dplyr %>%
+#' @importFrom utils write.csv
 #' @export
-overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
+overrep_kmer <- function(path,k,nc,nr,output_file=NA){
   fseq <- seqTools::fastqq(path)
   fseq_count <- seqTools::fastqKmerLocs(path,k)[[1]]
 
@@ -77,13 +82,15 @@ overrep_kmer <- function(path,k,nc,nr,writefile=FALSE,prefix){
   index_over <- cbind(index_over,obsexp_ratio)
 
 
-
   index_overt <- data.table::data.table(index_over)
   index_split = split(index_overt,index_overt$row)
   index = do.call(rbind,sapply(index_split,simplify=FALSE, function(x)x[order(x$row,decreasing=TRUE),][1,]))
   indexes <- index_overt %>% dplyr::group_by(row) %>% dplyr::top_n(1,obsexp_ratio)
 
   indexes$kmer <- rownames(fseq_count_log)[indexes$row]
-  if (writefile==TRUE){write.csv(file=paste0(prefix,"OverrepresentedKmers.csv"),indexes)}
-  return(indexes)
+  #indexes <- dplyr::select(indexes, col, obsexp_ratio, kmer)
+  colnames(indexes) <- c("row", "pos", "obsexp_ratio", "kmer")
+  reorder <- indexes[order(-indexes$obsexp_ratio),]
+  if(!is.na(output_file)){write.csv(file=output_file,reorder)}
+  return(reorder)
 }

@@ -1,7 +1,7 @@
 #' Generate GC content plot 
 #' @param nc The number of base pairs to bin by
 #' @param gc_df the object that is the GC content vectors generated from GC content function
-#' @param output_file File to write results in CSV format to. Will not write to file if NA. Default NA.
+#' @param output_file File to write plot to. Will not write to file if NA. Default NA.
 #' @return A histogram of the GC content acorss all positions
 #'
 #' @examples

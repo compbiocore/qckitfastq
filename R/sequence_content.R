@@ -8,6 +8,7 @@
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' fseq <- seqTools::fastqq(infile,k=6)
 #' sequence_content(fseq,"A")
+#' @importFrom utils write.csv
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}, August Guang \email{august_guang@@brown.edu}
 #' @export
 

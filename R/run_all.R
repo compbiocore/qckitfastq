@@ -1,23 +1,26 @@
-#' One function to run them all
+#' Will run all functions in the qckitfastq suite and save the data frames and plots to a user-provided directory.
+#' Plot names are supplied by default.
 #'
-#' @param infile  the path to the datafile, can be fastq file either g-zipped or not
-#' @param foption TRUE for saving all output results to file, FALSE for explicitly outputting the output tables
-#' @param poption TRUE for saving all plots to file, FALSE for displaying all plots
-#' @param pref  if any above choice is TRUE, give the prefix to the customized output filename prefix
+#' @param infile Path to gzipped FASTQ file
+#' @param dir Directory to save results to
 #'
 #' @return  generate files from all functions
 #' @export
-run_all<- function(infile,foption,poption,pref){
+run_all<- function(infile,dir){
   fseq <- seqTools::fastqq(infile)
+  
+  # read length
+  plot_read_length(fseq, output_file=paste0(dir,"read_length.png"))
 
   #extract dimension information
   nc <- dimensions(fseq,"positions")
   nr <- dimensions(fseq,"reads")
-  dim_plot <- plot_sequence_length(fseq,writefile=poption,prefix = pref)
+  dim_plot <- plot_sequence_length(fseq,output_file=paste0(dir,"dim_plot.png"))
 
   #extract per base quality score statistics
-  bs <- basic_stat(infile,writefile = foption,prefix = pref)
-  qual_plot <- plot_quality_score(bs,writefile=poption,prefix=pref)
+  bs <- per_base_quality(infile,output_file=paste0(dir,"per_base_quality.csv"))
+  knitr::kable(head(bs))
+  plot_per_base_quality(bs,output_file=paste0(dir,"per_base_quality.png"))
 
   #extract per base sequence content percentage
   scA <- sequence_content(fseq, content = "A")
@@ -27,24 +30,25 @@ run_all<- function(infile,foption,poption,pref){
   scN <- sequence_content(fseq, content = "N")
   seq_count <- rbind(scA,scT,scG,scC,scN)
   colnames(seq_count) <- seq(1,100)
-  if (foption==TRUE){write.csv(file=paste0(pref,"Seq_Content.csv"),seq_count)}
+  write.csv(file=paste0(dir,"sequence_content.csv"),seq_count)
 
-  plot_sequence_content(fseq,nr,nc,writefile = poption,prefix=pref)
+  plot_sequence_content(fseq,nr,nc,output_file=paste0(dir,"sequence_content.png"))
 
   #extract GC content per read
-  gc_df <- GC_content(infile,writefile = foption,prefix=pref)
-  gc_plot<- plot_GC_content(nc,gc_df,writefile = poption,prefix=pref)
+  gc_df <- GC_content(infile,output_file=paste0(dir,"gc_content.csv"))
+  gc_plot<- plot_GC_content(nc,gc_df,output_file=paste0(dir,"gc_content.png"))
 
   #Per read sequence quality score
-  plot_perseq_quality(infile,writefile=FALSE,prefix=pref)
+  plot_perseq_quality(infile,output_file=paste0(dir,"perseq_quality.png"))
 
   #Kmer & Overrepresented kmer
-  km <- Kmer_count(infile,k=6,writefile = foption,prefix = pref)
-  overkm <-overrep_kmer(infile,7,nc,nr,writefile = foption,prefix=pref)
+  km <- Kmer_count(infile,k=6,output_file=paste0(dir,"kmer_count.csv"))
+  overkm <-overrep_kmer(infile,7,nc,nr,output_file=paste0(dir,"overrep_kmer.csv"))
+  plot_overrep_kmer(overkm,output_file=paste0(dir,"overrep_kmer.png"))
 
   #overrep sequence
-  overrep_seq <- overrep_sequence(infile,nr,prefix = pref)
-  plot_overrep_seq(overrep_seq,writefile = poption,prefix=pref)
+  overrep_seq <- overrep_sequence(infile,nr,output_file=paste0(dir,"overrep_seq.csv"))
+  plot_overrep_seq(overrep_seq,output_file=paste0(dir,"overrep_seq.png"))
   }
 
 

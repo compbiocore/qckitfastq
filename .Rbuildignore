@@ -6,3 +6,7 @@ src/*.so
 src/*.o
 src/*.dll
 ^\.Rproj\.user$
+.travis.yml
+inst/extdata/ERR127302_1.fastq.gz
+configure.sh
+response.md

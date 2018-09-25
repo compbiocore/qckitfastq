@@ -2,22 +2,20 @@
 % Please edit documentation in R/run_all.R
 \name{run_all}
 \alias{run_all}
-\title{One function to run them all}
+\title{Will run all functions in the qckitfastq suite and save the data frames and plots to a user-provided directory.
+Plot names are supplied by default.}
 \usage{
-run_all(infile, foption, poption, pref)
+run_all(infile, dir)
 }
 \arguments{
-\item{infile}{the path to the datafile, can be fastq file either g-zipped or not}
+\item{infile}{Path to gzipped FASTQ file}
 
-\item{foption}{TRUE for saving all output results to file, FALSE for explicitly outputting the output tables}
-
-\item{poption}{TRUE for saving all plots to file, FALSE for displaying all plots}
-
-\item{pref}{if any above choice is TRUE, give the prefix to the customized output filename prefix}
+\item{dir}{Directory to save results to}
 }
 \value{
 generate files from all functions
 }
 \description{
-One function to run them all
+Will run all functions in the qckitfastq suite and save the data frames and plots to a user-provided directory.
+Plot names are supplied by default.
 }

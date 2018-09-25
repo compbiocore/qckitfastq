@@ -2,7 +2,7 @@
 #' High quality sequences are those mostly distributed over 30. Low quality sequences are those mostly under 30.
 #' \code{plot_perseq_quality}
 #' @param infile Path to FASTQ file
-#' @param output_file File to save plot to. Will not write to file if NA. Default NA.
+#' @param output_file File to write plot to. Will not write to file if NA. Default NA.
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' plot_perseq_quality(infile)

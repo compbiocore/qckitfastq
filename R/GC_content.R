@@ -13,6 +13,6 @@ GC_content <- function(infile,output_file=NA){
   gc_result <- gc_per_read(infile)
   gc_df <- as.data.frame(gc_result*100)
   colnames(gc_df) = c("meanGC")
-  if (!is.na(output_file)) write.csv(file=output_file,gc_df)
+  if (!is.na(output_file)) utils::write.csv(file=output_file,gc_df)
   return(gc_df)
 }

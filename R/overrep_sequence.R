@@ -9,8 +9,8 @@
 #' @examples
 #'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' overrep_sequence(infile,nr=25000,prefix="test")
-#'
+#' overrep_sequence(infile,nr=25000)
+#' @importFrom utils write.csv
 #' @export
 overrep_sequence <- function(infile,nr,output_file=NA){
 
@@ -21,4 +21,3 @@ overrep_sequence <- function(infile,nr,output_file=NA){
   return(overrep_order)
 
 }
-
