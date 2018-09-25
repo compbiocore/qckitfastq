@@ -7,14 +7,13 @@
 #'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' fseq <- seqTools::fastqq(infile,k=6)
-#' plot_sequence_length(fseq)
+#' plot_read_length(fseq)
 #'
-#' @importMethodsFrom dplyr count
+#' @importFrom dplyr count
 #'
 #' @return A histogram of the read length distribution.
 #' @author Wenyue Xing, \email{wenyue_xing@@brown.edu}, August Guang, \email{august_guang@@brown.edu}
 #' @export
-
 plot_read_length <- function(fseq,output_file=NA){
 
   len_table <- as.data.frame(seqTools::seqLenCount(fseq))

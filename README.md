@@ -1,3 +1,5 @@
+[![Travis](https://img.shields.io/travis/compbiocore/qckitfastq.svg?style=flat-square)(https://travis-ci.org/compbiocore/qckitfastq) [![coverage](https://img.shields.io/codecov/c/github/compbiocore/REPOSITORY_NAME.svg?style=flat-square)](https://codecov.io/gh/compbiocore/qckitfastq)
+
 # qckitfastq: The comprehensive quality control tool for Next Generation Sequencing data in FASTQC format
 
 This package contains tools for the comprehensive quality control of FASTQC format data. In this package, we hope to replicate exsting tool FASTQC metrices where analysis on entire dataset is operated. We also aim to advance FASTQC metrices where data is truncated for the analysis. 
