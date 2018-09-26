@@ -23,7 +23,7 @@ of reads with each read length.
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 fseq <- seqTools::fastqq(infile,k=6)
-plot_sequence_length(fseq)
+plot_read_length(fseq)
 
 }
 \author{

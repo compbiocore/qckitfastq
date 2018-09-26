@@ -20,6 +20,6 @@ Calculates GC content percentage for each read in the dataset.
 \examples{
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-GC_content(infile)
+head(GC_content(infile))
 
 }
