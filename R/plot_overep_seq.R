@@ -9,9 +9,11 @@
 #' overrep_order <- overrep_sequence(infile,nr=25000,"test")
 #' plot_overrep_seq(overrep_order)
 #'
+#' @importFrom grDevices pdf dev.off
+#' @importFrom graphics plot rug
+#' @importFrom stats density
 #' @export
 plot_overrep_seq <- function(overrep_order,output_file=NA){
-
   if (!is.na(output_file)){
   pdf(file = output_file)
   plot(density(overrep_order),main = "Overrepresented Sequence Histogram with top 5 rug",ylab="Density",xlab="Sequence Count")

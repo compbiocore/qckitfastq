@@ -24,5 +24,5 @@ Sort all sequences per read by count along with a density plot of all counts wit
 \examples{
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-overrep_sequence(infile,nr=25000)
+overrep_sequence(infile,nr=25000)[1:5]
 }

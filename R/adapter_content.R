@@ -5,7 +5,7 @@
 #'
 #' @param infile the path to the FASTQ file
 #' @param adapter_file filepath to the adapter sequences to search for. Default is extdata/adapters.txt.
-#' @return proportion of adapter sequences
+#' @return proportion of adapter sequences]
 #' @export
 adapter_content <- function(infile, adapter_file) {
   # TODO
@@ -18,10 +18,13 @@ adapter_content <- function(infile, adapter_file) {
 
 #' Helper function to process adapter file.
 #' @param adapter_file Text file storing adapters names and sequences.
+#' @importFrom utils read.csv
+#' @importFrom dplyr group_by
+#' @importFrom rlang .data
 #' @return data table
 process_adapter_file <- function(adapter_file) {
   file<-read.csv(file=adapter_file, comment.char="#",sep="\t",col.names=c("name","sequence")) %>%
     dplyr::mutate(nchar(as.character(sequence))) %>%
-    group_by(nc)
+    group_by(.data$nc)
   return(file)
 }

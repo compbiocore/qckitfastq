@@ -5,6 +5,7 @@
 #' @param dir Directory to save results to
 #'
 #' @return  generate files from all functions
+#' @importFrom utils head
 #' @export
 run_all<- function(infile,dir){
   fseq <- seqTools::fastqq(infile)
@@ -42,7 +43,7 @@ run_all<- function(infile,dir){
   plot_perseq_quality(infile,output_file=paste0(dir,"perseq_quality.png"))
 
   #Kmer & Overrepresented kmer
-  km <- Kmer_count(infile,k=6,output_file=paste0(dir,"kmer_count.csv"))
+  km <- kmer_count(infile,k=6,output_file=paste0(dir,"kmer_count.csv"))
   overkm <-overrep_kmer(infile,7,nc,nr,output_file=paste0(dir,"overrep_kmer.csv"))
   plot_overrep_kmer(overkm,output_file=paste0(dir,"overrep_kmer.png"))
 

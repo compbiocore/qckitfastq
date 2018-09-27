@@ -15,7 +15,7 @@ adapter_content(infile, adapter_file)
 \item{adapter_file}{filepath to the adapter sequences to search for. Default is extdata/adapters.txt.}
 }
 \value{
-proportion of adapter sequences
+proportion of adapter sequences]
 }
 \description{
 Search through sequences and return the total proportion of the library which contains
