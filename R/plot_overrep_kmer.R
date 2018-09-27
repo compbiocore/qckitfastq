@@ -8,14 +8,14 @@
 #' @param output_file File to write plot to. Will not write to file if NA. Default NA.
 #' @importFrom ggplot2 ggplot geom_boxplot geom_text aes labs
 #' @importFrom dplyr filter
-#' To address R CMD check from giving a NOTE about undefined global variables
-#' https://dplyr.tidyverse.org/articles/programming.html
 #' @importFrom rlang .data
 #' @export
 plot_overrep_kmer <- function(overkm, bins=20, top_num=2, output_file=NA) {
   overkm$bin <- cut(overkm$pos, breaks=bins)
   kmers <- c(overkm$kmer[1:top_num],rep(NA,nrow(overkm)-top_num))
   overkm$outlier <- kmers
+  # To address R CMD check from giving a NOTE about undefined global variables
+  # https://dplyr.tidyverse.org/articles/programming.html
   p<-ggplot(overkm, aes(x=.data$pos,y=.data$obsexp_ratio,group=.data$bin)) +
     geom_boxplot(outlier.color="red") +
     geom_text(aes(label=.data$outlier),na.rm=TRUE,hjust=-0.3) +

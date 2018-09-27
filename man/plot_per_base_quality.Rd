@@ -13,8 +13,6 @@ plot_per_base_quality(per_base_quality, output_file = NA)
 }
 \value{
 A boxplot of per position quality score distribution.
-To address R CMD check from giving a NOTE about undefined global variables
-https://dplyr.tidyverse.org/articles/programming.html
 }
 \description{
 Generate a boxplot of the per position quality score.

@@ -8,12 +8,12 @@
 #' pbq <- per_base_quality(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"))
 #' plot_per_base_quality(pbq)
 #' @return A boxplot of per position quality score distribution.
-#' To address R CMD check from giving a NOTE about undefined global variables
-#' https://dplyr.tidyverse.org/articles/programming.html
 #' @importFrom rlang .data
 plot_per_base_quality <- function(per_base_quality, output_file=NA){
 
   per_base_quality$index = seq(1,nrow(per_base_quality),1)
+  # To address R CMD check from giving a NOTE about undefined global variables
+  # https://dplyr.tidyverse.org/articles/programming.html
   p_quality_score <- ggplot2::ggplot(data=per_base_quality,aes(x=.data$index)) +
     ggplot2::labs(x = "Position", y = "Quality Score",title = "Quality score distribution per position") +
     ggplot2::geom_rect(aes(ymin=28,ymax=Inf,xmin=-Inf,xmax=Inf),fill='lightgreen',alpha=.02) +
