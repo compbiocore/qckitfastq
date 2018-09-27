@@ -5,16 +5,6 @@
 
 using namespace Rcpp;
 
-// main
-int main();
-RcppExport SEXP _qckitfastq_main() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(main());
-    return rcpp_result_gen;
-END_RCPP
-}
 // process_fastq
 void process_fastq(std::string infile, int buffer_size);
 RcppExport SEXP _qckitfastq_process_fastq(SEXP infileSEXP, SEXP buffer_sizeSEXP) {
@@ -63,7 +53,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_qckitfastq_main", (DL_FUNC) &_qckitfastq_main, 0},
     {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 2},
     {"_qckitfastq_qual_score_per_read", (DL_FUNC) &_qckitfastq_qual_score_per_read, 1},
     {"_qckitfastq_gc_per_read", (DL_FUNC) &_qckitfastq_gc_per_read, 1},

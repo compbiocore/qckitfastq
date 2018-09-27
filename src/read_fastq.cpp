@@ -227,7 +227,6 @@ void process_fastq (std::string infile, int buffer_size)
 //'
 //' Description
 //' @param inmat A matrix of score vectors per position
-
 std::vector<std::vector<int> > qual_score_per_position (const std::map<int,std::vector<uint8_t> > &inmat)
 {
   std::vector<std::vector<int> > qual_score_mat_results;
@@ -279,7 +278,7 @@ std::vector<std::vector<int> > qual_score_per_position (const std::map<int,std::
 //' @param infile A string giving the path for the fastqfile
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' qual_score_per_read(infile)[1:10]
+//' qual_score_per_read(infile)$q50_per_position[1:10]
 //' @return mean quality per read
 //' @export
 // [[Rcpp::export]]

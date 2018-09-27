@@ -17,5 +17,5 @@ Calculate the mean quality score per read of the FASTQ gzipped file
 }
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-qual_score_per_read(infile)[1:10]
+qual_score_per_read(infile)$q50_per_position[1:10]
 }
