@@ -9,14 +9,11 @@
 #' @export
 run_all<- function(infile,dir){
   fseq <- seqTools::fastqq(infile)
-  
-  # read length
-  plot_read_length(fseq, output_file=paste0(dir,"read_length.png"))
 
   #extract dimension information
   nc <- dimensions(fseq,"positions")
   nr <- dimensions(fseq,"reads")
-  dim_plot <- plot_sequence_length(fseq,output_file=paste0(dir,"dim_plot.png"))
+  dim_plot <- plot_read_length(fseq,output_file=paste0(dir,"read_length.png"))
 
   #extract per base quality score statistics
   bs <- per_base_quality(infile,output_file=paste0(dir,"per_base_quality.csv"))

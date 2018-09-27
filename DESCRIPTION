@@ -27,7 +27,8 @@ Imports:
   utils,
   Rcpp,
   RSeqAn,
-  kableExtra
+  kableExtra,
+  rlang
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
