@@ -19,7 +19,7 @@ NULL
 #' @param buffer_size An int for the number of lines to keep in memory
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' process_fastq(infile,"test",10000)
+#' process_fastq(infile,10000)
 #' @return process fastq and generate sequence and quality score tables
 #' @export
 process_fastq <- function(infile, buffer_size) {
@@ -42,7 +42,7 @@ qual_score_per_read <- function(infile) {
 #' @param infile A string giving the path for the fastqfile
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' gc_per_read(infile)
+#' gc_per_read(infile)[1:10]
 #' @return GC content perncentage per read
 #' @export
 gc_per_read <- function(infile) {

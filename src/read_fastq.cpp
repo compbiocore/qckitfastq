@@ -19,7 +19,7 @@ using namespace Rcpp;
 //' @param buffer_size An int for the number of lines to keep in memory
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' process_fastq(infile,"test",10000)
+//' process_fastq(infile,10000)
 //' @return process fastq and generate sequence and quality score tables
 //' @export
 // [[Rcpp::export]]
@@ -141,7 +141,7 @@ void process_fastq (std::string infile, int buffer_size)
 
   gz::igzstream in(infile.c_str());
   std::string line;
-  int count = 1, line_count =1;
+  int count = 1;
   //std::vector<int,std::vector<int> > base_counts;
   std::vector<double> gc_percent_all;
   while (std::getline(in, line)) {
@@ -454,7 +454,7 @@ Rcpp::List qual_score_per_read (std::string infile)
 //' @param infile A string giving the path for the fastqfile
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' gc_per_read(infile)
+//' gc_per_read(infile)[1:10]
 //' @return GC content perncentage per read
 //' @export
 // [[Rcpp::export]]
@@ -467,7 +467,7 @@ Rcpp::NumericVector gc_per_read (std::string infile)
 
   gz::igzstream in(infile.c_str());
   std::string line;
-  int count = 1, line_count =1;
+  int count = 1;
   //std::vector<int,std::vector<int> > base_counts;
   std::vector<double> gc_percent_per_read;
   while (std::getline(in, line))

@@ -19,5 +19,5 @@ calculate Over Rep seqs
 }
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-process_fastq(infile,"test",10000)
+process_fastq(infile,10000)
 }

@@ -8,7 +8,8 @@
 #' @examples
 #'
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' kmer_count(infile,k=4)
+#' km<-kmer_count(infile,k=4)
+#' km[1:20,1:10]
 #' 
 #' @export
 kmer_count <- function(infile,k,output_file=NA){

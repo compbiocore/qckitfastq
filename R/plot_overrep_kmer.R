@@ -35,7 +35,7 @@ plot_outliers <- function(overkm, top_num) {
   subset <- overkm[1:top_num,]
   binned_points <- split(subset, as.character(subset$bin))
   combos <- lapply(binned_points, function(x) combn(x$obsexp_ratio,2))
-  kmer_combos <- lapply(binned_points, function(x) combn(s$kmer, 2))
+  kmer_combos <- lapply(binned_points, function(x) combn(x$kmer, 2))
   diffs <- lapply(combos, function(x) which(x[1,]-x[2,]>.4)) # which combos have difference < .4?
   test <- mapply(function(x,y) paste(x[,y], collapse=" "), kmer_combos, diffs)
   return(0)

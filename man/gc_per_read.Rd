@@ -17,5 +17,5 @@ Calculate GC nucleotide sequence content per read of the FASTQ gzipped file
 }
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-gc_per_read(infile)
+gc_per_read(infile)[1:10]
 }
