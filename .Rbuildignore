@@ -11,3 +11,6 @@ src/adapter_content.cpp
 inst/extdata/ERR127302_1.fastq.gz
 configure.sh
 response.md
+make.R
+mkdocs.yml
+docs/

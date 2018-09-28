@@ -1,0 +1,48 @@
+site_name:        Computational Biology Core - Brown University
+site_author:      August Guang
+repo_url:         https://github.com/compbiocore/qckitfastq
+site_description: Documentation for the qckitfastq R package.
+site_url: https://compbiocore.github.io/ #this is the main site!
+
+theme:
+  name: material
+  palette:
+    primary: 'blue grey'
+    accent: 'indigo'
+  logo: images/cbc-logo.svg
+
+extra_css:
+  - styles/dark_mode.css
+
+markdown_extensions:
+  - extra
+  - tables
+  - fenced_code
+  - admonition
+  - codehilite
+  - footnotes
+
+nav:
+  - Home: 'index.md'
+  - Vignette: 'vignette-qckitfastq.md'
+  - Functions:
+      - 'GC_content.md'
+      - 'Kmer_count.md'
+      - 'calc_over_rep_seq.md'
+      - 'dimensions.md'
+      - 'gc_per_read.md'
+      - 'overrep_kmer.md'
+      - 'overrep_sequence.md'
+      - 'per_base_quality.md'
+      - plot_GC_content.md
+      - plot_outliers.md
+      - plot_overrep_kmer.md
+      - plot_overrep_seq.md
+      - plot_per_base_quality.md
+      - plot_perseq_quality.md
+      - plot_read_length.md
+      - plot_sequence_content.md
+      - process_fastq.md
+      - qual_score_per_read.md
+      - run_all.md
+      - sequence_content.md

@@ -1,4 +1,4 @@
-[![Travis](https://img.shields.io/travis/compbiocore/qckitfastq.svg?style=flat-square)](https://travis-ci.org/compbiocore/qckitfastq) [![coverage](https://img.shields.io/codecov/c/github/compbiocore/qckitfastq.svg?style=flat-square)](https://codecov.io/gh/compbiocore/qckitfastq) [![Docs](https://img.shields.io/badge/docs-stable-steelblue.svg?style=flat-square)](https://compbiocore.github.io/qckitfastq)
+[![Travis](https://img.shields.io/travis/compbiocore/qckitfastq.svg?style=flat-square)](https://travis-ci.org/compbiocore/qckitfastq) [![coverage](https://img.shields.io/codecov/c/github/compbiocore/REPOSITORY_NAME.svg?style=flat-square)](https://codecov.io/gh/compbiocore/qckitfastq)
 
 # qckitfastq: The comprehensive quality control tool for Next Generation Sequencing data in FASTQC format
 

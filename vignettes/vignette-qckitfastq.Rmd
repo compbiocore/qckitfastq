@@ -3,7 +3,7 @@ title: "Introduction to qckitfastq"
 author: "Wenyue Xing and August Guang"
 package: qckitfastq
 vignette: >
-  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq }
+  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: qckitfastq.bib
