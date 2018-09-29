@@ -44,10 +44,10 @@ matrix:
       before_script:
         - source activate test-env
       script:
-        - mkdir docs
+        #- mkdir docs
         - Rscript make.R
-        - mkdir docs/styles
-        - mkdir docs/images
+        #- mkdir docs/styles
+        #- mkdir docs/images
         - curl https://raw.githubusercontent.com/compbiocore/cbc-documentation-templates/master/docs/assets/styles/dark_mode.css > docs/styles/dark_mode.css
         - curl https://raw.githubusercontent.com/compbiocore/cbc-documentation-templates/master/docs/assets/img/cbc-logo.svg > docs/images/cbc-logo.svg
         - mkdocs build --verbose --clean --strict
