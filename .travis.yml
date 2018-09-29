@@ -57,4 +57,4 @@ matrix:
        github_token: $GITHUB_PAT
        local_dir: site
        on:
-         branch: master
+         branch: devel
