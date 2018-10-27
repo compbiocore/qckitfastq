@@ -5,6 +5,31 @@
 
 using namespace Rcpp;
 
+// find_format
+std::string find_format(std::string infile, int buffer_size, int reads_used);
+RcppExport SEXP _qckitfastq_find_format(SEXP infileSEXP, SEXP buffer_sizeSEXP, SEXP reads_usedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type infile(infileSEXP);
+    Rcpp::traits::input_parameter< int >::type buffer_size(buffer_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type reads_used(reads_usedSEXP);
+    rcpp_result_gen = Rcpp::wrap(find_format(infile, buffer_size, reads_used));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_format_score
+int calc_format_score(char score, std::string score_format);
+RcppExport SEXP _qckitfastq_calc_format_score(SEXP scoreSEXP, SEXP score_formatSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< char >::type score(scoreSEXP);
+    Rcpp::traits::input_parameter< std::string >::type score_format(score_formatSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_format_score(score, score_format));
+    return rcpp_result_gen;
+END_RCPP
+}
 // process_fastq
 void process_fastq(std::string infile, int buffer_size);
 RcppExport SEXP _qckitfastq_process_fastq(SEXP infileSEXP, SEXP buffer_sizeSEXP) {
@@ -39,7 +64,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // calc_over_rep_seq
-std::map<std::string,int> calc_over_rep_seq(std::string infile, int min_size, int buffer_size);
+std::map<std::string, int> calc_over_rep_seq(std::string infile, int min_size, int buffer_size);
 RcppExport SEXP _qckitfastq_calc_over_rep_seq(SEXP infileSEXP, SEXP min_sizeSEXP, SEXP buffer_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -53,6 +78,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_qckitfastq_find_format", (DL_FUNC) &_qckitfastq_find_format, 3},
+    {"_qckitfastq_calc_format_score", (DL_FUNC) &_qckitfastq_calc_format_score, 2},
     {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 2},
     {"_qckitfastq_qual_score_per_read", (DL_FUNC) &_qckitfastq_qual_score_per_read, 1},
     {"_qckitfastq_gc_per_read", (DL_FUNC) &_qckitfastq_gc_per_read, 1},

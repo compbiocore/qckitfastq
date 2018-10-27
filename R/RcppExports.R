@@ -7,6 +7,32 @@
 #' @param inmat A matrix of score vectors per position
 NULL
 
+#' Get Illumina format
+#'
+#' @param infile  A string giving the path for the fastqfile
+#' @param buffer_size An int for the number of lines to keep in memory
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' find_format(infile,10000)
+#' @return process fastq and evaluate the format of reads
+#' @export
+find_format <- function(infile, buffer_size, reads_used) {
+    .Call('_qckitfastq_find_format', PACKAGE = 'qckitfastq', infile, buffer_size, reads_used)
+}
+
+#' Calculate score based on Illumina format
+#'
+#' @param score  An ascii quality score from the fastq
+#' @param score_format The illumina format
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' find_format(infile,10000, 100000)
+#' @return a string as with the best guess as to the illumina format
+#' @export
+calc_format_score <- function(score, score_format) {
+    .Call('_qckitfastq_calc_format_score', PACKAGE = 'qckitfastq', score, score_format)
+}
+
 #' calculate Over Rep seqs
 #'
 #' @param infile  A string giving the path for the fastqfile

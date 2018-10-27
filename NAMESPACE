@@ -2,8 +2,10 @@
 
 export(GC_content)
 export(adapter_content)
+export(calc_format_score)
 export(calc_over_rep_seq)
 export(dimensions)
+export(find_format)
 export(gc_per_read)
 export(kmer_count)
 export(overrep_kmer)

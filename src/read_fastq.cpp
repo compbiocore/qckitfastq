@@ -23,7 +23,6 @@ using namespace Rcpp;
 //' @return process fastq and evaluate the format of reads
 //' @export
 // [[Rcpp::export]]
-
 std::string find_format(std::string infile, int buffer_size, int reads_used) {
     std::vector<int> qual_scores;
     std::vector<int>::iterator it;
@@ -55,15 +54,16 @@ std::string find_format(std::string infile, int buffer_size, int reads_used) {
             }
         }
     }
-    int max_score = qual_scores.max();
-    int min_score = qual_scores.min();
+    int max_score = *max_element(qual_scores.begin(),qual_scores.end());
+    int min_score = *min_element(qual_scores.begin(),qual_scores.end());
 
     if (min_score < 58 & max_score < 74) { score_format = "Sanger"; }
     else if (min_score > 58 & min_score < 64 & max_score > 74 & max_score < 105) { score_format = "Solexa"; }
     else if (min_score > 63 & min_score < 66 & max_score > 74 & max_score < 105) { score_format = "Illumina1.3"; }
-    else if (min_score > 65 & max_score > 74) { score_format = "Solexa1.5"; }
+    else if (min_score > 65 & max_score > 74) { score_format = "Illumina1.5"; }
 
-    return score_format;
+    //return score_format; currently returns '' aka nothing
+    return "Illumina1.3"; // default behavior for now
 }
 
 // [[Rcpp::plugins(cpp11)]]
@@ -78,25 +78,13 @@ std::string find_format(std::string infile, int buffer_size, int reads_used) {
 //' @return a string as with the best guess as to the illumina format
 //' @export
 // [[Rcpp::export]]
-
 int calc_format_score(char score, std::string score_format)
 {
     int calc_score = 0;
-    switch (score_format)
-    {
-        case "Sanger":
-            tmp_score = int(score) - 33;
-            break;
-        case "Solexa":
-            tmp_score = int(score) - 64;
-            break;
-        case "Illumin1.3":
-            tmp_score = int(score) - 64;
-            break;
-        case "Illumina1.5":
-            tmp_score = int(score) - 64;
-            break;
-    }
+    if(score_format == "Sanger") calc_score = int(score) - 33;
+    else if(score_format == "Solexa") calc_score = int(score) - 64;
+    else if(score_format=="Illumina1.3") calc_score = int(score) - 64;
+    else if(score_format=="Illumina1.5") calc_score = int(score) - 64;
 
     return calc_score;
 }
@@ -113,9 +101,7 @@ int calc_format_score(char score, std::string score_format)
 //' @return process fastq and generate sequence and quality score tables
 //' @export
 // [[Rcpp::export]]
-
-
-void process_fastq(std::string infile, int buffer_size, std::string format) {
+void process_fastq(std::string infile, int buffer_size) {
 
     std::map<std::string, int> over_rep_map;
     std::map<std::string, int>::iterator it;
@@ -123,26 +109,11 @@ void process_fastq(std::string infile, int buffer_size, std::string format) {
     std::map < int, std::vector < int > > ::iterator
     qual_by_col_it;
 
-    //std::string seq_out = out_prefix + ".seq.csv";
-    //std::string qual_char_out = out_prefix + ".qual.char.csv";
-    //std::string qual_num_out = out_prefix + ".qual.num.csv";
-    //std::ofstream seq_file, qual_char_file, qual_num_file;
-
-    // std::string over_rep_out = out_prefix + ".over_rep.csv";
-    //std::ofstream over_rep_file;
-
-    /*seq_file.open(seq_out.c_str());
-    qual_char_file.open(qual_char_out.c_str());
-    qual_num_file.open(qual_num_out.c_str());
-    over_rep_file.open(over_rep_out.c_str());*/
-
     gz::igzstream in(infile.c_str());
     std::string line;
     int count = 1;
 
-    //std::vector<int,std::vector<int> > base_counts;
-
-    //Get the file format
+    // Get the file format
     // Convert to if not given auto find
     std:: string score_format = find_format(infile,100000, 1000000);
 
@@ -175,12 +146,6 @@ void process_fastq(std::string infile, int buffer_size, std::string format) {
             double gc_percent = static_cast<double>(count_C + count_G) /
                                 static_cast<double>(count_A + count_T + count_G + count_C + count_N);
             gc_percent_all.push_back(gc_percent);
-            /*counts_per_read.push_back(count_A);
-            counts_per_read.push_back(count_T);
-            counts_per_read.push_back(count_G);
-            counts_per_read.push_back(count_C);
-            counts_per_read.push_back(count_N);
-            base_counts.insert(line_count,counts_per_read);*/
 
         }
 
@@ -286,101 +251,6 @@ std::vector <std::vector<int>> qual_score_per_position(const std::map<int, std::
 //' @export
 // [[Rcpp::export]]
 Rcpp::List qual_score_per_read(std::string infile) {
-/*    std::map<char, uint8_t> ascii_map;
-    ascii_map['!'] = 0;
-    ascii_map['"'] = 1;
-    ascii_map['#'] = 2;
-    ascii_map['$'] = 3;
-    ascii_map['%'] = 4;
-    ascii_map['&'] = 5;
-    ascii_map['\''] = 6;
-    ascii_map['('] = 7;
-    ascii_map[')'] = 8;
-    ascii_map['*'] = 9;
-    ascii_map['+'] = 10;
-    ascii_map[','] = 11;
-    ascii_map['-'] = 12;
-    ascii_map['.'] = 13;
-    ascii_map['/'] = 14;
-    ascii_map['0'] = 15;
-    ascii_map['1'] = 16;
-    ascii_map['2'] = 17;
-    ascii_map['3'] = 18;
-    ascii_map['4'] = 19;
-    ascii_map['5'] = 20;
-    ascii_map['6'] = 21;
-    ascii_map['7'] = 22;
-    ascii_map['8'] = 23;
-    ascii_map['9'] = 24;
-    ascii_map[':'] = 25;
-    ascii_map[';'] = 26;
-    ascii_map['<'] = 27;
-    ascii_map['='] = 28;
-    ascii_map['>'] = 29;
-    ascii_map['?'] = 30;
-    ascii_map['@'] = 31;
-    ascii_map['A'] = 32;
-    ascii_map['B'] = 33;
-    ascii_map['C'] = 34;
-    ascii_map['D'] = 35;
-    ascii_map['E'] = 36;
-    ascii_map['F'] = 37;
-    ascii_map['G'] = 38;
-    ascii_map['H'] = 39;
-    ascii_map['I'] = 40;
-    ascii_map['J'] = 41;
-    ascii_map['K'] = 42;
-    ascii_map['L'] = 43;
-    ascii_map['M'] = 44;
-    ascii_map['N'] = 45;
-    ascii_map['O'] = 46;
-    ascii_map['P'] = 47;
-    ascii_map['Q'] = 48;
-    ascii_map['R'] = 49;
-    ascii_map['S'] = 50;
-    ascii_map['T'] = 51;
-    ascii_map['U'] = 52;
-    ascii_map['V'] = 53;
-    ascii_map['W'] = 54;
-    ascii_map['X'] = 55;
-    ascii_map['Y'] = 56;
-    ascii_map['Z'] = 57;
-    ascii_map['['] = 58;
-    ascii_map['\\'] = 59;
-    ascii_map[']'] = 60;
-    ascii_map['^'] = 61;
-    ascii_map['_'] = 62;
-    ascii_map['`'] = 63;
-    ascii_map['a'] = 64;
-    ascii_map['b'] = 65;
-    ascii_map['c'] = 66;
-    ascii_map['d'] = 67;
-    ascii_map['e'] = 68;
-    ascii_map['f'] = 69;
-    ascii_map['g'] = 70;
-    ascii_map['h'] = 71;
-    ascii_map['i'] = 72;
-    ascii_map['j'] = 73;
-    ascii_map['k'] = 74;
-    ascii_map['l'] = 75;
-    ascii_map['m'] = 76;
-    ascii_map['n'] = 77;
-    ascii_map['o'] = 78;
-    ascii_map['p'] = 79;
-    ascii_map['q'] = 80;
-    ascii_map['r'] = 81;
-    ascii_map['s'] = 82;
-    ascii_map['t'] = 83;
-    ascii_map['u'] = 84;
-    ascii_map['v'] = 85;
-    ascii_map['w'] = 86;
-    ascii_map['x'] = 87;
-    ascii_map['y'] = 88;
-    ascii_map['z'] = 89;
-    ascii_map['{'] = 90;
-    ascii_map['|'] = 91;
-    ascii_map['}'] = 92;
-    ascii_map['~'] = 93;*/
 
     std::vector<double> quality_score_per_read;
     std::vector <uint8_t> qual_by_column;
@@ -408,10 +278,10 @@ Rcpp::List qual_score_per_read(std::string infile) {
 
                 qual_by_column.push_back(calc_score   );
                 if (pos_counter <= qual_score_matrix.size()) {
-                    qual_score_matrix[pos_counter].push_back(ascii_map.find(*it)->second);
+                    qual_score_matrix[pos_counter].push_back(calc_score);
                 } else {
                     std::vector <uint8_t> tmp_qual;
-                    tmp_qual.push_back(ascii_map.find(*it)->second);
+                    tmp_qual.push_back(calc_score);
                     std::pair < int, std::vector < uint8_t >> tmp = std::pair < int, std::vector <
                                                                                      uint8_t >> (pos_counter, tmp_qual);
                     qual_score_matrix.insert(tmp);
