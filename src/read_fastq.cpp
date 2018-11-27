@@ -2,7 +2,6 @@
 #include <iostream>
 #include <map>
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <algorithm>
 #include <cstdint>
@@ -91,7 +90,7 @@ int calc_format_score(char score, std::string score_format)
 
 // [[Rcpp::plugins(cpp11)]]
 
-//' calculate Over Rep seqs
+//' Process fastq and generate sequence and quality score tables
 //'
 //' @param infile  A string giving the path for the fastqfile
 //' @param buffer_size An int for the number of lines to keep in memory

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{process_fastq}
 \alias{process_fastq}
-\title{calculate Over Rep seqs}
+\title{Process fastq and generate sequence and quality score tables}
 \usage{
 process_fastq(infile, buffer_size)
 }
@@ -15,7 +15,7 @@ process_fastq(infile, buffer_size)
 process fastq and generate sequence and quality score tables
 }
 \description{
-calculate Over Rep seqs
+Process fastq and generate sequence and quality score tables
 }
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
