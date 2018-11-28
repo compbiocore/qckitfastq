@@ -5,15 +5,15 @@
 
 using namespace Rcpp;
 
-// adapter_content
-std::map<std::string, int> adapter_content(std::string infile, std::string adapters);
-RcppExport SEXP _qckitfastq_adapter_content(SEXP infileSEXP, SEXP adaptersSEXP) {
+// calc_adapter_content
+std::map<std::string, int> calc_adapter_content(std::string infile, std::string adapters);
+RcppExport SEXP _qckitfastq_calc_adapter_content(SEXP infileSEXP, SEXP adaptersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type infile(infileSEXP);
     Rcpp::traits::input_parameter< std::string >::type adapters(adaptersSEXP);
-    rcpp_result_gen = Rcpp::wrap(adapter_content(infile, adapters));
+    rcpp_result_gen = Rcpp::wrap(calc_adapter_content(infile, adapters));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -101,7 +101,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_qckitfastq_adapter_content", (DL_FUNC) &_qckitfastq_adapter_content, 2},
+    {"_qckitfastq_calc_adapter_content", (DL_FUNC) &_qckitfastq_calc_adapter_content, 2},
     {"_qckitfastq_read_bam_or_sam", (DL_FUNC) &_qckitfastq_read_bam_or_sam, 1},
     {"_qckitfastq_find_format", (DL_FUNC) &_qckitfastq_find_format, 3},
     {"_qckitfastq_calc_format_score", (DL_FUNC) &_qckitfastq_calc_format_score, 2},
