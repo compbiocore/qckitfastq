@@ -32,10 +32,10 @@ only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not c
 
 9. Man pages have been updated.
 
-10.
+10. Addressed.
 
-11.
+11. Changed to `output_file=NA` by default.
 
-12.
+12. Addressed.
 
-13. 
+13. Addressed.
