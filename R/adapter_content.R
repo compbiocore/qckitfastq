@@ -1,30 +1,20 @@
-#' Search through sequences and return the total proportion of the library which contains
-#' adapter sequences, predefined in the file adapters.txt. It is also possible for the user to
-#' give a different file as input; the function is relatively generic. Sequences however must
-#' be in the same format as adapters.txt, that is name tab sequence.
+#' Creates a sorted from most frequent to least frequent abundance table of adapters that are found to be present in
+#' the reads at greater than 0.1\% of the reads.
+#' @param infile the path to a gzippped FASTQ file
+#' @param nr the number of reads of the FASTQ file
+#' @param adapter_file Path to the adapters.txt file. Default is the adapters.txt provided in the package based off of FASTQC.
+#' @param output_file File to save data frame to. Will not write to file if NA. Default NA.
+#' @return Sorted table of adapters and counts.
 #'
-#' @param infile the path to the FASTQ file
-#' @param adapter_file filepath to the adapter sequences to search for. Default is extdata/adapters.txt.
-#' @return proportion of adapter sequences]
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' adapter_content(infile,nr=25000)[1:5]
+#' @importFrom utils write.csv
 #' @export
-adapter_content <- function(infile, adapter_file) {
-  # TODO
-  seqTools::kMerIndex()
-  #fseq_count <- seqTools::fastqKmerLocs(infile)[[1]]
-  #if (writefile==TRUE){write.csv(file=paste0(prefix,"Kmercountts.csv"),fseq_count)}
-  #return(fseq_count)
-  return(0)
-}
-
-#' Helper function to process adapter file.
-#' @param adapter_file Text file storing adapters names and sequences.
-#' @importFrom utils read.csv
-#' @importFrom dplyr group_by
-#' @importFrom rlang .data
-#' @return data table
-process_adapter_file <- function(adapter_file) {
-  file<-read.csv(file=adapter_file, comment.char="#",sep="\t",col.names=c("name","sequence")) %>%
-    dplyr::mutate(nchar(as.character(sequence))) %>%
-    group_by(.data$nc)
-  return(file)
+adapter_content <- function(infile,nr,adapter_file=system.file("extdata", "adapters.txt", package = "qckitfastq"),output_file=NA){
+  ac <- calc_adapter_content(infile, adapter_file)
+  ac_table <- ac[ac>0.001*nr]
+  ac_sorted <- sort(ac_table,decreasing=TRUE)
+  if (!is.na(output_file)){write.csv(file=output_file,ac_sorted)}
+  return(ac_sorted)
 }

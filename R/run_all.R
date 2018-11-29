@@ -47,6 +47,10 @@ run_all<- function(infile,dir){
   #overrep sequence
   overrep_seq <- overrep_sequence(infile,nr,output_file=file.path(dir,"overrep_seq.csv"))
   plot_overrep_seq(overrep_seq,output_file=file.path(dir,"overrep_seq.png"))
+  
+  # adapter content
+  ac_sorted <- adapter_content(infile,nr,output_file=file.path(dir,"adapter_content.csv"))
+  plot_adapter_content(ac_sorted,output_file=file.path(dir,"adapter_content.png"))
   }
 
 
