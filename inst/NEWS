@@ -1,3 +1,12 @@
+qckitfastq
+
+qckitfastq 0.99.12
+---
+
+ * Addressed Bioconductor review points in: https://github.com/Bioconductor/Contributions/issues/753
+ * Added adapter content tabulation and plot implementation using RSeqAn and Rcpp
+ * Added checking for gzipped files (as opposed to raw fastqs) and automatic detection of quality score encoding (Sanger, Solexa, Illumina1.3, and Illumina1.5).
+
 qckitfastq 0.99.0
 ---
 

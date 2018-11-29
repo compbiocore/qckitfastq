@@ -1,0 +1,9 @@
+repo: qckitfastq
+site_name: qckitfastq
+authors:      
+  - name: August Guang
+    github_user: aguang
+site_description: A comprehensive quality control R package for Next Generation Sequencing FASTQ data.
+docs_url: https://compbiocore.github.io/qckitfastq
+type: software    # required. choose one of [software, tutorial, workshop, documentation]
+pypi: false # if project is on pypi
