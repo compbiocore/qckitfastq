@@ -7,14 +7,17 @@
 #' @param inmat A matrix of score vectors per position
 NULL
 
-#' Get Illumina format
+#' Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
+#' Solexa(/Illumina1.0), Illumina1.3, and Illumina1.5. This encoding is heuristic based and may not be 100% accurate
+#' since there is overlap in the encodings used, so it is best if you already know the format.
 #'
-#' @param infile  A string giving the path for the fastqfile
+#' @param infile  A string giving the path for the fastq file
 #' @param buffer_size An int for the number of lines to keep in memory
+#' @param reads_used int, the number of reads to use to determine the encoding format.
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' find_format(infile,10000)
-#' @return process fastq and evaluate the format of reads
+#' find_format(infile,10000,100)
+#' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 #' @export
 find_format <- function(infile, buffer_size, reads_used) {
     .Call('_qckitfastq_find_format', PACKAGE = 'qckitfastq', infile, buffer_size, reads_used)
