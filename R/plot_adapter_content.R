@@ -10,15 +10,14 @@
 #' plot_adapter_content(ac_sorted)
 #' 
 #' @importFrom utils write.csv
-#' @importFrom ggplot2 ggplot
 #' @export
 plot_adapter_content <- function(ac_sorted,output_file=NA){
     ac <- ac_sorted[1:5]
     df<-data.frame(names(ac),as.numeric(ac))
     names(df) <- c("Adapters", "Counts")
-    p <- ggplot(df,aes(x=Adapters,y=Counts)) +
-      geom_bar(stat="identity") +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-      ggtitle("Top 5 adapters and their counts in reads file") 
+    p <- ggplot2::ggplot(data=df,ggplot2::aes(x=.data$Adapters,y=.data$Counts)) +
+      ggplot2::geom_bar(stat="identity") +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) +
+      ggplot2::ggtitle("Top 5 adapters and their counts in reads file") 
     if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p)}
 }

@@ -1,5 +1,5 @@
 #' Creates a sorted from most frequent to least frequent abundance table of adapters that are found to be present in
-#' the reads at greater than 0.1% of the reads.
+#' the reads at greater than 0.1\% of the reads.
 #' @param infile the path to a gzippped FASTQ file
 #' @param nr the number of reads of the FASTQ file
 #' @param adapter_file Path to the adapters.txt file. Default is the adapters.txt provided in the package based off of FASTQC.

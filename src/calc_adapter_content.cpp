@@ -13,17 +13,15 @@
 using namespace Rcpp;
 using namespace seqan;
 
-//' Read adapter file and turn into set of keys.
-//' @param adapter_file File with adapter names and sequences in tab-delimited pairs
-//' @return Vector of pairs where the 1st entry is the adapter name and the 2nd entry is the adapter sequence
-// //' @export #TODO write wrap and import CharString wrap such that function can be exported
-// // [[Rcpp::export]]
+// Read adapter file and turn into set of keys.
+// @param adapter_file File with adapter names and sequences in tab-delimited pairs
+// @return Vector of pairs where the 1st entry is the adapter name and the 2nd entry is the adapter sequence
+// #TODO write wrap and import CharString wrap such that function can be exported
 std::map<std::string, CharString> read_adapters(std::string adapter_file) {
   std::ifstream f;
   f.open(adapter_file);
   if (!f) {
-    std::cerr << "Unable to open file";
-    exit(1);
+    stop("Error: unable to open file");
   }
 
   // skip first 18 lines since they are text

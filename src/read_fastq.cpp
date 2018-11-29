@@ -12,14 +12,17 @@ using namespace Rcpp;
 
 // [[Rcpp::plugins(cpp11)]]
 
-//' Get Illumina format
+//' Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
+//' Solexa(/Illumina1.0), Illumina1.3, and Illumina1.5. This encoding is heuristic based and may not be 100% accurate
+//' since there is overlap in the encodings used, so it is best if you already know the format.
 //'
-//' @param infile  A string giving the path for the fastqfile
+//' @param infile  A string giving the path for the fastq file
 //' @param buffer_size An int for the number of lines to keep in memory
+//' @param reads_used int, the number of reads to use to determine the encoding format.
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' find_format(infile,10000)
-//' @return process fastq and evaluate the format of reads
+//' find_format(infile,10000,100)
+//' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 //' @export
 // [[Rcpp::export]]
 std::string find_format(std::string infile, int buffer_size, int reads_used) {
@@ -56,13 +59,15 @@ std::string find_format(std::string infile, int buffer_size, int reads_used) {
     int max_score = *max_element(qual_scores.begin(),qual_scores.end());
     int min_score = *min_element(qual_scores.begin(),qual_scores.end());
 
-    if (min_score < 58 & max_score < 74) { score_format = "Sanger"; }
-    else if (min_score > 58 & min_score < 64 & max_score > 74 & max_score < 105) { score_format = "Solexa"; }
-    else if (min_score > 63 & min_score < 66 & max_score > 74 & max_score < 105) { score_format = "Illumina1.3"; }
-    else if (min_score > 65 & max_score > 74) { score_format = "Illumina1.5"; }
+    // Based off of https://en.wikipedia.org/wiki/FASTQ_format#Encoding
+    if (min_score > 32 & min_score < 59 & max_score < 127) { score_format = "Sanger"; } // Sanger is ASCII 33 to 126
+    else if (min_score > 58 & min_score < 64 & max_score < 127) { score_format = "Solexa"; } // Solexa is 59 to 126
+    else if (min_score > 63 & min_score < 66 & max_score < 127) { score_format = "Illumina1.3"; } // 64 to 126
+    // Illumina1.5: 0/64 and 1/65 are not in use, and 2/66 is only used if read end segment is all Q15 or below
+    else if (min_score > 65 & max_score < 127) { score_format = "Illumina1.5"; }
+    else {  throw "No plausible encoding format! Check FASTQ reads to make sure quality scores are >32 and < 127."; }
 
-    //return score_format; currently returns '' aka nothing
-    return "Illumina1.3"; // default behavior for now
+    return score_format;
 }
 
 // [[Rcpp::plugins(cpp11)]]
@@ -79,9 +84,10 @@ std::string find_format(std::string infile, int buffer_size, int reads_used) {
 // [[Rcpp::export]]
 int calc_format_score(char score, std::string score_format)
 {
+    // Based off of https://en.wikipedia.org/wiki/FASTQ_format
     int calc_score = 0;
     if(score_format == "Sanger") calc_score = int(score) - 33;
-    else if(score_format == "Solexa") calc_score = int(score) - 64;
+    else if(score_format == "Solexa") calc_score = int(score) - 59;
     else if(score_format=="Illumina1.3") calc_score = int(score) - 64;
     else if(score_format=="Illumina1.5") calc_score = int(score) - 64;
 
@@ -190,10 +196,10 @@ void process_fastq(std::string infile, int buffer_size) {
 }
 
 
-//' calculate summary of quality scores over position
-//'
-//' Description
-//' @param inmat A matrix of score vectors per position
+// Calculate summary of quality scores over position
+//
+// Description
+// @param inmat A matrix of score vectors per position
 
 std::vector <std::vector<int>> qual_score_per_position(const std::map<int, std::vector<uint8_t> > &inmat) {
     std::vector <std::vector<int>> qual_score_mat_results;

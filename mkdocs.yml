@@ -27,10 +27,12 @@ nav:
   - Vignette: 'vignette-qckitfastq.md'
   - Functions:
       - 'GC_content.md'
-      - 'Kmer_count.md'
+      - 'calc_format_score.md'
       - 'calc_over_rep_seq.md'
       - 'dimensions.md'
+      - 'find_format.md'
       - 'gc_per_read.md'
+      - 'kmer_count.md'
       - 'overrep_kmer.md'
       - 'overrep_sequence.md'
       - 'per_base_quality.md'
