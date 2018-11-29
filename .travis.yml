@@ -52,7 +52,7 @@ matrix:
         - curl https://api.github.com/repos/compbiocore/cbc-documentation-templates/contents/files/dark_mode.css\?access_token\=$GITHUB_PAT > dark_mode.json
         - jq -r '.content' < dark_mode.json | base64 --decode > docs/styles/dark_mode.css
         - curl https://api.github.com/repos/compbiocore/cbc-documentation-templates/contents/files/cbc-logo.svg\?access_token\=$GITHUB_PAT > logo.json
-        - jq -r '.content' < logo.json | base64 --decode > docs/images/cbc-logo.svg        - mkdocs build --verbose --clean --strict
+        - jq -r '.content' < logo.json | base64 --decode > docs/images/cbc-logo.svg
         - mkdocs build --verbose --clean --strict
       deploy:
        provider: pages
