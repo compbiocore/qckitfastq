@@ -66,7 +66,7 @@ See [`NEWS`](/inst/NEWS) for changes.
 
 ## Authors
 
- * [August Guang](www.augustguang.com), creator and maintainer.
+ * August Guang, creator and maintainer.
  * Wenyue Xing, creator.
 
 

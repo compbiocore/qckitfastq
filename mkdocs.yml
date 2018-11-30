@@ -26,16 +26,19 @@ nav:
   - Home: 'index.md'
   - Vignette: 'vignette-qckitfastq.md'
   - Functions:
-      - 'GC_content.md'
+      - 'adapter_content.md'
+      - 'calc_adapter_content.md'
       - 'calc_format_score.md'
       - 'calc_over_rep_seq.md'
       - 'dimensions.md'
       - 'find_format.md'
+      - 'GC_content.md'
       - 'gc_per_read.md'
       - 'kmer_count.md'
       - 'overrep_kmer.md'
       - 'overrep_sequence.md'
       - 'per_base_quality.md'
+      - 'plot_adapter_content.md'
       - plot_GC_content.md
       - plot_outliers.md
       - plot_overrep_kmer.md
