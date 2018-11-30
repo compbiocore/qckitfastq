@@ -40,7 +40,7 @@ overrep_kmer <- function(path,k,nc,nr,output_file=NA){
   colnames(fseq_table) <- c("counta","countg","countt","countc")
   rownames(fseq_table) <- rownames(fseq_count)
 
-  for (i in 1:nrow(fseq_count)){
+  for (i in seq_len(nrow(fseq_count))){
 
     if (grepl("A",rownames(fseq_count)[i]) ==TRUE){
       fseq_table$counta[i] <- length(gregexpr("A",rownames(fseq_count)[i])[[1]])
@@ -68,7 +68,10 @@ overrep_kmer <- function(path,k,nc,nr,output_file=NA){
 
   #calculate expecte kmer per read
 
-  fseq_table$expected <- ((probA^fseq_table$counta)*(probG^fseq_table$countg)*(probC^fseq_table$countc)*(probT^fseq_table$countt))
+  fseq_table$expected <- ((probA^fseq_table$counta)*
+                            (probG^fseq_table$countg)*
+                            (probC^fseq_table$countc)*
+                            (probT^fseq_table$countt))
 
   # calculate an log2(obs/exp) as indicator for further analysis
 
@@ -84,7 +87,7 @@ overrep_kmer <- function(path,k,nc,nr,output_file=NA){
 
   index_overt <- data.table::data.table(index_over)
   index_split = split(index_overt,index_overt$row)
-  index = do.call(rbind,sapply(index_split,simplify=FALSE, function(x)x[order(x$row,decreasing=TRUE),][1,]))
+  index = do.call(rbind,vapply(index_split,simplify=FALSE, function(x)x[order(x$row,decreasing=TRUE),][1,]))
   indexes <- index_overt %>% dplyr::group_by(row) %>% dplyr::top_n(1,obsexp_ratio)
 
   indexes$kmer <- rownames(fseq_count_log)[indexes$row]

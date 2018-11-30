@@ -12,7 +12,7 @@
 #' @export
 plot_overrep_kmer <- function(overkm, bins=20, top_num=2, output_file=NA) {
   overkm$bin <- cut(overkm$pos, breaks=bins)
-  kmers <- c(overkm$kmer[1:top_num],rep(NA,nrow(overkm)-top_num))
+  kmers <- c(overkm$kmer[seq_len(top_num)],rep(NA,nrow(overkm)-top_num))
   overkm$outlier <- kmers
   # To address R CMD check from giving a NOTE about undefined global variables
   # https://dplyr.tidyverse.org/articles/programming.html

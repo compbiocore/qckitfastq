@@ -10,6 +10,7 @@ src/*.dll
 inst/extdata/ERR127302_1.fastq.gz
 configure.sh
 response.md
+ready.yml
 make.R
 mkdocs.yml
 docs/

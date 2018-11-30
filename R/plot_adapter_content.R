@@ -12,7 +12,7 @@
 #' @importFrom utils write.csv
 #' @export
 plot_adapter_content <- function(ac_sorted,output_file=NA){
-    ac <- ac_sorted[1:5]
+    ac <- ac_sorted[seq_len(5)]
     df<-data.frame(names(ac),as.numeric(ac))
     names(df) <- c("Adapters", "Counts")
     p <- ggplot2::ggplot(data=df,ggplot2::aes(x=.data$Adapters,y=.data$Counts)) +

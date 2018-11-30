@@ -17,10 +17,10 @@ plot_overrep_seq <- function(overrep_order,output_file=NA){
   if (!is.na(output_file)){
   pdf(file = output_file)
   plot(density(overrep_order),main = "Overrepresented Sequence Histogram with top 5 rug",ylab="Density",xlab="Sequence Count")
-  rug(overrep_order[1:5],col=2, lwd=3.5)
+  rug(overrep_order[seq_len(5)],col=2, lwd=3.5)
   dev.off()
   }else{
     plot(density(overrep_order),main = "Overrepresented Sequence Histogram with top 5 rug",ylab="Density",xlab="Sequence Count")
-    rug(overrep_order[1:5],col=2, lwd=3.5)
+    rug(overrep_order[seq_len(5)],col=2, lwd=3.5)
   }
 }

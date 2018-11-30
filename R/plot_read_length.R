@@ -20,9 +20,13 @@ plot_read_length <- function(fseq,output_file=NA){
   colnames(len_table) = c("count")
   len_table$seq_length = as.numeric(rownames(len_table))
 
-  p1 <-with(len_table,ggplot2::ggplot(len_table,ggplot2::aes(x=seq_length,y=count))+ggplot2::geom_bar(stat="identity"))
-  p2 <-p1 + with(len_table,ggplot2::geom_text(ggplot2::aes(label=count), vjust=0))
-  p_sequence_length <- p2 + ggplot2::labs(x = "Sequence length", y = "Number of reads with sequence length specified",title = "Sequence length distribution")
+  p1 <-ggplot2::ggplot(data=len_table,ggplot2::aes(x=.data$seq_length,y=.data$count)) + 
+    ggplot2::geom_bar(stat="identity") +
+    ggplot2::geom_text(ggplot2::aes(label=.data$count), vjust=0)
+  p_sequence_length <- p1 +
+    ggplot2::labs(x = "Sequence length",
+                  y = "Number of reads with sequence length specified",
+                  title = "Sequence length distribution")
   if(!is.na(output_file)){ggplot2::ggsave(file=output_file,p_sequence_length)}
 
   return(p_sequence_length)

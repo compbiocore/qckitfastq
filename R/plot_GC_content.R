@@ -13,8 +13,8 @@
 #' @export
 
 plot_GC_content <- function(nc,gc_df,output_file=NA){
-  p1 <- with(gc_df, ggplot2::ggplot(data=gc_df, ggplot2::aes(meanGC)) + 
-               ggplot2::geom_histogram(breaks=seq(0, nc, by=1)))
+  p1 <- ggplot2::ggplot(data=gc_df, ggplot2::aes(.data$meanGC)) + 
+               ggplot2::geom_histogram(breaks=seq(0, nc, by=1))
   p_GC <- p1 + ggplot2::labs(title = "Histograms for GC content percentage", x= "Mean GC content percentage" , y = "Frequency")
   if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p_GC)}
   return(p_GC)
