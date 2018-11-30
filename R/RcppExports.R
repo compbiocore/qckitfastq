@@ -6,6 +6,10 @@
 #' @param infile filepath to fastq sequence
 #' @param adapters filepath to adapters
 #' @return map object with adapter names as the key and the number of times the adapters appears in the reads as the value
+#' @examples
+#' adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' content <- calc_adapter_content(infile, adapter_file)
 #' @export
 calc_adapter_content <- function(infile, adapters) {
     .Call('_qckitfastq_calc_adapter_content', PACKAGE = 'qckitfastq', infile, adapters)
@@ -82,6 +86,9 @@ gc_per_read <- function(infile) {
 #' @param min_size An int for thhresholding over representation
 #' @param buffer_size An int for the number of lines to keep in memory
 #' @return calculate overrepresented sequence count
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' calc_over_rep_seq(infile)
 #' @export
 calc_over_rep_seq <- function(infile, min_size = 5L, buffer_size = 1000000L) {
     .Call('_qckitfastq_calc_over_rep_seq', PACKAGE = 'qckitfastq', infile, min_size, buffer_size)

@@ -1,10 +1,14 @@
-#' Will run all functions in the qckitfastq suite and save the data frames and plots to a user-provided directory.
-#' Plot names are supplied by default.
+#' Will run all functions in the qckitfastq suite and save the data frames
+#' and plots to a user-provided directory. Plot names are supplied by default.
 #'
 #' @param infile Path to gzipped FASTQ file
 #' @param dir Directory to save results to
-#'
 #' @return  generate files from all functions
+#' @examples
+#' infile <- system.file("extdata", "test.fq.gz",
+#'     package = "qckitfastq")
+#' testfolder <- tempdir()
+#' run_all(infile, testfolder)
 #' @importFrom utils head
 #' @export
 run_all<- function(infile,dir){

@@ -17,7 +17,6 @@ Imports:
   dplyr,
   seqTools,
   zlibbioc, 
-  testthat,
   data.table,
   reshape2,
   grDevices,
@@ -26,8 +25,9 @@ Imports:
   utils,
   Rcpp,
   RSeqAn,
-  kableExtra,
   rlang
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    kableExtra,
+    testthat
 VignetteBuilder: knitr

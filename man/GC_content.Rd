@@ -9,7 +9,7 @@ GC_content(infile, output_file = NA)
 \arguments{
 \item{infile}{the object that is the path to the FASTQ file}
 
-\item{output_file}{File to write results in CSV format to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to write results to. Default NA.}
 }
 \value{
 plot of GC content
@@ -19,7 +19,8 @@ Calculates GC content percentage for each read in the dataset.
 }
 \examples{
 
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+    package = "qckitfastq")
 head(GC_content(infile))
 
 }

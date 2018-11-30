@@ -9,17 +9,17 @@ plot_adapter_content(ac_sorted, output_file = NA)
 \arguments{
 \item{ac_sorted}{Sorted table of adapters and counts.}
 
-\item{output_file}{File to save data frame to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to save data frame to. Default NA.}
 }
 \value{
-Bar plot of top 5 most frequent adapter sequences, saved as a PDF file.
+Barplot of top 5 most frequent adapter sequences.
 }
 \description{
 Creates a bar plot of the top 5 most present adapter sequences.
 }
 \examples{
 
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 ac_sorted <- adapter_content(infile,nr=25000)
 plot_adapter_content(ac_sorted)
 

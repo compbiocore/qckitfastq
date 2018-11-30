@@ -4,12 +4,12 @@
 \alias{dimensions}
 \title{Extract the number of columns and rows for a FASTQ file using seqTools.}
 \usage{
-dimensions(fseq, selection)
+dimensions(fseq, sel)
 }
 \arguments{
 \item{fseq}{an object that is the read result of the seq.read function}
 
-\item{selection}{"reads' for number of reads/rows, 'positions' for number of positions/columns}
+\item{sel}{'reads' for #reads/rows, 'positions' for #positions/columns}
 }
 \value{
 a numeric value of the number of reads or the number of positions
@@ -19,7 +19,8 @@ Extract the number of columns and rows for a FASTQ file using seqTools.
 }
 \examples{
 
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata","10^5_reads_test.fq.gz",
+    package = "qckitfastq")
 fseq <- seqTools::fastqq(infile,k=6)
 dimensions(fseq,"reads")
 

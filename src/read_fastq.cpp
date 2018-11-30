@@ -387,6 +387,9 @@ Rcpp::NumericVector gc_per_read(std::string infile) {
 //' @param min_size An int for thhresholding over representation
 //' @param buffer_size An int for the number of lines to keep in memory
 //' @return calculate overrepresented sequence count
+//' @examples
+//' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+//' calc_over_rep_seq(infile)
 //' @export
 // [[Rcpp::export]]
 std::map<std::string, int> calc_over_rep_seq(std::string infile,

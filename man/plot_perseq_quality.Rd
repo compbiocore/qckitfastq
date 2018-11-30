@@ -3,7 +3,8 @@
 \name{plot_perseq_quality}
 \alias{plot_perseq_quality}
 \title{Plot the mean quality score per sequence as a histogram.
-High quality sequences are those mostly distributed over 30. Low quality sequences are those mostly under 30.
+High quality sequences are those mostly distributed over 30.
+Low quality sequences are those mostly under 30.
 \code{plot_perseq_quality}}
 \usage{
 plot_perseq_quality(infile, output_file = NA)
@@ -18,7 +19,8 @@ Plot of mean quality score per read
 }
 \description{
 Plot the mean quality score per sequence as a histogram.
-High quality sequences are those mostly distributed over 30. Low quality sequences are those mostly under 30.
+High quality sequences are those mostly distributed over 30.
+Low quality sequences are those mostly under 30.
 \code{plot_perseq_quality}
 }
 \examples{

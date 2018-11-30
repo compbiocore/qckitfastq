@@ -21,3 +21,7 @@ calculate overrepresented sequence count
 Calculate sequece counts for each unique sequence and create a table with unique sequences
 and corresponding counts
 }
+\examples{
+infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+calc_over_rep_seq(infile)
+}

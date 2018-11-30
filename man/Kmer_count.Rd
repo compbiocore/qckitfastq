@@ -11,7 +11,7 @@ kmer_count(infile, k, output_file = NA)
 
 \item{k}{the length of kmer}
 
-\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to save plot to. Default NA.}
 }
 \value{
 kmers counts per sequence
@@ -21,7 +21,8 @@ Return kmer count per sequence for the length of kmer desired
 }
 \examples{
 
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+    package = "qckitfastq")
 km<-kmer_count(infile,k=4)
 km[1:20,1:10]
 

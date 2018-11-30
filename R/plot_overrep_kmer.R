@@ -6,6 +6,12 @@
 #' @param bins number of intervals across the length of the sequence
 #' @param top_num number of most overrepresented kmers to plot
 #' @param output_file File to write plot to. Will not write to file if NA. Default NA.
+#' @return A box plot of the log2(observed/expected ratio) across the length of the sequence
+#' @examples
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+#'     package = "qckitfastq")
+#' over_km <- overrep_kmer(infile,k=4,nc=100,nr=25000)
+#' plot_overrep_kmer(over_km)
 #' @importFrom ggplot2 ggplot geom_boxplot geom_text aes labs
 #' @importFrom dplyr filter
 #' @importFrom rlang .data
@@ -33,9 +39,10 @@ plot_overrep_kmer <- function(overkm, bins=20, top_num=2, output_file=NA) {
 #'
 #' @param overkm data frame with columns pos, obsexp_ratio, and kmer that has already been reordered by descending obsexp_ratio
 #' @param top_num number of most overrepresented kmers to plot. Default is 5.
+#' @return currently 0 as function is not fully working.
 #' @importFrom utils combn
 plot_outliers <- function(overkm, top_num) {
-  subset <- overkm[1:top_num,]
+  subset <- overkm[seq_len(top_num),]
   binned_points <- split(subset, as.character(subset$bin))
   combos <- lapply(binned_points, function(x) combn(x$obsexp_ratio,2))
   kmer_combos <- lapply(binned_points, function(x) combn(x$kmer, 2))

@@ -2,8 +2,9 @@
 % Please edit documentation in R/adapter_content.R
 \name{adapter_content}
 \alias{adapter_content}
-\title{Creates a sorted from most frequent to least frequent abundance table of adapters that are found to be present in
-the reads at greater than 0.1\% of the reads.}
+\title{Creates a sorted from most frequent to least frequent abundance table
+of adapters that are found to be present in the reads at greater than
+0.1\% of the reads.}
 \usage{
 adapter_content(infile, nr, adapter_file = system.file("extdata",
   "adapters.txt", package = "qckitfastq"), output_file = NA)
@@ -13,18 +14,20 @@ adapter_content(infile, nr, adapter_file = system.file("extdata",
 
 \item{nr}{the number of reads of the FASTQ file}
 
-\item{adapter_file}{Path to the adapters.txt file. Default is the adapters.txt provided in the package based off of FASTQC.}
+\item{adapter_file}{Path to adapters.txt file. Default from package.}
 
-\item{output_file}{File to save data frame to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to save data frame to. Default NA.}
 }
 \value{
 Sorted table of adapters and counts.
 }
 \description{
-Creates a sorted from most frequent to least frequent abundance table of adapters that are found to be present in
-the reads at greater than 0.1\% of the reads.
+Creates a sorted from most frequent to least frequent abundance table
+of adapters that are found to be present in the reads at greater than
+0.1\% of the reads.
 }
 \examples{
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata","test.fq.gz",
+    package = "qckitfastq")
 adapter_content(infile,nr=25000)[1:5]
 }

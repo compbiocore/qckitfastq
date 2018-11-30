@@ -53,6 +53,10 @@ std::map<std::string, CharString> read_adapters(std::string adapter_file) {
 //' @param infile filepath to fastq sequence
 //' @param adapters filepath to adapters
 //' @return map object with adapter names as the key and the number of times the adapters appears in the reads as the value
+//' @examples
+//' adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
+//' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
+//' content <- calc_adapter_content(infile, adapter_file)
 //' @export
 // [[Rcpp::export]]
 std::map<std::string, int> calc_adapter_content(std::string infile, std::string adapters) {

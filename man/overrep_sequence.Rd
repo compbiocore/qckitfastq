@@ -2,7 +2,7 @@
 % Please edit documentation in R/overrep_sequence.R
 \name{overrep_sequence}
 \alias{overrep_sequence}
-\title{Sort all sequences per read by count along with a density plot of all counts with top 5 repreated sequences marked}
+\title{Sort all sequences per read by count.}
 \usage{
 overrep_sequence(infile, nr, output_file = NA)
 }
@@ -11,18 +11,16 @@ overrep_sequence(infile, nr, output_file = NA)
 
 \item{nr}{the number of reads of the FASTQ file}
 
-\item{output_file}{File to save data frame to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to save data frame to. Default NA.}
 }
 \value{
-table of sequnces sortted by count
-
-density plot of sequence length with top 5 marked by rugs, saved as PDF file
+Table of sequences sorted by count.
 }
 \description{
-Sort all sequences per read by count along with a density plot of all counts with top 5 repreated sequences marked
+Sort all sequences per read by count.
 }
 \examples{
-
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+    package = "qckitfastq")
 overrep_sequence(infile,nr=25000)[1:5]
 }

@@ -2,11 +2,14 @@
 % Please edit documentation in R/overrep_kmer.R
 \name{overrep_kmer}
 \alias{overrep_kmer}
-\title{Generate overrepresented kmers of length k based on their observed to expected ratio at each position
-across all sequences in the dataset. The expected proportion of a length k kmer assumes site independence
-and is computed as the sum of the count of each base pair in the kmer times the probability of observing
-that base pair in the data set, i.e. P(A)count_in_kmer(A) + P(C)count_in_kmer(C) + ... The observed to expected
-ratio is computed as log2(obs/exp). Those with obsexp_ratio > 2 are considered to be overrepresented and appear
+\title{Generate overrepresented kmers of length k based on their
+observed to expected ratio at each position across all sequences
+in the dataset. The expected proportion of a length k kmer assumes
+site independence and is computed as the sum of the count of each
+base pair in the kmer times the probability of observing that base
+pair in the data set, i.e. P(A)count_in_kmer(A)+P(C)count_in_kmer(C)+...
+The observed to expected ratio is computed as log2(obs/exp). Those with
+obsexp_ratio > 2 are considered to be overrepresented and appear
 in the returned data frame along with their position in the sequence.}
 \usage{
 overrep_kmer(path, k, nc, nr, output_file = NA)
@@ -20,22 +23,26 @@ overrep_kmer(path, k, nc, nr, output_file = NA)
 
 \item{nr}{number of reads}
 
-\item{output_file}{File to save plot to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to save plot to. Default NA.}
 }
 \value{
-A data frame with the columns: Position (in the read), Obsexp_ratio, and Kmer
+Data frame with columns: Position (in read), Obsexp_ratio, & Kmer
 }
 \description{
-Generate overrepresented kmers of length k based on their observed to expected ratio at each position
-across all sequences in the dataset. The expected proportion of a length k kmer assumes site independence
-and is computed as the sum of the count of each base pair in the kmer times the probability of observing
-that base pair in the data set, i.e. P(A)count_in_kmer(A) + P(C)count_in_kmer(C) + ... The observed to expected
-ratio is computed as log2(obs/exp). Those with obsexp_ratio > 2 are considered to be overrepresented and appear
+Generate overrepresented kmers of length k based on their
+observed to expected ratio at each position across all sequences
+in the dataset. The expected proportion of a length k kmer assumes
+site independence and is computed as the sum of the count of each
+base pair in the kmer times the probability of observing that base
+pair in the data set, i.e. P(A)count_in_kmer(A)+P(C)count_in_kmer(C)+...
+The observed to expected ratio is computed as log2(obs/exp). Those with
+obsexp_ratio > 2 are considered to be overrepresented and appear
 in the returned data frame along with their position in the sequence.
 }
 \examples{
 
-path <-system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+path <-system.file("extdata", "10^5_reads_test.fq.gz",
+    package = "qckitfastq")
 overrep_kmer(path,k=4,nc=100,nr=25000)
 
 }

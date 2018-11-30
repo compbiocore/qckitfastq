@@ -1,11 +1,11 @@
 #' Creates a bar plot of the top 5 most present adapter sequences.
 #' @param ac_sorted Sorted table of adapters and counts.
-#' @param output_file File to save data frame to. Will not write to file if NA. Default NA.
-#' @return Bar plot of top 5 most frequent adapter sequences, saved as a PDF file.
+#' @param output_file File to save data frame to. Default NA.
+#' @return Barplot of top 5 most frequent adapter sequences.
 #'
 #' @examples
 #'
-#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 #' ac_sorted <- adapter_content(infile,nr=25000)
 #' plot_adapter_content(ac_sorted)
 #' 

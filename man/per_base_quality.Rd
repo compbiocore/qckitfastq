@@ -2,26 +2,29 @@
 % Please edit documentation in R/per_base_quality.R
 \name{per_base_quality}
 \alias{per_base_quality}
-\title{Compute the mean, median, and percentiles of quality score per base. This is returned
-as a data frame.}
+\title{Compute the mean, median, and percentiles of quality score per base.
+This is returned as a data frame.}
 \usage{
 per_base_quality(infile, output_file = NA)
 }
 \arguments{
-\item{infile}{from basic statistics function}
+\item{infile}{Path to a gzippped FASTQ file}
 
-\item{output_file}{File to write results in CSV format to. Will not write to file if NA. Default NA.}
+\item{output_file}{File to write results in CSV format to. Default NA.}
 }
 \value{
 A dataframe of the mean, median and quantiles of the FASTQ file
 }
 \description{
-Compute the mean, median, and percentiles of quality score per base. This is returned
-as a data frame.
+Compute the mean, median, and percentiles of quality score per base.
+This is returned as a data frame.
 }
 \examples{
-per_base_quality(system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq"))
+per_base_quality(system.file("extdata", "10^5_reads_test.fq.gz",
+    package = "qckitfastq"))
 }
 \author{
-Wenyue Xing, \email{wenyue_xing@brown.edu}, August Guang, \email{august_guang@brown.edu}
+Wenyue Xing, \email{wenyue_xing@brown.edu}
+
+August Guang, \email{august_guang@brown.edu}
 }

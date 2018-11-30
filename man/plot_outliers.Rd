@@ -14,6 +14,9 @@ plot_outliers(overkm, top_num)
 
 \item{top_num}{number of most overrepresented kmers to plot. Default is 5.}
 }
+\value{
+currently 0 as function is not fully working.
+}
 \description{
 Determine how to plot outliers. Heuristic used is whether their obsexp_ratio differs by more than 1
 and whether they fall into the same bin or not. If for 2 outliers, obsexp_ratio differs by less than .4
