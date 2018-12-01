@@ -18,6 +18,5 @@ a string as with the best guess as to the illumina format
 Calculate score based on Illumina format
 }
 \examples{
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-find_format(infile,10000, 100000)
+calc_format_score("A","Sanger")
 }

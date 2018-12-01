@@ -20,7 +20,7 @@ Will run all functions in the qckitfastq suite and save the data frames
 and plots to a user-provided directory. Plot names are supplied by default.
 }
 \examples{
-infile <- system.file("extdata", "test.fq.gz",
+infile <- system.file("extdata", "10^5_reads_test.fq.gz",
     package = "qckitfastq")
 testfolder <- tempdir()
 run_all(infile, testfolder)

@@ -19,6 +19,6 @@ Compute adapter content in reads.
 }
 \examples{
 adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
-infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 content <- calc_adapter_content(infile, adapter_file)
 }

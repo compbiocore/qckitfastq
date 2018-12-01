@@ -5,7 +5,7 @@
 #' @param dir Directory to save results to
 #' @return  generate files from all functions
 #' @examples
-#' infile <- system.file("extdata", "test.fq.gz",
+#' infile <- system.file("extdata", "10^5_reads_test.fq.gz",
 #'     package = "qckitfastq")
 #' testfolder <- tempdir()
 #' run_all(infile, testfolder)

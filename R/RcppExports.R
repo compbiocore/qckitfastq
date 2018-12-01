@@ -8,7 +8,7 @@
 #' @return map object with adapter names as the key and the number of times the adapters appears in the reads as the value
 #' @examples
 #' adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
-#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+#' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 #' content <- calc_adapter_content(infile, adapter_file)
 #' @export
 calc_adapter_content <- function(infile, adapters) {
@@ -24,11 +24,13 @@ calc_adapter_content <- function(infile, adapters) {
 #' @param reads_used int, the number of reads to use to determine the encoding format.
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' find_format(infile,10000,100)
+#' find_format(infile,100)
 #' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 #' @export
-find_format <- function(infile, buffer_size, reads_used) {
-    .Call('_qckitfastq_find_format', PACKAGE = 'qckitfastq', infile, buffer_size, reads_used)
+NULL
+
+find_format <- function(infile, reads_used) {
+    .Call('_qckitfastq_find_format', PACKAGE = 'qckitfastq', infile, reads_used)
 }
 
 #' Calculate score based on Illumina format
@@ -36,8 +38,7 @@ find_format <- function(infile, buffer_size, reads_used) {
 #' @param score  An ascii quality score from the fastq
 #' @param score_format The illumina format
 #' @examples
-#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' find_format(infile,10000, 100000)
+#' calc_format_score("A","Sanger")
 #' @return a string as with the best guess as to the illumina format
 #' @export
 calc_format_score <- function(score, score_format) {
@@ -88,7 +89,7 @@ gc_per_read <- function(infile) {
 #' @return calculate overrepresented sequence count
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' calc_over_rep_seq(infile)
+#' calc_over_rep_seq(infile)[seq_len(5)]
 #' @export
 calc_over_rep_seq <- function(infile, min_size = 5L, buffer_size = 1000000L) {
     .Call('_qckitfastq_calc_over_rep_seq', PACKAGE = 'qckitfastq', infile, min_size, buffer_size)

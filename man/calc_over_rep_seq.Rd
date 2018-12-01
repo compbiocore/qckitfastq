@@ -23,5 +23,5 @@ and corresponding counts
 }
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-calc_over_rep_seq(infile)
+calc_over_rep_seq(infile)[seq_len(5)]
 }

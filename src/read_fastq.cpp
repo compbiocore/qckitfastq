@@ -21,11 +21,12 @@ using namespace Rcpp;
 //' @param reads_used int, the number of reads to use to determine the encoding format.
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' find_format(infile,10000,100)
+//' find_format(infile,100)
 //' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 //' @export
+// TODO: test for if buffer_size & reads_used exceeds number of reads in file
 // [[Rcpp::export]]
-std::string find_format(std::string infile, int buffer_size, int reads_used) {
+std::string find_format(std::string infile, int reads_used) {
     std::vector<int> qual_scores;
     std::vector<int>::iterator it;
     gz::igzstream in(infile.c_str());
@@ -77,8 +78,7 @@ std::string find_format(std::string infile, int buffer_size, int reads_used) {
 //' @param score  An ascii quality score from the fastq
 //' @param score_format The illumina format
 //' @examples
-//' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' find_format(infile,10000, 100000)
+//' calc_format_score("A","Sanger")
 //' @return a string as with the best guess as to the illumina format
 //' @export
 // [[Rcpp::export]]
@@ -120,7 +120,7 @@ void process_fastq(std::string infile, int buffer_size) {
 
     // Get the file format
     // Convert to if not given auto find
-    std:: string score_format = find_format(infile,100000, 1000000);
+    std:: string score_format = find_format(infile,100000);
 
     std::vector<double> gc_percent_all;
 
@@ -267,7 +267,7 @@ Rcpp::List qual_score_per_read(std::string infile) {
     std::string line;
     int count = 1;
     double quality_score_mean = 0;
-    std::string score_format = find_format(infile, 100000, 1000000);
+    std::string score_format = find_format(infile, 10000);
     while (std::getline(in, line))
     {
 
@@ -389,7 +389,7 @@ Rcpp::NumericVector gc_per_read(std::string infile) {
 //' @return calculate overrepresented sequence count
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' calc_over_rep_seq(infile)
+//' calc_over_rep_seq(infile)[seq_len(5)]
 //' @export
 // [[Rcpp::export]]
 std::map<std::string, int> calc_over_rep_seq(std::string infile,
