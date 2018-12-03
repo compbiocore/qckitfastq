@@ -1,7 +1,7 @@
 Package: qckitfastq
 Type: Package
 Title: FASTQ Quality Control
-Version: 0.99.14
+Version: 0.99.15
 Authors@R: c(person("Wenyue","Xing",role=c("aut")),person("August","Guang",role=c("aut","cre"),email="august.guang@gmail.com"))
 Description: Assessment of FASTQ file format with multiple metrics including quality score, sequence content, overrepresented sequence and Kmers.  
 License: Artistic-2.0

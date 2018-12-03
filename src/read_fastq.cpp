@@ -61,11 +61,11 @@ std::string find_format(std::string infile, int reads_used) {
     int min_score = *min_element(qual_scores.begin(),qual_scores.end());
 
     // Based off of https://en.wikipedia.org/wiki/FASTQ_format#Encoding
-    if (min_score > 32 & min_score < 59 & max_score < 127) { score_format = "Sanger"; } // Sanger is ASCII 33 to 126
-    else if (min_score > 58 & min_score < 64 & max_score < 127) { score_format = "Solexa"; } // Solexa is 59 to 126
-    else if (min_score > 63 & min_score < 66 & max_score < 127) { score_format = "Illumina1.3"; } // 64 to 126
+    if ((min_score > 32) & (min_score < 59) & (max_score < 127)) { score_format = "Sanger"; } // Sanger is ASCII 33 to 126
+    else if ((min_score > 58) & (min_score < 64) & (max_score < 127)) { score_format = "Solexa"; } // Solexa is 59 to 126
+    else if ((min_score > 63) & (min_score < 66) & (max_score < 127)) { score_format = "Illumina1.3"; } // 64 to 126
     // Illumina1.5: 0/64 and 1/65 are not in use, and 2/66 is only used if read end segment is all Q15 or below
-    else if (min_score > 65 & max_score < 127) { score_format = "Illumina1.5"; }
+    else if ((min_score > 65) & (max_score < 127)) { score_format = "Illumina1.5"; }
     else {  throw "No plausible encoding format! Check FASTQ reads to make sure quality scores are >32 and < 127."; }
 
     return score_format;

@@ -1,4 +1,3 @@
-#include <RcppCommon.h>
 #include <seqan/find.h>
 #include <seqan/sequence.h>
 #include <iostream>
@@ -6,6 +5,8 @@
 #include <fstream>
 #include "gzstream.h"
 #include "zlib.h"
+
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 
 // [[Rcpp::depends(RSeqAn)]]
