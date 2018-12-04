@@ -17,6 +17,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// main
+int main();
+RcppExport SEXP _qckitfastq_main() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(main());
+    return rcpp_result_gen;
+END_RCPP
+}
 // find_format
 std::string find_format(std::string infile, int reads_used);
 RcppExport SEXP _qckitfastq_find_format(SEXP infileSEXP, SEXP reads_usedSEXP) {
@@ -90,6 +100,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_qckitfastq_calc_adapter_content", (DL_FUNC) &_qckitfastq_calc_adapter_content, 2},
+    {"_qckitfastq_main", (DL_FUNC) &_qckitfastq_main, 0},
     {"_qckitfastq_find_format", (DL_FUNC) &_qckitfastq_find_format, 2},
     {"_qckitfastq_calc_format_score", (DL_FUNC) &_qckitfastq_calc_format_score, 2},
     {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 2},

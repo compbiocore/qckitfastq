@@ -15,6 +15,10 @@ calc_adapter_content <- function(infile, adapters) {
     .Call('_qckitfastq_calc_adapter_content', PACKAGE = 'qckitfastq', infile, adapters)
 }
 
+main <- function() {
+    .Call('_qckitfastq_main', PACKAGE = 'qckitfastq')
+}
+
 #' Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
 #' Solexa(/Illumina1.0), Illumina1.3, and Illumina1.5. This encoding is heuristic based and may not be 100% accurate
 #' since there is overlap in the encodings used, so it is best if you already know the format.

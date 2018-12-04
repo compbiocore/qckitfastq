@@ -63,9 +63,15 @@ std::map<std::string, CharString> read_adapters(std::string adapter_file) {
 std::map<std::string, int> calc_adapter_content(std::string infile, std::string adapters) {
   // read adapter file and turn into set of Pattern objects to search for
   std::map<std::string, CharString> a = read_adapters(adapters);
-  //for (std::map<std::string, CharString>::iterator it=a.begin(); it!=a.end(); ++it) {
-  //  std::cout << (*it).first << '\n' << (*it).second << std::endl;
-  //}
+  StringSet<CharString> needles;
+  std::map<int,std::string> needle_map;
+  int i = 0;
+  for (std::map<std::string, CharString>::iterator it=a.begin(); it!=a.end(); ++it) {
+    appendValue(needles,it->second);
+    needle_map.insert(std::pair<int,std::string>(i,it->first));
+    i++;
+  }
+  Pattern<StringSet<CharString>, WuManber> patterns(needles);
 
   std::map<std::string, int> adapter_map;
   // go thru file and count number of times adapters appear
@@ -76,18 +82,14 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
     if(count==2) { // line 2 has seq
       CharString l(line.c_str());
       Finder<CharString> finder(l);
-      for(std::map<std::string,CharString>::iterator it=a.begin(); it!=a.end(); ++it) {
-        Pattern<CharString, DPSearch<SimpleScore> > pattern(it->second, SimpleScore(0,-1,-1));
-        if(find(finder,pattern,-2)) {
-          std::string adapter = it->first;
-          if(adapter_map.find(adapter) != adapter_map.end()) {
-            adapter_map.at(adapter) += 1;
-          } else {
-            adapter_map.insert(std::pair<std::string, int>(adapter, 1));
-          }
+      while(find(finder,patterns)) {
+        std::string adapter = needle_map.at(position(patterns));
+        if(adapter_map.find(adapter) != adapter_map.end()) {
+          adapter_map.at(adapter) += 1;
         }
-        goBegin(finder);
-        clear(finder);
+        else{
+          adapter_map.insert(std::pair<std::string,int>(adapter,1));
+        }
       }
     }
     // line 4 has quality score, then on to next read of head/seq/+/quality so cycle thru
