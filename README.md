@@ -62,7 +62,7 @@ browseVignettes("qckitfastq")
 
 ## Release history
 
-See [`NEWS`](/inst/NEWS) for changes.
+See [`NEWS`](https://github.com/compbiocore/qckitfastq/blob/master/inst/NEWS/) for changes.
 
 ## Authors
 

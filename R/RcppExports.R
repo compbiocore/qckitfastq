@@ -15,24 +15,17 @@ calc_adapter_content <- function(infile, adapters) {
     .Call('_qckitfastq_calc_adapter_content', PACKAGE = 'qckitfastq', infile, adapters)
 }
 
-main <- function() {
-    .Call('_qckitfastq_main', PACKAGE = 'qckitfastq')
-}
-
 #' Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
 #' Solexa(/Illumina1.0), Illumina1.3, and Illumina1.5. This encoding is heuristic based and may not be 100% accurate
 #' since there is overlap in the encodings used, so it is best if you already know the format.
 #'
 #' @param infile  A string giving the path for the fastq file
-#' @param buffer_size An int for the number of lines to keep in memory
 #' @param reads_used int, the number of reads to use to determine the encoding format.
 #' @examples
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 #' find_format(infile,100)
 #' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 #' @export
-NULL
-
 find_format <- function(infile, reads_used) {
     .Call('_qckitfastq_find_format', PACKAGE = 'qckitfastq', infile, reads_used)
 }
@@ -47,19 +40,6 @@ find_format <- function(infile, reads_used) {
 #' @export
 calc_format_score <- function(score, score_format) {
     .Call('_qckitfastq_calc_format_score', PACKAGE = 'qckitfastq', score, score_format)
-}
-
-#' Process fastq and generate sequence and quality score tables
-#'
-#' @param infile  A string giving the path for the fastqfile
-#' @param buffer_size An int for the number of lines to keep in memory
-#' @examples
-#' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-#' process_fastq(infile,10000)
-#' @return process fastq and generate sequence and quality score tables
-#' @export
-process_fastq <- function(infile, buffer_size) {
-    invisible(.Call('_qckitfastq_process_fastq', PACKAGE = 'qckitfastq', infile, buffer_size))
 }
 
 #' Calculate the mean quality score per read of the FASTQ gzipped file

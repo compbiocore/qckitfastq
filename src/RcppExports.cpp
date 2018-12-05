@@ -17,16 +17,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// main
-int main();
-RcppExport SEXP _qckitfastq_main() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(main());
-    return rcpp_result_gen;
-END_RCPP
-}
 // find_format
 std::string find_format(std::string infile, int reads_used);
 RcppExport SEXP _qckitfastq_find_format(SEXP infileSEXP, SEXP reads_usedSEXP) {
@@ -49,17 +39,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type score_format(score_formatSEXP);
     rcpp_result_gen = Rcpp::wrap(calc_format_score(score, score_format));
     return rcpp_result_gen;
-END_RCPP
-}
-// process_fastq
-void process_fastq(std::string infile, int buffer_size);
-RcppExport SEXP _qckitfastq_process_fastq(SEXP infileSEXP, SEXP buffer_sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type infile(infileSEXP);
-    Rcpp::traits::input_parameter< int >::type buffer_size(buffer_sizeSEXP);
-    process_fastq(infile, buffer_size);
-    return R_NilValue;
 END_RCPP
 }
 // qual_score_per_read
@@ -100,10 +79,8 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_qckitfastq_calc_adapter_content", (DL_FUNC) &_qckitfastq_calc_adapter_content, 2},
-    {"_qckitfastq_main", (DL_FUNC) &_qckitfastq_main, 0},
     {"_qckitfastq_find_format", (DL_FUNC) &_qckitfastq_find_format, 2},
     {"_qckitfastq_calc_format_score", (DL_FUNC) &_qckitfastq_calc_format_score, 2},
-    {"_qckitfastq_process_fastq", (DL_FUNC) &_qckitfastq_process_fastq, 2},
     {"_qckitfastq_qual_score_per_read", (DL_FUNC) &_qckitfastq_qual_score_per_read, 1},
     {"_qckitfastq_gc_per_read", (DL_FUNC) &_qckitfastq_gc_per_read, 1},
     {"_qckitfastq_calc_over_rep_seq", (DL_FUNC) &_qckitfastq_calc_over_rep_seq, 3},

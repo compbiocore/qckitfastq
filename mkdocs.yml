@@ -47,7 +47,6 @@ nav:
       - plot_perseq_quality.md
       - plot_read_length.md
       - plot_sequence_content.md
-      - process_fastq.md
       - qual_score_per_read.md
       - run_all.md
       - sequence_content.md

@@ -3,9 +3,9 @@
 #'
 #' @param infile Path to gzipped FASTQ file
 #' @param dir Directory to save results to
-#' @return  generate files from all functions
+#' @return  Generate files from all functions
 #' @examples
-#' infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+#' infile <- system.file("extdata", "test.fq.gz",
 #'     package = "qckitfastq")
 #' testfolder <- tempdir()
 #' run_all(infile, testfolder)
@@ -34,7 +34,7 @@ run_all<- function(infile,dir){
   colnames(seq_count) <- seq(1,100)
   write.csv(file=file.path(dir,"sequence_content.csv"),seq_count)
 
-  plot_sequence_content(fseq,nr,nc,output_file=file.path(dir,"sequence_content.png"))
+  psc <- plot_sequence_content(fseq,nr,nc,output_file=file.path(dir,"sequence_content.png"))
 
   #extract GC content per read
   gc_df <- GC_content(infile,output_file=file.path(dir,"gc_content.csv"))

@@ -13,14 +13,14 @@ run_all(infile, dir)
 \item{dir}{Directory to save results to}
 }
 \value{
-generate files from all functions
+Generate files from all functions
 }
 \description{
 Will run all functions in the qckitfastq suite and save the data frames
 and plots to a user-provided directory. Plot names are supplied by default.
 }
 \examples{
-infile <- system.file("extdata", "10^5_reads_test.fq.gz",
+infile <- system.file("extdata", "test.fq.gz",
     package = "qckitfastq")
 testfolder <- tempdir()
 run_all(infile, testfolder)

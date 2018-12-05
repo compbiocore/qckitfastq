@@ -17,16 +17,15 @@ using namespace Rcpp;
 //' since there is overlap in the encodings used, so it is best if you already know the format.
 //'
 //' @param infile  A string giving the path for the fastq file
-//' @param buffer_size An int for the number of lines to keep in memory
 //' @param reads_used int, the number of reads to use to determine the encoding format.
 //' @examples
 //' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 //' find_format(infile,100)
 //' @return A string denoting the read format. Possibilities are Sanger, Solexa, Illumina1.3, and Illumina1.5.
 //' @export
-// TODO: test for if buffer_size & reads_used exceeds number of reads in file
 // [[Rcpp::export]]
 std::string find_format(std::string infile, int reads_used) {
+  // TODO: test for if buffer_size & reads_used exceeds number of reads in file
     std::vector<int> qual_scores;
     std::vector<int>::iterator it;
     gz::igzstream in(infile.c_str());
@@ -84,125 +83,22 @@ std::string find_format(std::string infile, int reads_used) {
 // [[Rcpp::export]]
 int calc_format_score(char score, std::string score_format)
 {
-    // Based off of https://en.wikipedia.org/wiki/FASTQ_format
+    // Based off of https://en.wikipedia.org/wiki/FASTQ_format#Encoding
     int calc_score = 0;
     if(score_format == "Sanger") calc_score = int(score) - 33;
-    else if(score_format == "Solexa") calc_score = int(score) - 59;
+    else if(score_format == "Solexa") calc_score = int(score) - 64;
     else if(score_format=="Illumina1.3") calc_score = int(score) - 64;
     else if(score_format=="Illumina1.5") calc_score = int(score) - 64;
 
     return calc_score;
 }
 
-// [[Rcpp::plugins(cpp11)]]
-
-//' Process fastq and generate sequence and quality score tables
-//'
-//' @param infile  A string giving the path for the fastqfile
-//' @param buffer_size An int for the number of lines to keep in memory
-//' @examples
-//' infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
-//' process_fastq(infile,10000)
-//' @return process fastq and generate sequence and quality score tables
-//' @export
-// [[Rcpp::export]]
-void process_fastq(std::string infile, int buffer_size) {
-
-    std::map<std::string, int> over_rep_map;
-    std::map<std::string, int>::iterator it;
-    std::map<int, std::vector<int> > qual_by_column;
-    std::map < int, std::vector < int > > ::iterator
-    qual_by_col_it;
-
-    gz::igzstream in(infile.c_str());
-    std::string line;
-    int count = 1;
-
-    // Get the file format
-    // Convert to if not given auto find
-    std:: string score_format = find_format(infile,100000);
-
-    std::vector<double> gc_percent_all;
-
-    while (std::getline(in, line)) {
-
-        if (count == 2) {
-            it = over_rep_map.find(line);
-            if (it != over_rep_map.end()) {
-                // if found increment by 1
-                over_rep_map.at(line) += 1;
-            } else {
-                // if not found add new key and initialize to 1
-                over_rep_map.insert(std::pair<std::string, int>(line, 1));
-            }
-            // iterating over each character in the string
-            std::string base_cmp;
-            //std::vector<int> counts_per_read;
-            int count_A = 0, count_G = 0, count_T = 0, count_C = 0, count_N = 0;
-            for (std::string::iterator it = line.begin(); it != line.end(); ++it) {
-                base_cmp.clear();
-                base_cmp.push_back(*it);
-                if (base_cmp.compare("A") == 0) { count_A += 1; }
-                else if (base_cmp.compare("T") == 0) { count_T += 1; }
-                else if (base_cmp.compare("G") == 0) { count_G += 1; }
-                else if (base_cmp.compare("C") == 0) { count_C += 1; }
-                else if (base_cmp.compare("N") == 0) { count_N += 1; }
-            }
-            double gc_percent = static_cast<double>(count_C + count_G) /
-                                static_cast<double>(count_A + count_T + count_G + count_C + count_N);
-            gc_percent_all.push_back(gc_percent);
-
-        }
-
-        if (count == 4) {
-            // iterate over each value for quality
-            int pos_counter = 1;
-
-            // calculated score by format
-            int calc_score =0;
-
-            for (std::string::iterator it = line.begin(); it != line.end(); ++it)
-            {
-                qual_by_col_it = qual_by_column.find(pos_counter);
-                calc_score = calc_format_score(*it,score_format);
-
-                if (qual_by_col_it != qual_by_column.end()) {
-                    //qual_by_column.at(pos_counter).push_back(ascii_map.find(*it)->second);
-                    qual_by_column.at(pos_counter).push_back(calc_score);
-                } else {
-                    std::vector<int> tmp;
-                    //tmp.push_back(ascii_map.find(*it)->second);
-
-                    tmp.push_back(calc_score);
-                    qual_by_column.insert(std::pair < int, std::vector < int > > (pos_counter, tmp));
-                }
-            }
-            count = 1;
-        } else {
-            count++;
-        }
-    }
-    //Cleanup
-    in.close();
-
-    /*TODO
-      write over_rep sequences to file
-      return gc_percent vector
-      return per column mean, median and quantile
-     */
-    //over_rep_file.close();
-
-    return;
-}
-
-
 // Calculate summary of quality scores over position
 //
 // Description
 // @param inmat A matrix of score vectors per position
-
-std::vector <std::vector<int>> qual_score_per_position(const std::map<int, std::vector<uint8_t> > &inmat) {
-    std::vector <std::vector<int>> qual_score_mat_results;
+std::vector <std::vector<int> > qual_score_per_position(const std::map<int, std::vector<uint8_t> > &inmat) {
+    std::vector <std::vector<int> > qual_score_mat_results;
     std::vector<int> q_10, q_25, q_50, q_75, q_90;
 
     std::map < int, std::vector < uint8_t > > ::const_iterator
@@ -281,7 +177,7 @@ Rcpp::List qual_score_per_read(std::string infile) {
             {
                 calc_score = calc_format_score(*it, score_format);
 
-                qual_by_column.push_back(calc_score   );
+                qual_by_column.push_back(calc_score);
                 if (pos_counter <= qual_score_matrix.size()) {
                     qual_score_matrix[pos_counter].push_back(calc_score);
                 } else {
