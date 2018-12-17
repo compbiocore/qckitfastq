@@ -10,7 +10,7 @@
 #' @examples
 #' infile <- system.file("extdata","test.fq.gz",
 #'     package = "qckitfastq")
-#' adapter_content(infile,nr=25000)[1:5]
+#' adapter_content(infile,nr=14)[1:5]
 #' @importFrom utils write.csv
 #' @export
 adapter_content <- function(infile,nr,
