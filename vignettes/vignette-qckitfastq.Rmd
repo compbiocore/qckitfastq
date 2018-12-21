@@ -16,9 +16,7 @@ library(kableExtra)
 
 # Introduction
 
-`qckitfastq` is part of the `qckit` suite of packages, the description of which can be found at
-[http://compbiocore.github.io/qckit](http://compbiocore.github.io/qckit). The purpose of this particular
-package is to run quality control on FASTQ files from genome sequencing.
+`qckitfastq` is part of the planned `qckit` suite of packages from the [Computational Biology Core at Brown University](https://compbiocore.github.io/). The long-term goal of the qckit suite is to not only provide comprehensive quality control metrics for common genomics sequencing workflows, but to 1) also provide quality control visualizations for multiple samples through updated modules in multiQC [@Ewels2016], and 2) provide a public quality control database which allows benchmarking of QC metrics for an experiment against other similar experiments. Users of `qckitfastq` will have the option to enter SRA metadata and create visualizations from our database as well as submit their qc results (if submitting an SRA archive) to our database once these features have been implemented. The purpose of this particular package is to run quality control on FASTQ files from genome sequencing.
 
 ## Why use qckitfastq?
 
@@ -43,15 +41,11 @@ kable(metrics)
 # Here, '*' indicates that the program truncates the file or computes on only the first x samples
 ```
 
-## Planned improvements
-
-As is described on the [qckit project page](http://compbiocore.github.io/qckit), the long-term goal of the qckit suite is to not only provide comprehensive quality control metrics for common genomics sequencing workflows, but to 1) also provide quality control visualizations for multiple samples through updated modules in multiQC [@Ewels2016], and 2) provide a public quality control database which allows benchmarking of QC metrics for an experiment against other similar experiments. Users of `qckitfastq` will have the option to enter SRA metadata and create visualizations from our database as well as submit their qc results (if submitting an SRA archive) to our database once these features have been implemented.
-
 # Running qckitfastq
 
 `qckitfastq` provides the following metrics:
 
-  * Read length distribution
+  * [Read length distribution](#read-length-distribution)
   * Per base sequence quality
   * Per read sequence quality
   * GC content
@@ -64,11 +58,22 @@ The simplest way to run `qckitfastq` is by executing `run_all`, a single command
 
 # Individual metrics
 
+For each individual metric that `qckitfastq` provides, the user can choose to save either the data frame for the metric, the associated plot, or both.
+
 Our example in this vignette has 25,000 reads, each 100bp long. The majority of metrics are run on the path to the FASTQ file. Some functions for quality control in this package are simply wrappers around `seqTools` due to the fact that their functions are fast. We provide these wrappers for the sake of completeness in quality control metrics. These wrappers require processing the FASTQ data through the `seqTools::fastqq` command first:
 ```{r, loading_file}
 library(qckitfastq)
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 fseq <- seqTools::fastqq(infile)
+```
+
+## Read length distribution {#read-length-distribution}
+
+*read_length* generates a data frame of read lengths and the number of reads with that particular read length. *plot_read_length* generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have roughly the same sequence length with minimal deviations. The following plot shows that all reads in the file have sequence length of 100.
+
+```{r, read_length}
+read_len <- read_length(fseq)
+plot_read_length(read_len)
 ```
 
 ### Basic metrics
@@ -135,14 +140,6 @@ plot_overrep_seq(overrep_seq)
 #sampler <- FastqSampler('E-MTAB-1147/fastq/ERR127302_1.fastq.gz', 20000)
 ```
 
-## seqTools::fastqq based metrics
-
-*plot_read_length* generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have the same sequence length with no deviations. The following plot shows that all reads in the file have sequence length of 100.
-
-```{r}
-plot_read_length(fseq)
-```
-
 ### Nucleotide sequence content
 
 *sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. *plot_sequence_conent* uses the *sequence_content* function and plots the percentage of all nucleotide sequence content per position. As a general rule, the plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is about evenly distributed across all bases. However, there are some types of analyses for which this will not be the case. For example, RNA-Seq will have an uneven sequence content distribution in the first 10 bases, and RRBS will have almost no cytosines and very high thymine content because the library prep protocol converts most C to T. Knowledge of the library prep protocol is thus important for evaluating quality in terms of nucleotide sequence content.
@@ -171,3 +168,5 @@ overkm <-overrep_kmer(infile,7,nc,nr)
 knitr::kable(head(overkm,n=10))
 plot_overrep_kmer(overkm)
 ```
+
+# References

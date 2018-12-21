@@ -29,5 +29,5 @@ of adapters that are found to be present in the reads at greater than
 \examples{
 infile <- system.file("extdata","test.fq.gz",
     package = "qckitfastq")
-adapter_content(infile,nr=25000)[1:5]
+adapter_content(infile,nr=14)[1:5]
 }

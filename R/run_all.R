@@ -17,7 +17,9 @@ run_all<- function(infile,dir){
   #extract dimension information
   nc <- dimensions(fseq,"positions")
   nr <- dimensions(fseq,"reads")
-  dim_plot <- plot_read_length(fseq,output_file=file.path(dir,"read_length.png"))
+  
+  read_len <- read_length(fseq, output_file=file.path(dir,"read_length.csv"))
+  plot_read_length(read_len,output_file=file.path(dir,"read_length.png"))
 
   #extract per base quality score statistics
   bs <- per_base_quality(infile,output_file=file.path(dir,"per_base_quality.csv"))
