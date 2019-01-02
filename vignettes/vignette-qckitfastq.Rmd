@@ -46,7 +46,7 @@ kable(metrics)
 `qckitfastq` provides the following metrics:
 
   * [Read length distribution](#read-length-distribution)
-  * Per base sequence quality
+  * [Per base sequence quality](#per-base-sequence-quality)
   * Per read sequence quality
   * GC content
   * Nucleotide sequence content
@@ -73,7 +73,18 @@ fseq <- seqTools::fastqq(infile)
 
 ```{r, read_length}
 read_len <- read_length(fseq)
+knitr::kable(head(read_len))
 plot_read_length(read_len)
+```
+
+## Per base sequence quality {#per-base-sequence-quality}
+
+The *per_base_quality* function calculates quality score per base summary statistics of 10th, 25th, median, 75th and 90th quantiles across sequences. Currently it treats all quality score encodings as Phred+33. We can use the result to create a quality score distribution per position plot. As a basic heuristic, quality scores above 28 can be categorized as good (green), those from 20 to 28 can be categorized as medium (yellow), and under 20 is bad (red).
+
+```{r}
+bs <- per_base_quality(infile)
+knitr::kable(head(bs))
+plot_per_base_quality(bs)
 ```
 
 ### Basic metrics
@@ -85,20 +96,6 @@ nc
 
 nr <- dimensions(fseq,"reads")
 nr
-```
-
-The rest of this vignette will be divided into functions that make use of `seqTools::fastqq` and those that use more customized C++ code.
-
-## C++ based metrics
-
-### Per base quality score
-
-The *per_base_quality* function calculates quality score per base summary statistics of 10th, 25th, median, 75th and 90th quantiles across sequences. Currently it treats all quality score encodings as Phred+33. We can use the result to create a quality score distribution per position plot. As a basic heuristic, quality scores above 28 can be categorized as good (green), those from 20 to 28 can be categorized as medium (yellow), and under 20 is bad (red).
-
-```{r}
-bs <- per_base_quality(infile)
-knitr::kable(head(bs))
-plot_per_base_quality(bs)
 ```
 
 ### Per read sequence quality score

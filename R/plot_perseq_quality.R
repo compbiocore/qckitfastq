@@ -11,8 +11,7 @@
 #' @export
 plot_perseq_quality <- function(infile,output_file=NA){
 
-  score_sequence_mean <- data.frame(qual_score_per_read(infile)$mu_per_read)
-  colnames(score_sequence_mean) <- c("sequencemean")
+  score_sequence_mean <- perseq_quality(infile)
 
   p1 <- ggplot2::ggplot(data=score_sequence_mean,
                         ggplot2::aes(.data$sequencemean)) +
