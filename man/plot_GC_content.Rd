@@ -2,27 +2,25 @@
 % Please edit documentation in R/plot_GC_content.R
 \name{plot_GC_content}
 \alias{plot_GC_content}
-\title{Generate GC content plot}
+\title{Generate mean GC content histogram.}
 \usage{
-plot_GC_content(nc, gc_df, output_file = NA)
+plot_GC_content(gc_df, output_file = NA)
 }
 \arguments{
-\item{nc}{The number of base pairs to bin by}
-
 \item{gc_df}{the object that is the GC content vectors generated from GC content function}
 
 \item{output_file}{File to write plot to. Will not write to file if NA. Default NA.}
 }
 \value{
-A histogram of the GC content acorss all positions
+A histogram of mean GC content.
 }
 \description{
-Generate GC content plot
+Generate mean GC content histogram.
 }
 \examples{
 
 infile <- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
 gc_df<-GC_content(infile)
-plot_GC_content(nc=100,gc_df)
+plot_GC_content(gc_df)
 
 }

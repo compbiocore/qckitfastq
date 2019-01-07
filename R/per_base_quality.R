@@ -15,7 +15,8 @@
 per_base_quality <- function(infile,output_file=NA){
 
   qs <- qual_score_per_read(infile)
-  bs <- data.frame(q10 = qs$q10_per_position,
+  bs <- data.frame(position = seq(1,length(qs$q10_per_position)),
+                   q10 = qs$q10_per_position,
                                  q25 = qs$q25_per_position,
                                  median = qs$q50_per_position,
                                  q75 = qs$q75_per_position,

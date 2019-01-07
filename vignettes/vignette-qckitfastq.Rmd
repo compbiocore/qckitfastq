@@ -30,14 +30,16 @@ Indeed there are many other quality control packages for FASTQ files existing al
 To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortRead provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. `qckitfastq` does not contain any of these limitations.
 
 ```{r, comparison_table, include=FALSE,eval=FALSE}
-qckitfastq <- c("yes","yes+","yes")
-seqTools <- c("yes","yes","yes")
-ShortRead <- c("no","no","yes")
-FASTQC <- c("yes*","yes*","yes*")
+qckitfastq <- c("yes","yes","yes+","yes")
+seqTools <- c("no","yes","yes","yes")
+ShortRead <- c("no","no","no","yes")
+FASTQC <- c("yes","yes*","yes*","yes*")
 metrics <- data.frame(qckitfastq,seqTools,ShortRead,FASTQC)
-rownames(metrics) <- c("Per Base Sequence Quality", "Nucleotide Sequence Content", "GC Content")
+rownames(metrics) <- c("Read Length Distribution",
+                       "Per Base Read Quality", "Nucleotide Read Content", "GC Content")
 kable(metrics)
 # need to do per read sequence quality
+# + indicates that the program...
 # Here, '*' indicates that the program truncates the file or computes on only the first x samples
 ```
 
@@ -46,13 +48,14 @@ kable(metrics)
 `qckitfastq` provides the following metrics:
 
   * [Read length distribution](#read-length-distribution)
-  * [Per base sequence quality](#per-base-sequence-quality)
-  * Per read sequence quality
-  * GC content
-  * Nucleotide sequence content
-  * Kmer count
-  * Overrepresented kmers
-  * Overrepresented sequences
+  * [Per base read quality](#per-base-quality)
+  * [Per read read quality](#per-read-quality)
+  * [GC content](#gc-content)
+  * [Nucleotide read content](#nucleotide-read-content)
+  * [Kmer count](#kmer-count)
+  * [Overrepresented reads](#overrep-reads)
+  * [Overrepresented kmers](#overrep-kmers)
+  * [Adapter content](#adapter-content)
 
 The simplest way to run `qckitfastq` is by executing `run_all`, a single command that will produce a report of all of the included metrics in a user-provided directory with some default parameters. However, each metric can also be run separately for closer examination.
 
@@ -73,58 +76,82 @@ fseq <- seqTools::fastqq(infile)
 
 ```{r, read_length}
 read_len <- read_length(fseq)
-knitr::kable(head(read_len))
+kable(head(read_len)) %>% kable_styling()
 plot_read_length(read_len)
 ```
 
-## Per base sequence quality {#per-base-sequence-quality}
+## Per base quality {#per-base-quality}
 
-The *per_base_quality* function calculates quality score per base summary statistics of 10th, 25th, median, 75th and 90th quantiles across sequences. Currently it treats all quality score encodings as Phred+33. We can use the result to create a quality score distribution per position plot. As a basic heuristic, quality scores above 28 can be categorized as good (green), those from 20 to 28 can be categorized as medium (yellow), and under 20 is bad (red).
+The *per_base_quality* function calculates quality score per base summary statistics of 10th, 25th, median, 75th and 90th quantiles across sequences. Currently it treats all quality score encodings as Phred+33. We can use the result to create a quality score distribution per position plot using *plot_per_base_quality*. As a basic heuristic, quality scores above 28 can be categorized as good (green), those from 20 to 28 can be categorized as medium (yellow), and under 20 is bad (red).
 
-```{r}
+```{r, per_base_sequence_quality}
 bs <- per_base_quality(infile)
-knitr::kable(head(bs))
+kable(head(bs)) %>% kable_styling()
 plot_per_base_quality(bs)
 ```
 
-### Basic metrics
+## Per read quality score {#per-read-quality}
 
-After pre-processing with `seqTools::fastqq` we provide some basic metrics such as the number of reads and number of positions under the function *dimensions*. Here the sample file has 25,000 reads and 100 positions. This allows us to examine whether the sequence lengths are uniform throughout the entire file. The results from this section are useful for certain analyses where dimensionality of data is important for calculation, such as *overrep_kmer*. 
-```{r}
-nc <- dimensions(fseq,"positions")
-nc
+The *per_read_quality* function compute the mean quality score per read. We can then use *plot_per_read_quality* to generate a histogram of this statistics. The histogram is considered an indication of good data quality if the majority of reads have mean quality scores greater than 30. If a significant portion of reads have quality scores less than 30, then the data most likely has issues that need to be examined.
 
-nr <- dimensions(fseq,"reads")
-nr
+```{r, per_read_sequence_quality}
+prq <- per_read_quality(infile)
+kable(head(prq)) %>% kable_styling()
+plot_per_read_quality(prq)
 ```
 
-### Per read sequence quality score
-
-The *plot_perseq_quality* function extracts the mean quality score per read and generate a histogram of this statistics. The histogram would be considered an indication of good data quality when the majority of reads have mean quality scores greater than 30. If a significant portion of reads have quality scores less than 30, then the data most likely has issues that need to be examined.
-
-```{r}
-plot_perseq_quality(infile)
-```
-
-### GC content
+## Per read GC content {#gc-content}
 
 The *GC_content* function computes the GC nucleotide content percentage per read, and *plot_GC_content* plots the distribution of GC content. As a general rule, an indication of good data quality is when the GC content percentage in each read is between 30 and 50% and roughly follows a normal distribution.
 
-```{r}
+```{r, gc_content}
 gc_df <- GC_content(infile)
-knitr::kable(head(gc_df))
-plot_GC_content(nc,gc_df)
+kable(head(gc_df)) %>% kable_styling()
+plot_GC_content(gc_df)
 ```
 
-### Overrepresented sequences
+## Per position nucleotide read content {#nucleotide-read-content}
 
-Taking in the output generated from *cal_over_rep_seq*, function *overrepresented_sequence* produce the overrepresented sequence table by selecting the unique sequences that have counts larger than 0.1% of the total reads of the data file. The results would be displayed as table with decreasing order of counts. Function *overrepresented_plot* would take the overrepresented sequence table as input and present a density plot of the counts and mark the top 5 overrepresented sequence in red. 
+*read_content* calculates the total numbers across reads of each nucleotide base by position. *plot_read_content* plots the percentage of nucleotide content per position. We also provide an additional function *read_base_content* that allows the user to get the nucleotide base content by position across reads for a specific nucleotide (options are a,c,t,g,n). As a general rule, the plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is about evenly distributed across all bases. However, there are some types of analyses for which this will not be the case. For example, RNA-Seq will have an uneven sequence content distribution in the first 10 bases, and RRBS will have almost no cytosines and very high thymine content because the library prep protocol converts most C to T [@Meissner2005]. Knowledge of the library prep protocol is thus important for evaluating quality in terms of nucleotide sequence content.
 
-```{r}
-overrep_seq<-overrep_sequence(infile,nr)
-knitr::kable(head(overrep_sequence,n = 5))
-plot_overrep_seq(overrep_seq)
+```{r, nucleotide_read_content}
+scA <- read_base_content(fseq, content = "A")
+kable(head(scA)) %>% kable_styling()
+rc <- read_content(fseq)
+kable(head(rc)) %>% kable_styling()
+plot_read_content(rc)
 ```
+
+## Per position kmer count {#kmer-count}
+
+*kmer_count* function produces the per position kmer count with given path to the FASTQ file and the kmer length specified. 
+
+```{r, kmer_count}
+km <- kmer_count(infile,k=6)
+knitr::kable(km[1:20,1:10]) %>% kable_styling()
+```
+
+## Overrepresented reads {#overrep-reads}
+
+*overrep_reads* produces a data frame consisting of overrepresented reads and their counts in decreasing order of counts. Here overrepresented is defined as unique reads that have counts larger than 0.1% of the total reads in the file. *plot_overrep_reads* produces a density plot of the counts and marks the top 5 overrepresented reads in red. 
+
+```{r, overrep_reads}
+overrep_reads<-overrep_reads(infile)
+knitr::kable(head(overrep_reads,n = 5)) %>% kable_styling()
+plot_overrep_reads(overrep_reads)
+```
+
+## Overrepresented kmers {#overrep-kmers}
+
+*overrep_kmer* generates a data frame of overrepresented kmers with its maximum log2(observed/expected) ratio and the position of the maximum obs/exp ratio in descending order. Only those kmers with a ratio greater than 2 are returned in the data frame. We can also create a boxplot of the obs/exp ratio thatn includes plotting the top 2 (or n) kmer outliers.
+
+```{r, overrep_kmer}
+overkm <-overrep_kmer(infile,7)
+knitr::kable(head(overkm,n=10)) %>% kable_styling()
+plot_overrep_kmer(overkm)
+```
+
+## Adapter content {#adapter-content}  
 
 ```{r, eval=FALSE, include=FALSE}
 ### Benchmarking
@@ -135,35 +162,6 @@ plot_overrep_seq(overrep_seq)
 #library(ShortRead)
 #library(rbenchmark)
 #sampler <- FastqSampler('E-MTAB-1147/fastq/ERR127302_1.fastq.gz', 20000)
-```
-
-### Nucleotide sequence content
-
-*sequence_content* calculates the total number of each nucleotide sequence content per sequence throughout the file. *plot_sequence_conent* uses the *sequence_content* function and plots the percentage of all nucleotide sequence content per position. As a general rule, the plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is about evenly distributed across all bases. However, there are some types of analyses for which this will not be the case. For example, RNA-Seq will have an uneven sequence content distribution in the first 10 bases, and RRBS will have almost no cytosines and very high thymine content because the library prep protocol converts most C to T. Knowledge of the library prep protocol is thus important for evaluating quality in terms of nucleotide sequence content.
-
-```{r}
-scA <- sequence_content(fseq, content = "A")
-head(scA)
-plot_sequence_content(fseq,nr,nc)
-```
-
-## Kmers count per base
-
-*kmer_count* function produces the per position kmer count with given path to the FASTQ file and the kmer length specified. 
-
-```{r}
-km <- kmer_count(infile,k=6)
-knitr::kable(km[1:20,1:10])
-```
-
-## Overrepresented kmers
-
-The function generates list of overrepresented kmers with its maximum log2(observed/expected) ratio and the position of the maximum obs/exp ratio in descending order. Only those kmers with a ratio greater than 2 are returned in the data frame. We can also create a boxplot of the obs/exp ratio thatn includes plotting the top 2 (or n) kmer outliers.
-
-```{r}
-overkm <-overrep_kmer(infile,7,nc,nr)
-knitr::kable(head(overkm,n=10))
-plot_overrep_kmer(overkm)
 ```
 
 # References

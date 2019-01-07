@@ -20,7 +20,7 @@ Creates a bar plot of the top 5 most present adapter sequences.
 \examples{
 
 infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
-ac_sorted <- adapter_content(infile,nr=25000)
+ac_sorted <- adapter_content(infile)
 plot_adapter_content(ac_sorted)
 
 }

@@ -5,6 +5,7 @@
 src/*.so
 src/*.o
 src/*.dll
+src/calc_run_all.cpp
 ^\.Rproj\.user$
 .travis.yml
 inst/extdata/ERR127302_1.fastq.gz

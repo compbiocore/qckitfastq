@@ -5,6 +5,6 @@ testthat::test_that("Testing run_all",{
   run_all(infile, testfolder)
 
   # test that all expected files are in testfolder
-  testthat::expect_equal(length(list.files(testfolder)),16) # not sure why not working right now
-  testthat::expect_equal(length(list.files(testfolder,pattern=".csv")),8)
+  testthat::expect_equal(length(list.files(testfolder)),17)
+  testthat::expect_equal(length(list.files(testfolder,pattern=".csv")),9)
 })

@@ -13,9 +13,9 @@
 #' @importFrom utils write.csv
 #' @export
 read_length <- function(fseq, output_file=NA) {
-  read_len <- as.data.frame(seqTools::seqLenCount(fseq))
-  read_len$read_length = as.numeric(rownames(read_len))
-  colnames(read_len) = c("num_reads", "read_length") 
-  if (!is.na(output_file)){write.csv(file=output_file,read_len)}
-  return(read_len)
+    sl <- seqTools::seqLenCount(fseq)
+    read_len <- data.frame(read_length = seq(1,length(sl)),
+                           num_reads = as.vector(sl))
+    if (!is.na(output_file)){write.csv(file=output_file,read_len)}
+    return(read_len)
 }

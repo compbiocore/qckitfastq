@@ -12,16 +12,12 @@ The observed to expected ratio is computed as log2(obs/exp). Those with
 obsexp_ratio > 2 are considered to be overrepresented and appear
 in the returned data frame along with their position in the sequence.}
 \usage{
-overrep_kmer(path, k, nc, nr, output_file = NA)
+overrep_kmer(infile, k, output_file = NA)
 }
 \arguments{
-\item{path}{path to the FASTQ file}
+\item{infile}{path to gzipped FASTQ file}
 
 \item{k}{the kmer length}
-
-\item{nc}{number of positions}
-
-\item{nr}{number of reads}
 
 \item{output_file}{File to save plot to. Default NA.}
 }
@@ -41,8 +37,8 @@ in the returned data frame along with their position in the sequence.
 }
 \examples{
 
-path <-system.file("extdata", "10^5_reads_test.fq.gz",
+infile <-system.file("extdata", "10^5_reads_test.fq.gz",
     package = "qckitfastq")
-overrep_kmer(path,k=4,nc=100,nr=25000)
+overrep_kmer(infile,k=4)
 
 }

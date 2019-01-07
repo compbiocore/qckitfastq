@@ -351,6 +351,3 @@ std::map<std::string, int> calc_over_rep_seq(std::string infile,
 
     return over_rep_map;
 }
-
-
-

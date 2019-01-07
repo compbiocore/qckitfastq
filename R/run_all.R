@@ -13,49 +13,39 @@
 #' @export
 run_all<- function(infile,dir){
   fseq <- seqTools::fastqq(infile)
-
-  #extract dimension information
-  nc <- dimensions(fseq,"positions")
-  nr <- dimensions(fseq,"reads")
   
   read_len <- read_length(fseq, output_file=file.path(dir,"read_length.csv"))
   plot_read_length(read_len,output_file=file.path(dir,"read_length.png"))
 
   #extract per base quality score statistics
   bs <- per_base_quality(infile,output_file=file.path(dir,"per_base_quality.csv"))
-  knitr::kable(head(bs))
   plot_per_base_quality(bs,output_file=file.path(dir,"per_base_quality.png"))
 
   #extract per base sequence content percentage
-  scA <- sequence_content(fseq, content = "A")
-  scT <- sequence_content(fseq, content = "T")
-  scG <- sequence_content(fseq, content = "G")
-  scC <- sequence_content(fseq, content = "C")
-  scN <- sequence_content(fseq, content = "N")
-  seq_count <- rbind(scA,scT,scG,scC,scN)
-  colnames(seq_count) <- seq(1,100)
-  write.csv(file=file.path(dir,"sequence_content.csv"),seq_count)
-
-  psc <- plot_sequence_content(fseq,nr,nc,output_file=file.path(dir,"sequence_content.png"))
+  rc <- read_content(fseq,output_file=file.path(dir,"read_content.csv"))
+  plot_read_content(rc,output_file=file.path(dir,"read_content.png"))
 
   #extract GC content per read
   gc_df <- GC_content(infile,output_file=file.path(dir,"gc_content.csv"))
-  gc_plot<- plot_GC_content(nc,gc_df,output_file=file.path(dir,"gc_content.png"))
+  gc_plot<- plot_GC_content(gc_df,output_file=file.path(dir,"gc_content.png"))
 
   #Per read sequence quality score
-  plot_perseq_quality(infile,output_file=file.path(dir,"perseq_quality.png"))
+  prq <- per_read_quality(infile,output_file=file.path(dir,"per_read_quality.csv"))
+  plot_per_read_quality(prq,output_file=file.path(dir,"per_read_quality.png"))
 
-  #Kmer & Overrepresented kmer
+  # kmer count (DOES NOT HAVE PLOT)
   km <- kmer_count(infile,k=6,output_file=file.path(dir,"kmer_count.csv"))
-  overkm <-overrep_kmer(infile,7,nc,nr,output_file=file.path(dir,"overrep_kmer.csv"))
+  
+  # overrep kmers
+  overkm <-overrep_kmer(infile,7,output_file=file.path(dir,"overrep_kmer.csv"))
   plot_overrep_kmer(overkm,output_file=file.path(dir,"overrep_kmer.png"))
 
-  #overrep sequence
-  overrep_seq <- overrep_sequence(infile,nr,output_file=file.path(dir,"overrep_seq.csv"))
-  plot_overrep_seq(overrep_seq,output_file=file.path(dir,"overrep_seq.png"))
+  #overrep reads
+  overrep_reads <- overrep_reads(infile,output_file=file.path(dir,"overrep_reads.csv"))
+  plot_overrep_reads(overrep_reads,output_file=file.path(dir,"overrep_reads.png"))
   
   # adapter content
-  ac_sorted <- adapter_content(infile,nr,output_file=file.path(dir,"adapter_content.csv"))
+  ac_sorted <- adapter_content(infile,output_file=file.path(dir,"adapter_content.csv"))
   plot_adapter_content(ac_sorted,output_file=file.path(dir,"adapter_content.png"))
   }
 

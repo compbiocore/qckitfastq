@@ -12,7 +12,7 @@ GC_content(infile, output_file = NA)
 \item{output_file}{File to write results to. Default NA.}
 }
 \value{
-plot of GC content
+Data frame with read ID and GC content of each read.
 }
 \description{
 Calculates GC content percentage for each read in the dataset.

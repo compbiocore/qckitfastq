@@ -4,5 +4,5 @@ testthat::test_that("GC",{
 
   # first 3 lines of test.fq.gz are gc_content tests with allGC, 80/100GC, and 0GC  
   testfile<-system.file("extdata","test.fq.gz",package="qckitfastq")
-  testthat::expect_equal(GC_content(testfile)[1:3,],c(100,80,0))
+  testthat::expect_equal(GC_content(testfile)[1:3,]$mean_GC,c(100,80,0))
 })

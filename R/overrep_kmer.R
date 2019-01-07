@@ -8,32 +8,31 @@
 #' obsexp_ratio > 2 are considered to be overrepresented and appear
 #' in the returned data frame along with their position in the sequence.
 #'
-#' @param path path to the FASTQ file
+#' @param infile path to gzipped FASTQ file
 #' @param k the kmer length
-#' @param nc number of positions
-#' @param nr number of reads
 #' @param output_file File to save plot to. Default NA.
 #'
 #' @return Data frame with columns: Position (in read), Obsexp_ratio, & Kmer
 #' @examples
 #'
-#' path <-system.file("extdata", "10^5_reads_test.fq.gz",
+#' infile <-system.file("extdata", "10^5_reads_test.fq.gz",
 #'     package = "qckitfastq")
-#' overrep_kmer(path,k=4,nc=100,nr=25000)
+#' overrep_kmer(infile,k=4)
 #'
 #' @importFrom dplyr %>%
 #' @importFrom utils write.csv
 #' @export
-overrep_kmer <- function(path,k,nc,nr,output_file=NA){
-    fseq <- seqTools::fastqq(path)
-    fseq_count <- seqTools::fastqKmerLocs(path,k)[[1]]
+overrep_kmer <- function(infile,k,output_file=NA){
+    fseq <- seqTools::fastqq(infile)
+    fseq_count <- seqTools::fastqKmerLocs(infile,k)[[1]]
 
     # find marginal probabilities of ATGC
-
-    probA <- sum(sequence_content(fseq,"A"))/nr/nc
-    probG <- sum(sequence_content(fseq,"G"))/nr/nc
-    probC <- sum(sequence_content(fseq,"C"))/nr/nc
-    probT <- sum(sequence_content(fseq,"T"))/nr/nc
+    read_content <- read_content(fseq)
+    tot_bases <- sum(read_content[,2:6])
+    probA <- sum(read_content['a'])/tot_bases
+    probG <- sum(read_content['g'])/tot_bases
+    probC <- sum(read_content['c'])/tot_bases
+    probT <- sum(read_content['t'])/tot_bases
 
     #find the actual probabilities
     fseq_prob<-prop.table(fseq_count,2)
@@ -95,7 +94,7 @@ overrep_kmer <- function(path,k,nc,nr,output_file=NA){
         dplyr::top_n(1,obsexp_ratio)
     indexes$kmer <- rownames(fseq_count_log)[indexes$row]
     #indexes <- dplyr::select(indexes, col, obsexp_ratio, kmer)
-    colnames(indexes) <- c("row", "pos", "obsexp_ratio", "kmer")
+    colnames(indexes) <- c("row", "position", "obsexp_ratio", "kmer")
     reorder <- indexes[order(-indexes$obsexp_ratio),]
     if(!is.na(output_file)){write.csv(file=output_file,reorder)}
     return(reorder)

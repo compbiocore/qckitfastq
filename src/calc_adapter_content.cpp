@@ -65,15 +65,16 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
   std::map<std::string, CharString> a = read_adapters(adapters);
   StringSet<CharString> needles;
   std::map<int,std::string> needle_map;
+  std::map<std::string, int> adapter_map;
   int i = 0;
   for (std::map<std::string, CharString>::iterator it=a.begin(); it!=a.end(); ++it) {
     appendValue(needles,it->second);
     needle_map.insert(std::pair<int,std::string>(i,it->first));
+    adapter_map.insert(std::pair<std::string,int>(it->first,0));
     i++;
   }
   Pattern<StringSet<CharString>, WuManber> patterns(needles);
-
-  std::map<std::string, int> adapter_map;
+  
   // go thru file and count number of times adapters appear
   gz::igzstream in(infile.c_str());
   std::string line;
@@ -84,12 +85,7 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
       Finder<CharString> finder(l);
       while(find(finder,patterns)) {
         std::string adapter = needle_map.at(position(patterns));
-        if(adapter_map.find(adapter) != adapter_map.end()) {
-          adapter_map.at(adapter) += 1;
-        }
-        else{
-          adapter_map.insert(std::pair<std::string,int>(adapter,1));
-        }
+        adapter_map.at(adapter) += 1;
       }
     }
     // line 4 has quality score, then on to next read of head/seq/+/quality so cycle thru
@@ -114,5 +110,6 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
     }
     line_count++;
   }
+  adapter_map.insert(std::pair<std::string,int>("num_reads",line_count)); // get num reads for later
   return adapter_map;
 }

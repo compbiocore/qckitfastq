@@ -28,6 +28,6 @@ the length of the sequence and the top 2 overrepresented kmers, but this can be 
 \examples{
 infile <- system.file("extdata", "10^5_reads_test.fq.gz",
     package = "qckitfastq")
-over_km <- overrep_kmer(infile,k=4,nc=100,nr=25000)
+over_km <- overrep_kmer(infile,k=4)
 plot_overrep_kmer(over_km)
 }
