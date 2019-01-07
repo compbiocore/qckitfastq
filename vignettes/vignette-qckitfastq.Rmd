@@ -1,11 +1,13 @@
 ---
 title: "Introduction to qckitfastq"
-author: "Wenyue Xing and August Guang"
+author: "August Guang and Wenyue Xing"
 output: pdf_document
 package: qckitfastq
 bibliography: qckitfastq.bib
-vignette: |
-  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+vignette: >
+  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, setup, include=FALSE}
