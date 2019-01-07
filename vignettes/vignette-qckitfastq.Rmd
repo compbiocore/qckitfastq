@@ -1,12 +1,11 @@
 ---
 title: "Introduction to qckitfastq"
 author: "Wenyue Xing and August Guang"
+output: pdf_document
 package: qckitfastq
-vignette: >
-  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 bibliography: qckitfastq.bib
+vignette: |
+  %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, setup, include=FALSE}
@@ -94,7 +93,7 @@ plot_per_base_quality(bs)
 
 The *per_read_quality* function compute the mean quality score per read. We can then use *plot_per_read_quality* to generate a histogram of this statistics. The histogram is considered an indication of good data quality if the majority of reads have mean quality scores greater than 30. If a significant portion of reads have quality scores less than 30, then the data most likely has issues that need to be examined.
 
-```{r, per_read_sequence_quality}
+```{r, per_read_quality}
 prq <- per_read_quality(infile)
 kable(head(prq)) %>% kable_styling()
 plot_per_read_quality(prq)
@@ -152,6 +151,15 @@ plot_overrep_kmer(overkm)
 ```
 
 ## Adapter content {#adapter-content}  
+
+*adapter_content* computes the counts of a pre-determined set of adapter sequences and reports back any exceeding 0.1% of the total reads, sorted from most abundant to least abundant. *plot_adapter_content* creates a bar plot of the top 5 most common adapters. In this instance we will use a different file to compute adapter content, as the first example has no adapter contamination.
+
+```{r, adapter_content}
+infile2 <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
+ac_sorted <- adapter_content(infile2)
+kable(head(ac_sorted)) %>% kable_styling()
+plot_adapter_content(ac_sorted)
+```
 
 ```{r, eval=FALSE, include=FALSE}
 ### Benchmarking

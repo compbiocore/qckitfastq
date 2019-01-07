@@ -18,6 +18,9 @@ plot_adapter_content <- function(ac_sorted,output_file=NA){
     p <- ggplot2::ggplot(data=df,ggplot2::aes(x=.data$Adapters,y=.data$Counts)) +
       ggplot2::geom_bar(stat="identity") +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) +
-      ggplot2::ggtitle("Top 5 adapters and their counts in reads file") 
+      ggplot2::ggtitle("Top 5 adapters and their counts in reads file") +
+        ggplot2::xlab("Adapters") +
+        ggplot2::ylab("Counts")
     if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p)}
+    return(p)
 }
