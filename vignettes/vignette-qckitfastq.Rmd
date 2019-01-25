@@ -4,6 +4,7 @@ author: "August Guang and Wenyue Xing"
 output: pdf_document
 package: qckitfastq
 bibliography: qckitfastq.bib
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{Quality control analysis and visualization using qckitfastq}
   %\VignetteEngine{knitr::rmarkdown}
@@ -154,13 +155,15 @@ plot_overrep_kmer(overkm)
 
 ## Adapter content {#adapter-content}  
 
-*adapter_content* computes the counts of a pre-determined set of adapter sequences and reports back any exceeding 0.1% of the total reads, sorted from most abundant to least abundant. *plot_adapter_content* creates a bar plot of the top 5 most common adapters. In this instance we will use a different file to compute adapter content, as the first example has no adapter contamination.
+*adapter_content* computes the counts of a pre-determined set of adapter sequences and reports back any exceeding 0.1% of the total reads, sorted from most abundant to least abundant. *plot_adapter_content* creates a bar plot of the top 5 most common adapters. In this instance we will use a different file to compute adapter content, as the first example has no adapter contamination. This function is only available for macOS/Linux due to a dependency on RSeqAn/C++14, which is not supported on current Bioconductor Windows build machines.
 
 ```{r, adapter_content}
-infile2 <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
-ac_sorted <- adapter_content(infile2)
-kable(head(ac_sorted)) %>% kable_styling()
-plot_adapter_content(ac_sorted)
+if(.Platform$OS.type != "windows") {
+    infile2 <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
+    ac_sorted <- adapter_content(infile2)
+    kable(head(ac_sorted)) %>% kable_styling()
+    plot_adapter_content(ac_sorted)
+}
 ```
 
 ```{r, eval=FALSE, include=FALSE}

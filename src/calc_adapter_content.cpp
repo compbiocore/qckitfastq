@@ -49,7 +49,7 @@ std::map<std::string, CharString> read_adapters(std::string adapter_file) {
   return(adapters);
 }
 
-//' Compute adapter content in reads.
+//' Compute adapter content in reads. This function is only available for macOS/Linux.
 //' 
 //' @param infile filepath to fastq sequence
 //' @param adapters filepath to adapters
@@ -64,7 +64,9 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
   // read adapter file and turn into set of Pattern objects to search for
   std::map<std::string, CharString> a = read_adapters(adapters);
   StringSet<CharString> needles;
+  // needle_map is map of index corresponding to adapter sequence string for use with SeqAn finder algorithm
   std::map<int,std::string> needle_map;
+  // adapter_map is map of adapter name and counts associated
   std::map<std::string, int> adapter_map;
   int i = 0;
   for (std::map<std::string, CharString>::iterator it=a.begin(); it!=a.end(); ++it) {
@@ -94,21 +96,6 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
     } else {
       count++;
     }
-    // Reduce map after 1^e6 reads
-    if (line_count % buffer_size == 0) {
-      std::map<std::string, int>::iterator ad_it = adapter_map.begin();
-      while (ad_it != adapter_map.end()) {
-        if (ad_it->second <= min_size) {
-          std::map<std::string, int>::iterator erase_it = ad_it;
-          ad_it++;
-          adapter_map.erase(erase_it);
-        } else {
-          ++ad_it;
-        }
-
-      }
-    }
-    line_count++;
   }
   adapter_map.insert(std::pair<std::string,int>("num_reads",line_count)); // get num reads for later
   return adapter_map;

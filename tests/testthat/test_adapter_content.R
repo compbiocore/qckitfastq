@@ -29,7 +29,11 @@ testthat::test_that("Test calc_adapter_content",{
 testthat::test_that("Test adapter_content",{
   
   infile <- system.file("extdata", "test.fq.gz", package="qckitfastq")
-  adapters <- adapter_content(infile)
+  if(.Platform$OS.type == "windows") {
+      testthat::expect_error(adapter_content(infile))
+  }
+  else {
+    adapters <- adapter_content(infile)
   
   # Max should be 5 from Illumina Paired End Adapter 1 and others with the same adapter sequence
   testthat::expect_equal(as.numeric(adapters[1]), 5)
@@ -40,4 +44,5 @@ testthat::test_that("Test adapter_content",{
   adapters2 <- adapter_content(infile2)
   # All entries in table should be greater than 0.001*25000=25
   testthat::expect_gt(min(adapters2),25)
+  }
 })
