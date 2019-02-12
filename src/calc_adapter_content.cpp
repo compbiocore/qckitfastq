@@ -11,11 +11,10 @@
 #define STRICT_R_HEADERS
 #include <Rcpp.h>
 
-// [[Rcpp::depends(RSeqAn)]]
-
 using namespace Rcpp;
 
 #ifndef __WIN32
+// [[Rcpp::depends(RSeqAn)]]
 using namespace seqan;
 
 // Read adapter file and turn into set of keys.

@@ -1,3 +1,5 @@
 sed -i 's|, RSeqAn||' DESCRIPTION
 sed -i 's|rlang,|rlang|' DESCRIPTION
-sed -i '|RSeqAn|d' DESCRIPTION
+sed -i '/RSeqAn/d' DESCRIPTION
+sed -i '/RSeqAn/d' NAMESPACE
+sed -i '/RSeqAn/d' src/calc_adapter_content.cpp
