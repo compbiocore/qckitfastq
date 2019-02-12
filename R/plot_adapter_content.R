@@ -4,14 +4,17 @@
 #' @return Barplot of top 5 most frequent adapter sequences.
 #'
 #' @examples
-#'
+#' if(.Platform$OS.type != "windows") {
 #' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 #' ac_sorted <- adapter_content(infile)
 #' plot_adapter_content(ac_sorted)
-#' 
+#' }
 #' @importFrom utils write.csv
 #' @export
 plot_adapter_content <- function(ac_sorted,output_file=NA){
+    if(.Platform$OS.type == "windows") {
+        stop("This function is not available on Windows due to the lack of C++14 support, sorry.")
+    }
     ac <- ac_sorted[seq_len(5)]
     df<-data.frame(names(ac),as.numeric(ac))
     names(df) <- c("Adapters", "Counts")

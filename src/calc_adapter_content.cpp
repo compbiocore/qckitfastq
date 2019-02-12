@@ -1,10 +1,12 @@
-#include <seqan/find.h>
-#include <seqan/sequence.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include "gzstream.h"
 #include "zlib.h"
+#ifndef __WIN32
+#include <seqan/find.h>
+#include <seqan/sequence.h>
+#endif
 
 #define STRICT_R_HEADERS
 #include <Rcpp.h>
@@ -12,6 +14,8 @@
 // [[Rcpp::depends(RSeqAn)]]
 
 using namespace Rcpp;
+
+#ifndef __WIN32
 using namespace seqan;
 
 // Read adapter file and turn into set of keys.
@@ -48,6 +52,7 @@ std::map<std::string, CharString> read_adapters(std::string adapter_file) {
   }
   return(adapters);
 }
+#endif
 
 //' Compute adapter content in reads. This function is only available for macOS/Linux.
 //' 
@@ -55,12 +60,15 @@ std::map<std::string, CharString> read_adapters(std::string adapter_file) {
 //' @param adapters filepath to adapters
 //' @return map object with adapter names as the key and the number of times the adapters appears in the reads as the value
 //' @examples
+//' if(.Platform$OS.type != "windows") {
 //' adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
 //' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 //' content <- calc_adapter_content(infile, adapter_file)
+//' }
 //' @export
 // [[Rcpp::export]]
 std::map<std::string, int> calc_adapter_content(std::string infile, std::string adapters) {
+#ifndef __WIN32
   // read adapter file and turn into set of Pattern objects to search for
   std::map<std::string, CharString> a = read_adapters(adapters);
   StringSet<CharString> needles;
@@ -80,7 +88,7 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
   // go thru file and count number of times adapters appear
   gz::igzstream in(infile.c_str());
   std::string line;
-  int count = 1, line_count=1, buffer_size=1000000, min_size=5;
+  int count = 1, line_count=1;
   while (std::getline(in, line)) {
     if(count==2) { // line 2 has seq
       CharString l(line.c_str());
@@ -99,4 +107,8 @@ std::map<std::string, int> calc_adapter_content(std::string infile, std::string 
   }
   adapter_map.insert(std::pair<std::string,int>("num_reads",line_count)); // get num reads for later
   return adapter_map;
+#else
+  Rcerr << "This function has been disabled for Windows.";
+  throw "Not for Windows";
+#endif
 }

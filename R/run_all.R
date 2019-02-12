@@ -45,8 +45,11 @@ run_all<- function(infile,dir){
   plot_overrep_reads(overrep_reads,output_file=file.path(dir,"overrep_reads.png"))
   
   # adapter content
+  if(.Platform$OS.type != "windows") {
   ac_sorted <- adapter_content(infile,output_file=file.path(dir,"adapter_content.csv"))
   plot_adapter_content(ac_sorted,output_file=file.path(dir,"adapter_content.png"))
+  }
+  else { print("adapter_content not available for Windows; skipping") }
   }
 
 

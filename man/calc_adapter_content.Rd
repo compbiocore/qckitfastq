@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{calc_adapter_content}
 \alias{calc_adapter_content}
-\title{Compute adapter content in reads.}
+\title{Compute adapter content in reads. This function is only available for macOS/Linux.}
 \usage{
 calc_adapter_content(infile, adapters)
 }
@@ -15,10 +15,12 @@ calc_adapter_content(infile, adapters)
 map object with adapter names as the key and the number of times the adapters appears in the reads as the value
 }
 \description{
-Compute adapter content in reads.
+Compute adapter content in reads. This function is only available for macOS/Linux.
 }
 \examples{
+if(.Platform$OS.type != "windows") {
 adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
 infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 content <- calc_adapter_content(infile, adapter_file)
+}
 }

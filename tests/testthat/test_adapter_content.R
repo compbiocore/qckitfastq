@@ -1,5 +1,6 @@
+if(.Platform$OS.type != "windows") {
 testthat::test_that("Test calc_adapter_content",{
-
+    
   adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
   infile <- system.file("extdata", "test.fq.gz", package="qckitfastq")
   content <- calc_adapter_content(infile, adapter_file)
@@ -25,6 +26,7 @@ testthat::test_that("Test calc_adapter_content",{
   # Illumina paired end sequencing primer 2 has 3 mismatches
   testthat::expect_equal(count("Illumina Paired End Sequencing Primer 2"), 0)
 })
+}
 
 testthat::test_that("Test adapter_content",{
   

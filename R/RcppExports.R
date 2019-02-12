@@ -7,9 +7,11 @@
 #' @param adapters filepath to adapters
 #' @return map object with adapter names as the key and the number of times the adapters appears in the reads as the value
 #' @examples
+#' if(.Platform$OS.type != "windows") {
 #' adapter_file <- system.file("extdata", "adapters.txt", package = "qckitfastq")
 #' infile <- system.file("extdata", "test.fq.gz", package = "qckitfastq")
 #' content <- calc_adapter_content(infile, adapter_file)
+#' }
 #' @export
 calc_adapter_content <- function(infile, adapters) {
     .Call('_qckitfastq_calc_adapter_content', PACKAGE = 'qckitfastq', infile, adapters)

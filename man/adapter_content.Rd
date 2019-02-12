@@ -5,7 +5,8 @@
 \title{Creates a sorted from most frequent to least frequent abundance table
 of adapters that are found to be present in the reads at greater than
 0.1\% of the reads. If output_file is selected then will save the
-entire set of adapters and counts.}
+entire set of adapters and counts. Only available for macOS/Linux due to dependency
+on C++14.}
 \usage{
 adapter_content(infile, adapter_file = system.file("extdata",
   "adapters.txt", package = "qckitfastq"), output_file = NA)
@@ -24,10 +25,13 @@ Sorted table of adapters and counts.
 Creates a sorted from most frequent to least frequent abundance table
 of adapters that are found to be present in the reads at greater than
 0.1\% of the reads. If output_file is selected then will save the
-entire set of adapters and counts.
+entire set of adapters and counts. Only available for macOS/Linux due to dependency
+on C++14.
 }
 \examples{
+if(.Platform$OS.type != "windows") {
 infile <- system.file("extdata","test.fq.gz",
     package = "qckitfastq")
 adapter_content(infile)[1:5]
+}
 }
