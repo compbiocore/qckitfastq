@@ -37,7 +37,7 @@ in the returned data frame along with their position in the sequence.
 }
 \examples{
 
-infile <-system.file("extdata", "10^5_reads_test.fq.gz",
+infile <-system.file("extdata", "test.fq.gz",
     package = "qckitfastq")
 overrep_kmer(infile,k=4)
 

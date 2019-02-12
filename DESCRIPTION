@@ -24,8 +24,8 @@ Imports:
   stats,
   utils,
   Rcpp,
-  RSeqAn,
-  rlang
+  rlang,
+  RSeqAn
 Suggests: knitr,
     rmarkdown,
     kableExtra,

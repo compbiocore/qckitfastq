@@ -15,7 +15,7 @@
 #' @return Data frame with columns: Position (in read), Obsexp_ratio, & Kmer
 #' @examples
 #'
-#' infile <-system.file("extdata", "10^5_reads_test.fq.gz",
+#' infile <-system.file("extdata", "test.fq.gz",
 #'     package = "qckitfastq")
 #' overrep_kmer(infile,k=4)
 #'

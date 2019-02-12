@@ -1,0 +1,3 @@
+sed -i 's|, RSeqAn||' DESCRIPTION
+sed -i 's|rlang,|rlang|' DESCRIPTION
+sed -i '|RSeqAn|d' DESCRIPTION
