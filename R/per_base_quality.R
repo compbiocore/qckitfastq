@@ -21,6 +21,6 @@ per_base_quality <- function(infile,output_file=NA){
                                  median = qs$q50_per_position,
                                  q75 = qs$q75_per_position,
                                  q90 = qs$q90_per_position)
-  if (!is.na(output_file)) write.csv(file=output_file,bs)
+  if (!is.na(output_file)) write.csv(file=output_file,bs,row.names=FALSE)
   return(bs)
 }

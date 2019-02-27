@@ -30,7 +30,7 @@ adapter_content <- function(infile,
     if (!is.na(output_file)){
         ac_df <- data.frame(adapter=names(ac),count=ac)
         rownames(ac_df) <- seq(1, nrow(ac_df))
-        write.csv(file=output_file,ac_df)
+        write.csv(file=output_file,ac_df,row.names=FALSE)
         }
     ac_table <- ac[ac>0.001*nr]
     ac_sorted <- sort(ac_table,decreasing=TRUE)

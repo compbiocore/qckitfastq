@@ -12,6 +12,6 @@ per_read_quality <- function(infile,output_file=NA){
     qs <- qual_score_per_read(infile)$mu_per_read
     score_sequence_mean <- data.frame(read = seq(1,length(qs)),
                                       sequence_mean = qs)
-    if (!is.na(output_file)) write.csv(file=output_file,score_sequence_mean)
+    if (!is.na(output_file)) write.csv(file=output_file,score_sequence_mean,row.names=FALSE)
     return(score_sequence_mean)
 }

@@ -15,6 +15,6 @@ overrep_reads <- function(infile,output_file=NA){
   over_rep_table <- sort(over_rep[over_rep>0.001*sum(over_rep)],decreasing=TRUE)
   overrep_df <- data.frame(read_sequence=names(over_rep_table),count=over_rep_table)
   rownames(overrep_df) <- seq(1, nrow(overrep_df))
-  if (!is.na(output_file)){write.csv(file=output_file,overrep_df)}
+  if (!is.na(output_file)){write.csv(file=output_file,overrep_df,row.names=FALSE)}
   return(overrep_df)
 }

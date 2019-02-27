@@ -16,6 +16,6 @@ read_length <- function(fseq, output_file=NA) {
     sl <- seqTools::seqLenCount(fseq)
     read_len <- data.frame(read_length = seq(1,length(sl)),
                            num_reads = as.vector(sl))
-    if (!is.na(output_file)){write.csv(file=output_file,read_len)}
+    if (!is.na(output_file)){write.csv(file=output_file,read_len,row.names=FALSE)}
     return(read_len)
 }

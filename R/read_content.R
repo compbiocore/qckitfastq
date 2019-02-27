@@ -30,6 +30,6 @@ read_content <- function(fseq, output_file=NA) {
     nucCount_seq <- seqTools::nucFreq(fseq,1)
     content <- nucCount_seq[c("a","c","t","g","n"),]
     df <- data.frame(position=seq(1,ncol(content)),as.data.frame(t(content)))
-    if (!is.na(output_file)) write.csv(file=output_file,df)
+    if (!is.na(output_file)) write.csv(file=output_file,df,row.names=FALSE)
     return(df)
 }

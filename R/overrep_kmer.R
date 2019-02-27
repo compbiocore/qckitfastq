@@ -96,6 +96,6 @@ overrep_kmer <- function(infile,k,output_file=NA){
     #indexes <- dplyr::select(indexes, col, obsexp_ratio, kmer)
     colnames(indexes) <- c("row", "position", "obsexp_ratio", "kmer")
     reorder <- indexes[order(-indexes$obsexp_ratio),]
-    if(!is.na(output_file)){write.csv(file=output_file,reorder)}
+    if(!is.na(output_file)){write.csv(file=output_file,reorder,row.names=FALSE)}
     return(reorder)
 }
