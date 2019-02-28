@@ -130,7 +130,7 @@ plot_read_content(rc)
 
 ```{r, kmer_count}
 km <- kmer_count(infile,k=6)
-knitr::kable(km[1:20,1:10]) %>% kable_styling()
+kable(head(km)) %>% kable_styling()
 ```
 
 ## Overrepresented reads {#overrep-reads}

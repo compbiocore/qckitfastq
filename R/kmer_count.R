@@ -11,7 +11,6 @@
 #' infile <- system.file("extdata", "10^5_reads_test.fq.gz",
 #'     package = "qckitfastq")
 #' km<-kmer_count(infile,k=4)
-#' km[1:20,1:10]
 #' 
 #' @export
 kmer_count <- function(infile,k,output_file=NA){
@@ -20,5 +19,5 @@ kmer_count <- function(infile,k,output_file=NA){
     df$kmer <- rownames(df)
     tidy_fseq <- gather(df,head(colnames(df),-1),key="position",value="count")
     if(!is.na(output_file)){write.csv(file=output_file,tidy_fseq,row.names=FALSE)}
-    return(fseq_count)
+    return(tidy_fseq)
 }

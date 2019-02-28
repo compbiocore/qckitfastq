@@ -12,20 +12,21 @@ SystemRequirements: GNU make
 biocViews: Software,QualityControl,Sequencing
 LinkingTo: Rcpp, RSeqAn
 Imports:
+  dplyr,
   magrittr,
   ggplot2,
-  dplyr,
   seqTools,
   zlibbioc, 
   data.table,
   reshape2,
   grDevices,
   graphics,
-  stats,
-  utils,
   Rcpp,
   rlang,
-  RSeqAn
+  RSeqAn,
+  stats,
+  tidyr,
+  utils
 Biarch: True
 Suggests: knitr,
     rmarkdown,

@@ -12,22 +12,14 @@
 #' @importFrom grDevices pdf dev.off
 #' @importFrom graphics plot rug
 #' @importFrom stats density
-#' @importFrom ggplot2 ggplot geom_density geom_rug aes ggtitle ylab xlab
+#' @importFrom ggplot2 ggplot geom_density geom_rug aes ggtitle ylab xlab ggsave
 #' @export
 plot_overrep_reads <- function(overrep_reads,output_file=NA){
-  if (!is.na(output_file)){
-      pdf(file = output_file)
-      ggplot(data=overrep_reads, aes(x=count)) + geom_density() +
-          geom_rug(data=overrep_reads[seq_len(5),]) +
-          ggtitle("Overrepresented Sequence Histogram with top 5 rug") +
-          ylab("Density") +
-          xlab("Sequence Count")
-      dev.off()
-  }else{
-      ggplot(data=overrep_reads, aes(x=count)) + geom_density() +
-          geom_rug(data=overrep_reads[seq_len(5),]) +
-          ggtitle("Overrepresented Sequence Histogram with top 5 rug") +
-          ylab("Density") +
-          xlab("Sequence Count")
-  }
+  p <- ggplot(data=overrep_reads, aes(x=count)) + geom_density() +
+      geom_rug(data=overrep_reads[seq_len(5),]) +
+      ggtitle("Overrepresented Sequence Histogram with top 5 rug") +
+      ylab("Density") +
+      xlab("Sequence Count")
+  if (!is.na(output_file)){ggsave(output_file,p)}
+  return(p)
 }

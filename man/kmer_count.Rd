@@ -24,6 +24,5 @@ Return kmer count per sequence for the length of kmer desired
 infile <- system.file("extdata", "10^5_reads_test.fq.gz",
     package = "qckitfastq")
 km<-kmer_count(infile,k=4)
-km[1:20,1:10]
 
 }
