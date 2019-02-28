@@ -13,7 +13,7 @@
 #' @export
 run_all<- function(infile,dir){
   header_tmp <- strsplit(infile, "\\.fq|\\.fastq")[[1]][1]
-  header <- strsplit(header_tmp, "/(?=[^/]+$)",perl=TRUE)[[1]][2]
+  header <- paste0(strsplit(header_tmp, "/(?=[^/]+$)",perl=TRUE)[[1]][2],"_")
   fseq <- seqTools::fastqq(infile)
   
   read_len <- read_length(fseq, output_file=file.path(dir,paste0(header,"read_length.csv")))
