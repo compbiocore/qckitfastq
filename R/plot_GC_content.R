@@ -10,12 +10,13 @@
 #' gc_df<-GC_content(infile)
 #' plot_GC_content(gc_df)
 #'
+#' @importFrom ggplot2 ggplot geom_col scale_x_discrete aes labs
 #' @export
 
 plot_GC_content <- function(gc_df,output_file=NA){
-  p1 <- ggplot2::ggplot(data=gc_df, ggplot2::aes(.data$mean_GC)) + 
-               ggplot2::geom_histogram(breaks=seq(0, 100, by=1))
-  p_GC <- p1 + ggplot2::labs(title = "Histograms for GC content percentage", x= "Mean GC content percentage" , y = "Frequency")
-  if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p_GC)}
-  return(p_GC)
+  p <- ggplot(data=gc_df) + geom_col(aes(x=.data$GC_content,y=.data$count)) +
+      scale_x_discrete(breaks=seq(0,100,by=10)) +
+      labs(title="Binned read counts by GC content percentage", x = "GC content percentage", y = "Count")
+  if (!is.na(output_file)){ggplot2::ggsave(file=output_file,p)}
+  return(p)
 }
