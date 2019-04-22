@@ -3,6 +3,7 @@ site_author:      August Guang
 repo_url:         https://github.com/compbiocore/qckitfastq
 site_description: Documentation for the qckitfastq R package.
 site_url: https://compbiocore.github.io/ #this is the main site!
+google_analytics: ['UA-115983496-2', 'compbiocore.github.io']
 
 theme:
   name: material
