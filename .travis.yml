@@ -6,26 +6,12 @@ matrix:
       cache: packages
       bioc_check: true
       os: linux
-      addons:
-        apt:
-          packages:
-            - g++-6
-          sources:
-            - ubuntu-toolchain-r-test
-      env:
-        - MATRIX_EVAL="CXX=g++-6 && CC=gcc-6"
-      before_install:
-        - eval "${MATRIX_EVAL}"
-        - bash configure.sh
-        - cat DESCRIPTION
-        - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
-        - gcc --version
-        - g++ --version
+      #r_build_args: '--no-build-vignettes'
+      #r_check_args: '--ignore-vignettes'
       r_packages:
         - covr
       after_success:
         - Rscript -e 'library(covr); codecov()'
-
     - stage: deploy # this block builds and deploys the docs, it's in Python.
       language: python
       install:
@@ -43,7 +29,7 @@ matrix:
         - R -e 'remove.packages(c("curl","httr")); install.packages(c("curl", "httr"), repos="http://cran.mtu.edu"); Sys.setenv(CURL_CA_BUNDLE="/utils/microsoft-r-open-3.5.0/lib64/R/lib/microsoft-r-cacert.pem")'
         - R -e 'install.packages("Rd2md", repos="http://cran.mtu.edu")'
         - R -e 'install.packages("kableExtra", repos="http://cran.mtu.edu")'
-        - R -e 'source("https://bioconductor.org/biocLite.R"); biocLite("BiocInstaller"); library(devtools); install_github("compbiocore/qckitfastq",build_vignettes=FALSE)'
+        - R -e 'install.packages("BiocManager", repos="htpp://cran.mtu.edu"); library(devtools); install_github("compbiocore/qckitfastq",build_vignettes=FALSE)'
       before_script:
         - source activate test-env
       script:
