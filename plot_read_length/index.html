@@ -1,0 +1,858 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentation for the qckitfastq R package.">
+      
+      
+        <link rel="canonical" href="https://compbiocore.github.io/plot_read_length/">
+      
+      
+        <meta name="author" content="August Guang">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>`plot_read_length`: Plot a histogram of the number of reads with each read length. - Computational Biology Core - Brown University</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../styles/dark_mode.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#plot_read_length-plot-a-histogram-of-the-number-of-reads-with-each-read-length" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://compbiocore.github.io/" title="Computational Biology Core - Brown University" class="md-header-nav__button md-logo">
+          
+            <img src="../images/cbc-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Computational Biology Core - Brown University
+              </span>
+              <span class="md-header-nav__topic">
+                `plot_read_length`: Plot a histogram of the number of reads with each read length.
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/qckitfastq/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://compbiocore.github.io/" title="Computational Biology Core - Brown University" class="md-nav__button md-logo">
+      
+        <img src="../images/cbc-logo.svg" width="48" height="48">
+      
+    </a>
+    Computational Biology Core - Brown University
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/qckitfastq/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../vignette-qckitfastq/" title="Vignette" class="md-nav__link">
+      Vignette
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Functions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Functions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../adapter_content/" title="`adapter_content`: Creates a sorted from most frequent to least frequent abundance table" class="md-nav__link">
+      `adapter_content`: Creates a sorted from most frequent to least frequent abundance table
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_adapter_content/" title="`calc_adapter_content`: Compute adapter content in reads. This function is only available for macOS/Linux." class="md-nav__link">
+      `calc_adapter_content`: Compute adapter content in reads. This function is only available for macOS/Linux.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_format_score/" title="`calc_format_score`: Calculate score based on Illumina format" class="md-nav__link">
+      `calc_format_score`: Calculate score based on Illumina format
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_over_rep_seq/" title="`calc_over_rep_seq`: Calculate sequece counts for each unique sequence and create a table with unique sequences" class="md-nav__link">
+      `calc_over_rep_seq`: Calculate sequece counts for each unique sequence and create a table with unique sequences
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dimensions/" title="`dimensions`: Extract the number of columns and rows for a FASTQ file using seqTools." class="md-nav__link">
+      `dimensions`: Extract the number of columns and rows for a FASTQ file using seqTools.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../find_format/" title="`find_format`: Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8)," class="md-nav__link">
+      `find_format`: Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GC_content/" title="`GC_content`: Calculates GC content percentage for each read in the dataset." class="md-nav__link">
+      `GC_content`: Calculates GC content percentage for each read in the dataset.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gc_per_read/" title="`gc_per_read`: Calculate GC nucleotide sequence content per read of the FASTQ gzipped file" class="md-nav__link">
+      `gc_per_read`: Calculate GC nucleotide sequence content per read of the FASTQ gzipped file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kmer_count/" title="`kmer_count`: Return kmer count per sequence for the length of kmer desired" class="md-nav__link">
+      `kmer_count`: Return kmer count per sequence for the length of kmer desired
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overrep_kmer/" title="`overrep_kmer`: Generate overrepresented kmers of length k based on their" class="md-nav__link">
+      `overrep_kmer`: Generate overrepresented kmers of length k based on their
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overrep_sequence.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../per_base_quality/" title="`per_base_quality`: Compute the mean, median, and percentiles of quality score per base." class="md-nav__link">
+      `per_base_quality`: Compute the mean, median, and percentiles of quality score per base.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_adapter_content/" title="`plot_adapter_content`: Creates a bar plot of the top 5 most present adapter sequences." class="md-nav__link">
+      `plot_adapter_content`: Creates a bar plot of the top 5 most present adapter sequences.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_GC_content/" title="`plot_GC_content`: Generate mean GC content histogram." class="md-nav__link">
+      `plot_GC_content`: Generate mean GC content histogram.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_outliers/" title="`plot_outliers`: Determine how to plot outliers. Heuristic used is whether their obsexp_ratio differs by more than 1" class="md-nav__link">
+      `plot_outliers`: Determine how to plot outliers. Heuristic used is whether their obsexp_ratio differs by more than 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_overrep_kmer/" title="`plot_overrep_kmer`: Create a box plot of the log2(observed/expected) ratio across the length of the sequence as well as top" class="md-nav__link">
+      `plot_overrep_kmer`: Create a box plot of the log2(observed/expected) ratio across the length of the sequence as well as top
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_overrep_seq.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_per_base_quality/" title="`plot_per_base_quality`: Generate a boxplot of the per position quality score." class="md-nav__link">
+      `plot_per_base_quality`: Generate a boxplot of the per position quality score.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_perseq_quality.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        `plot_read_length`: Plot a histogram of the number of reads with each read length.
+      </label>
+    
+    <a href="./" title="`plot_read_length`: Plot a histogram of the number of reads with each read length." class="md-nav__link md-nav__link--active">
+      `plot_read_length`: Plot a histogram of the number of reads with each read length.
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" title="Arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#value" title="Value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author" title="Author" class="md-nav__link">
+    Author
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_sequence_content.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../qual_score_per_read/" title="`qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file" class="md-nav__link">
+      `qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run_all/" title="`run_all`: Will run all functions in the qckitfastq suite and save the data frames" class="md-nav__link">
+      `run_all`: Will run all functions in the qckitfastq suite and save the data frames
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sequence_content.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" title="Arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#value" title="Value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author" title="Author" class="md-nav__link">
+    Author
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/compbiocore/qckitfastq/edit/master/docs/plot_read_length.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="plot_read_length-plot-a-histogram-of-the-number-of-reads-with-each-read-length"><code>plot_read_length</code>: Plot a histogram of the number of reads with each read length.</h1>
+<h2 id="description">Description</h2>
+<p>Plot a histogram of the number of reads with each read length.</p>
+<h2 id="usage">Usage</h2>
+<div class="codehilite"><pre><span></span><span class="nf">plot_read_length</span><span class="p">(</span><span class="n">read_len</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="arguments">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read_len</code></td>
+<td>Data frame of read lengths and number of reads with that length.</td>
+</tr>
+<tr>
+<td><code>output_file</code></td>
+<td>File to save plot to. Default is NA, i.e. do not write to file.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="value">Value</h2>
+<p>A histogram of the read length distribution.</p>
+<h2 id="author">Author</h2>
+<p>Wenyue Xing, wenyue_xing@brown.edu , August Guang, august_guang@brown.edu </p>
+<h2 id="examples">Examples</h2>
+<p>```r </p>
+<p>infile &lt;- system.file("extdata", "10^5_reads_test.fq.gz", package = "qckitfastq")
+ fseq &lt;- seqTools::fastqq(infile,k=6)
+ read_len &lt;- read_length(fseq)
+ plot_read_length(read_len)</p>
+<p>``` </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../plot_per_base_quality/" title="`plot_per_base_quality`: Generate a boxplot of the per position quality score." class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                `plot_per_base_quality`: Generate a boxplot of the per position quality score.
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../qual_score_per_read/" title="`qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                `qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-115983496-2","compbiocore.github.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1966 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Documentation for the qckitfastq R package.">
+      
+      
+        <link rel="canonical" href="https://compbiocore.github.io/vignette-qckitfastq/">
+      
+      
+        <meta name="author" content="A">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>Introduction to qckitfastq</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../styles/dark_mode.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../#introduction" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://compbiocore.github.io/" title="Computational Biology Core - Brown University" class="md-header-nav__button md-logo">
+          
+            <img src="../images/cbc-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Computational Biology Core - Brown University
+              </span>
+              <span class="md-header-nav__topic">
+                Vignette
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/qckitfastq/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://compbiocore.github.io/" title="Computational Biology Core - Brown University" class="md-nav__button md-logo">
+      
+        <img src="../images/cbc-logo.svg" width="48" height="48">
+      
+    </a>
+    Computational Biology Core - Brown University
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/qckitfastq/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Vignette
+      </label>
+    
+    <a href="./" title="Vignette" class="md-nav__link md-nav__link--active">
+      Vignette
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-qckitfastq" title="Why use qckitfastq?" class="md-nav__link">
+    Why use qckitfastq?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Functions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Functions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../adapter_content/" title="`adapter_content`: Creates a sorted from most frequent to least frequent abundance table" class="md-nav__link">
+      `adapter_content`: Creates a sorted from most frequent to least frequent abundance table
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_adapter_content/" title="`calc_adapter_content`: Compute adapter content in reads. This function is only available for macOS/Linux." class="md-nav__link">
+      `calc_adapter_content`: Compute adapter content in reads. This function is only available for macOS/Linux.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_format_score/" title="`calc_format_score`: Calculate score based on Illumina format" class="md-nav__link">
+      `calc_format_score`: Calculate score based on Illumina format
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../calc_over_rep_seq/" title="`calc_over_rep_seq`: Calculate sequece counts for each unique sequence and create a table with unique sequences" class="md-nav__link">
+      `calc_over_rep_seq`: Calculate sequece counts for each unique sequence and create a table with unique sequences
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dimensions/" title="`dimensions`: Extract the number of columns and rows for a FASTQ file using seqTools." class="md-nav__link">
+      `dimensions`: Extract the number of columns and rows for a FASTQ file using seqTools.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../find_format/" title="`find_format`: Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8)," class="md-nav__link">
+      `find_format`: Gets quality score encoding format from the FASTQ file. Return possibilities are Sanger(/Illumina1.8),
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GC_content/" title="`GC_content`: Calculates GC content percentage for each read in the dataset." class="md-nav__link">
+      `GC_content`: Calculates GC content percentage for each read in the dataset.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gc_per_read/" title="`gc_per_read`: Calculate GC nucleotide sequence content per read of the FASTQ gzipped file" class="md-nav__link">
+      `gc_per_read`: Calculate GC nucleotide sequence content per read of the FASTQ gzipped file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kmer_count/" title="`kmer_count`: Return kmer count per sequence for the length of kmer desired" class="md-nav__link">
+      `kmer_count`: Return kmer count per sequence for the length of kmer desired
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overrep_kmer/" title="`overrep_kmer`: Generate overrepresented kmers of length k based on their" class="md-nav__link">
+      `overrep_kmer`: Generate overrepresented kmers of length k based on their
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overrep_sequence.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../per_base_quality/" title="`per_base_quality`: Compute the mean, median, and percentiles of quality score per base." class="md-nav__link">
+      `per_base_quality`: Compute the mean, median, and percentiles of quality score per base.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_adapter_content/" title="`plot_adapter_content`: Creates a bar plot of the top 5 most present adapter sequences." class="md-nav__link">
+      `plot_adapter_content`: Creates a bar plot of the top 5 most present adapter sequences.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_GC_content/" title="`plot_GC_content`: Generate mean GC content histogram." class="md-nav__link">
+      `plot_GC_content`: Generate mean GC content histogram.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_outliers/" title="`plot_outliers`: Determine how to plot outliers. Heuristic used is whether their obsexp_ratio differs by more than 1" class="md-nav__link">
+      `plot_outliers`: Determine how to plot outliers. Heuristic used is whether their obsexp_ratio differs by more than 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_overrep_kmer/" title="`plot_overrep_kmer`: Create a box plot of the log2(observed/expected) ratio across the length of the sequence as well as top" class="md-nav__link">
+      `plot_overrep_kmer`: Create a box plot of the log2(observed/expected) ratio across the length of the sequence as well as top
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_overrep_seq.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_per_base_quality/" title="`plot_per_base_quality`: Generate a boxplot of the per position quality score." class="md-nav__link">
+      `plot_per_base_quality`: Generate a boxplot of the per position quality score.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_perseq_quality.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_read_length/" title="`plot_read_length`: Plot a histogram of the number of reads with each read length." class="md-nav__link">
+      `plot_read_length`: Plot a histogram of the number of reads with each read length.
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plot_sequence_content.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../qual_score_per_read/" title="`qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file" class="md-nav__link">
+      `qual_score_per_read`: Calculate the mean quality score per read of the FASTQ gzipped file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run_all/" title="`run_all`: Will run all functions in the qckitfastq suite and save the data frames" class="md-nav__link">
+      `run_all`: Will run all functions in the qckitfastq suite and save the data frames
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sequence_content.md" title="None" class="md-nav__link">
+      None
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-qckitfastq" title="Why use qckitfastq?" class="md-nav__link">
+    Why use qckitfastq?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/compbiocore/qckitfastq/edit/master/docs/vignette-qckitfastq.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="introduction">Introduction</h1>
+<p><code>qckitfastq</code> is part of the planned <code>qckit</code> suite of packages from the <a href="https://compbiocore.github.io/">Computational Biology Core at Brown University</a>. The long-term goal of the qckit suite is to not only provide comprehensive quality control metrics for common genomics sequencing workflows, but to 1) also provide quality control visualizations for multiple samples through updated modules in multiQC [@Ewels2016], and 2) provide a public quality control database which allows benchmarking of QC metrics for an experiment against other similar experiments. Users of <code>qckitfastq</code> will have the option to enter SRA metadata and create visualizations from our database as well as submit their qc results (if submitting an SRA archive) to our database once these features have been implemented. The purpose of this particular package is to run quality control on FASTQ files from genome sequencing.</p>
+<h2 id="why-use-qckitfastq">Why use qckitfastq?</h2>
+<p>Indeed there are many other quality control packages for FASTQ files existing already, including ShortReads [@shortread] and seqTools [@seqtools] for R and the popular FASTQC [@Andrews2010] Java-based program. qckitfastq offers a few advantages compared to these 3 programs for users who need such features:</p>
+<ol>
+<li>access to raw sequence and quality data</li>
+<li>access to data frames of the quality control results in addition to plots</li>
+<li>quality control analyses of the entire FASTQ file</li>
+<li>fast file processing</li>
+</ol>
+<p>To break it down further, seqTools and ShortReads do not offer as comprehensive set of quality control metrics as qckitfastq and FASTQC. seqTools further provides limited access to raw data and intermediate analysis results. ShortRead provides users with access to the raw sequencing data and intermedite analysis results, but is inefficient on datasets exceeding 10 million reads. FASTQC meanwhile truncates any reads longer than 75bp as well as estimates overall quality only based on the first 100,000 reads of any FASTQ file. <code>qckitfastq</code> does not contain any of these limitations.</p>
+<h1 id="running-qckitfastq">Running qckitfastq</h1>
+<p><code>qckitfastq</code> provides the following metrics:</p>
+<ul>
+<li><a href="#read-length-distribution">Read length distribution</a></li>
+<li><a href="#per-base-quality">Per base read quality</a></li>
+<li><a href="#per-read-quality">Per read read quality</a></li>
+<li><a href="#gc-content">GC content</a></li>
+<li><a href="#nucleotide-read-content">Nucleotide read content</a></li>
+<li><a href="#kmer-count">Kmer count</a></li>
+<li><a href="#overrep-reads">Overrepresented reads</a></li>
+<li><a href="#overrep-kmers">Overrepresented kmers</a></li>
+<li><a href="#adapter-content">Adapter content</a></li>
+</ul>
+<p>The simplest way to run <code>qckitfastq</code> is by executing <code>run_all</code>, a single command that will produce a report of all of the included metrics in a user-provided directory with some default parameters. However, each metric can also be run separately for closer examination.</p>
+<h1 id="individual-metrics">Individual metrics</h1>
+<p>For each individual metric that <code>qckitfastq</code> provides, the user can choose to save either the data frame for the metric, the associated plot, or both.</p>
+<p>Our example in this vignette has 25,000 reads, each 100bp long. The majority of metrics are run on the path to the FASTQ file. Some functions for quality control in this package are simply wrappers around <code>seqTools</code> due to the fact that their functions are fast. We provide these wrappers for the sake of completeness in quality control metrics. These wrappers require processing the FASTQ data through the <code>seqTools::fastqq</code> command first:</p>
+<div class="codehilite"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">qckitfastq</span><span class="p">)</span>
+<span class="n">infile</span> <span class="o">&lt;-</span> <span class="nf">system.file</span><span class="p">(</span><span class="s">&quot;extdata&quot;</span><span class="p">,</span> <span class="s">&quot;10^5_reads_test.fq.gz&quot;</span><span class="p">,</span> <span class="n">package</span> <span class="o">=</span> <span class="s">&quot;qckitfastq&quot;</span><span class="p">)</span>
+<span class="n">fseq</span> <span class="o">&lt;-</span> <span class="n">seqTools</span><span class="o">::</span><span class="nf">fastqq</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="err">##</span><span class="w"> </span><span class="o">[</span><span class="n">fastqq</span><span class="o">]</span><span class="w"> </span><span class="k">File</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;/home/travis/miniconda/envs/test-env/lib/R/library/qckitfastq/extdata/10^5_reads_test.fq.gz&#39;</span><span class="w">   </span><span class="n">done</span><span class="p">.</span><span class="w"></span>
+</pre></div>
+
+
+<h2 id="read-length-distribution">Read length distribution</h2>
+<p><em>read_length</em> generates a data frame of read lengths and the number of reads with that particular read length. <em>plot_read_length</em> generates a distribution plot of the length of all reads. The generated plot would show the sequence length of all the sequences throughout the file. The plot is considered an indication of good data quality is all sequences have roughly the same sequence length with minimal deviations. The following plot shows that all reads in the file have sequence length of 100.</p>
+<div class="codehilite"><pre><span></span><span class="n">read_len</span> <span class="o">&lt;-</span> <span class="nf">read_length</span><span class="p">(</span><span class="n">fseq</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">read_len</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> read_length </th>
+   <th style="text-align:right;"> num_reads </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_read_length</span><span class="p">(</span><span class="n">read_len</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk read_length" src="../figure/read_length-1.png" /></p>
+<h2 id="per-base-quality">Per base quality</h2>
+<p>The <em>per_base_quality</em> function calculates quality score per base summary statistics of 10th, 25th, median, 75th and 90th quantiles across sequences. Currently it treats all quality score encodings as Phred+33. We can use the result to create a quality score distribution per position plot using <em>plot_per_base_quality</em>. As a basic heuristic, quality scores above 28 can be categorized as good (green), those from 20 to 28 can be categorized as medium (yellow), and under 20 is bad (red).</p>
+<div class="codehilite"><pre><span></span><span class="n">bs</span> <span class="o">&lt;-</span> <span class="nf">per_base_quality</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">bs</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> position </th>
+   <th style="text-align:right;"> q10 </th>
+   <th style="text-align:right;"> q25 </th>
+   <th style="text-align:right;"> median </th>
+   <th style="text-align:right;"> q75 </th>
+   <th style="text-align:right;"> q90 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 41 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_per_base_quality</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk per_base_sequence_quality" src="../figure/per_base_sequence_quality-1.png" /></p>
+<h2 id="per-read-quality">Per read quality score</h2>
+<p>The <em>per_read_quality</em> function compute the mean quality score per read. We can then use <em>plot_per_read_quality</em> to generate a histogram of this statistics. The histogram is considered an indication of good data quality if the majority of reads have mean quality scores greater than 30. If a significant portion of reads have quality scores less than 30, then the data most likely has issues that need to be examined.</p>
+<div class="codehilite"><pre><span></span><span class="n">prq</span> <span class="o">&lt;-</span> <span class="nf">per_read_quality</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">prq</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> read </th>
+   <th style="text-align:right;"> sequence_mean </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 39.11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 38.15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 40.35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 40.35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 39.83 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 40.40 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_per_read_quality</span><span class="p">(</span><span class="n">prq</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk per_read_quality" src="../figure/per_read_quality-1.png" /></p>
+<h2 id="gc-content">Per read GC content</h2>
+<p>The <em>GC_content</em> function computes the GC nucleotide content percentage per read, and <em>plot_GC_content</em> plots the distribution of GC content. As a general rule, an indication of good data quality is when the GC content percentage in each read is between 30 and 50% and roughly follows a normal distribution.</p>
+<div class="codehilite"><pre><span></span><span class="n">gc_df</span> <span class="o">&lt;-</span> <span class="nf">GC_content</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">gc_df</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> read </th>
+   <th style="text-align:right;"> mean_GC </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 39 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 38 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_GC_content</span><span class="p">(</span><span class="n">gc_df</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk gc_content" src="../figure/gc_content-1.png" /></p>
+<h2 id="nucleotide-read-content">Per position nucleotide read content</h2>
+<p><em>read_content</em> calculates the total numbers across reads of each nucleotide base by position. <em>plot_read_content</em> plots the percentage of nucleotide content per position. We also provide an additional function <em>read_base_content</em> that allows the user to get the nucleotide base content by position across reads for a specific nucleotide (options are a,c,t,g,n). As a general rule, the plot would be considered an indication of good data quality when the percentage of each nucleotide sequence content is about evenly distributed across all bases. However, there are some types of analyses for which this will not be the case. For example, RNA-Seq will have an uneven sequence content distribution in the first 10 bases, and RRBS will have almost no cytosines and very high thymine content because the library prep protocol converts most C to T [@Meissner2005]. Knowledge of the library prep protocol is thus important for evaluating quality in terms of nucleotide sequence content.</p>
+<div class="codehilite"><pre><span></span><span class="n">scA</span> <span class="o">&lt;-</span> <span class="nf">read_base_content</span><span class="p">(</span><span class="n">fseq</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="s">&quot;A&quot;</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">scA</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> x </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 4351 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5341 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5995 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6262 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6689 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="n">rc</span> <span class="o">&lt;-</span> <span class="nf">read_content</span><span class="p">(</span><span class="n">fseq</span><span class="p">)</span>
+<span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">rc</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> position </th>
+   <th style="text-align:right;"> a </th>
+   <th style="text-align:right;"> c </th>
+   <th style="text-align:right;"> t </th>
+   <th style="text-align:right;"> g </th>
+   <th style="text-align:right;"> n </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4351 </td>
+   <td style="text-align:right;"> 7760 </td>
+   <td style="text-align:right;"> 5807 </td>
+   <td style="text-align:right;"> 6745 </td>
+   <td style="text-align:right;"> 337 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 5341 </td>
+   <td style="text-align:right;"> 4297 </td>
+   <td style="text-align:right;"> 9661 </td>
+   <td style="text-align:right;"> 5689 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 5995 </td>
+   <td style="text-align:right;"> 3626 </td>
+   <td style="text-align:right;"> 9264 </td>
+   <td style="text-align:right;"> 6115 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6262 </td>
+   <td style="text-align:right;"> 4066 </td>
+   <td style="text-align:right;"> 9324 </td>
+   <td style="text-align:right;"> 5348 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 6624 </td>
+   <td style="text-align:right;"> 4078 </td>
+   <td style="text-align:right;"> 8019 </td>
+   <td style="text-align:right;"> 6279 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6689 </td>
+   <td style="text-align:right;"> 3833 </td>
+   <td style="text-align:right;"> 8001 </td>
+   <td style="text-align:right;"> 6477 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_read_content</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk nucleotide_read_content" src="../figure/nucleotide_read_content-1.png" /></p>
+<h2 id="kmer-count">Per position kmer count</h2>
+<p><em>kmer_count</em> function produces the per position kmer count with given path to the FASTQ file and the kmer length specified. </p>
+<div class="codehilite"><pre><span></span><span class="n">km</span> <span class="o">&lt;-</span> <span class="nf">kmer_count</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="m">6</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="err">##</span><span class="w"> </span><span class="o">[</span><span class="n">fastq_Klocs</span><span class="o">]</span><span class="w"> </span><span class="k">File</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;/home/travis/miniconda/envs/test-env/lib/R/library/qckitfastq/extdata/10^5_reads_test.fq.gz&#39;</span><span class="w">  </span><span class="n">done</span><span class="p">.</span><span class="w"></span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">km</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+   <th style="text-align:right;"> 3 </th>
+   <th style="text-align:right;"> 4 </th>
+   <th style="text-align:right;"> 5 </th>
+   <th style="text-align:right;"> 6 </th>
+   <th style="text-align:right;"> 7 </th>
+   <th style="text-align:right;"> 8 </th>
+   <th style="text-align:right;"> 9 </th>
+   <th style="text-align:right;"> 10 </th>
+   <th style="text-align:right;"> 11 </th>
+   <th style="text-align:right;"> 12 </th>
+   <th style="text-align:right;"> 13 </th>
+   <th style="text-align:right;"> 14 </th>
+   <th style="text-align:right;"> 15 </th>
+   <th style="text-align:right;"> 16 </th>
+   <th style="text-align:right;"> 17 </th>
+   <th style="text-align:right;"> 18 </th>
+   <th style="text-align:right;"> 19 </th>
+   <th style="text-align:right;"> 20 </th>
+   <th style="text-align:right;"> 21 </th>
+   <th style="text-align:right;"> 22 </th>
+   <th style="text-align:right;"> 23 </th>
+   <th style="text-align:right;"> 24 </th>
+   <th style="text-align:right;"> 25 </th>
+   <th style="text-align:right;"> 26 </th>
+   <th style="text-align:right;"> 27 </th>
+   <th style="text-align:right;"> 28 </th>
+   <th style="text-align:right;"> 29 </th>
+   <th style="text-align:right;"> 30 </th>
+   <th style="text-align:right;"> 31 </th>
+   <th style="text-align:right;"> 32 </th>
+   <th style="text-align:right;"> 33 </th>
+   <th style="text-align:right;"> 34 </th>
+   <th style="text-align:right;"> 35 </th>
+   <th style="text-align:right;"> 36 </th>
+   <th style="text-align:right;"> 37 </th>
+   <th style="text-align:right;"> 38 </th>
+   <th style="text-align:right;"> 39 </th>
+   <th style="text-align:right;"> 40 </th>
+   <th style="text-align:right;"> 41 </th>
+   <th style="text-align:right;"> 42 </th>
+   <th style="text-align:right;"> 43 </th>
+   <th style="text-align:right;"> 44 </th>
+   <th style="text-align:right;"> 45 </th>
+   <th style="text-align:right;"> 46 </th>
+   <th style="text-align:right;"> 47 </th>
+   <th style="text-align:right;"> 48 </th>
+   <th style="text-align:right;"> 49 </th>
+   <th style="text-align:right;"> 50 </th>
+   <th style="text-align:right;"> 51 </th>
+   <th style="text-align:right;"> 52 </th>
+   <th style="text-align:right;"> 53 </th>
+   <th style="text-align:right;"> 54 </th>
+   <th style="text-align:right;"> 55 </th>
+   <th style="text-align:right;"> 56 </th>
+   <th style="text-align:right;"> 57 </th>
+   <th style="text-align:right;"> 58 </th>
+   <th style="text-align:right;"> 59 </th>
+   <th style="text-align:right;"> 60 </th>
+   <th style="text-align:right;"> 61 </th>
+   <th style="text-align:right;"> 62 </th>
+   <th style="text-align:right;"> 63 </th>
+   <th style="text-align:right;"> 64 </th>
+   <th style="text-align:right;"> 65 </th>
+   <th style="text-align:right;"> 66 </th>
+   <th style="text-align:right;"> 67 </th>
+   <th style="text-align:right;"> 68 </th>
+   <th style="text-align:right;"> 69 </th>
+   <th style="text-align:right;"> 70 </th>
+   <th style="text-align:right;"> 71 </th>
+   <th style="text-align:right;"> 72 </th>
+   <th style="text-align:right;"> 73 </th>
+   <th style="text-align:right;"> 74 </th>
+   <th style="text-align:right;"> 75 </th>
+   <th style="text-align:right;"> 76 </th>
+   <th style="text-align:right;"> 77 </th>
+   <th style="text-align:right;"> 78 </th>
+   <th style="text-align:right;"> 79 </th>
+   <th style="text-align:right;"> 80 </th>
+   <th style="text-align:right;"> 81 </th>
+   <th style="text-align:right;"> 82 </th>
+   <th style="text-align:right;"> 83 </th>
+   <th style="text-align:right;"> 84 </th>
+   <th style="text-align:right;"> 85 </th>
+   <th style="text-align:right;"> 86 </th>
+   <th style="text-align:right;"> 87 </th>
+   <th style="text-align:right;"> 88 </th>
+   <th style="text-align:right;"> 89 </th>
+   <th style="text-align:right;"> 90 </th>
+   <th style="text-align:right;"> 91 </th>
+   <th style="text-align:right;"> 92 </th>
+   <th style="text-align:right;"> 93 </th>
+   <th style="text-align:right;"> 94 </th>
+   <th style="text-align:right;"> 95 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> AAAAAA </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 163 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 85 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 175 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 96 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 59 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 113 </td>
+   <td style="text-align:right;"> 166 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 85 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 82 </td>
+   <td style="text-align:right;"> 165 </td>
+   <td style="text-align:right;"> 92 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 165 </td>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 131 </td>
+   <td style="text-align:right;"> 126 </td>
+   <td style="text-align:right;"> 106 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 109 </td>
+   <td style="text-align:right;"> 171 </td>
+   <td style="text-align:right;"> 66 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 129 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AAAAAC </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 142 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 47 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 81 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 134 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 65 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AAAAAG </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AAAAAT </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 65 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 170 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 92 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 85 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 211 </td>
+   <td style="text-align:right;"> 92 </td>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 87 </td>
+   <td style="text-align:right;"> 85 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 144 </td>
+   <td style="text-align:right;"> 124 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 86 </td>
+   <td style="text-align:right;"> 145 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AAAACA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AAAACC </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 143 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 47 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 65 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 132 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+</tbody>
+</table>
+
+<h2 id="overrep-reads">Overrepresented reads</h2>
+<p><em>overrep_reads</em> produces a data frame consisting of overrepresented reads and their counts in decreasing order of counts. Here overrepresented is defined as unique reads that have counts larger than 0.1% of the total reads in the file. <em>plot_overrep_reads</em> produces a density plot of the counts and marks the top 5 overrepresented reads in red. </p>
+<div class="codehilite"><pre><span></span><span class="n">overrep_reads</span><span class="o">&lt;-</span><span class="nf">overrep_reads</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+<span class="n">knitr</span><span class="o">::</span><span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">overrep_reads</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="m">5</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> read_sequence </th>
+   <th style="text-align:right;"> count </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> TGGGTGTGAGGAGTTCAGTTATATGTTTGGGATTTTTTAGGTAGTGGGTGTTGAGCTTGAACGCTTTCTTAATTGGTGGCTGCTTTTAGGCCTACTATGG </td>
+   <td style="text-align:right;"> 123 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CCCCAAACCCACTCCACCTTACTACCAGACAACCTTAGCCAAACCATTTACCCAAATAAAGTATAGGCGATAGAAATTGAAACCTGGCGCAATAGATATA </td>
+   <td style="text-align:right;"> 122 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CACTAGGAAAAAACCTTGTAGAGAGAGTAAAAAATTTAACACCCATAGTAGGCCTAAAAGCAGCCACCAATTAAGAAAGCGTTCAAGCTCAACACCCACT </td>
+   <td style="text-align:right;"> 120 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CTAAACCTAGCCCCAAACCCACTCCACCTTACTACCAGACAACCTTAGCCAAACCATTTACCCAAATAAAGTATAGGCGATAGAAATTGAAACCTGGCGC </td>
+   <td style="text-align:right;"> 117 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TAAACCTAGCCCCAAACCCACTCCACCTTACTACCAGACAACCTTAGCCAAACCATTTACCCAAATAAAGTATAGGCGATAGAAATTGAAACCTGGCGCA </td>
+   <td style="text-align:right;"> 116 </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_overrep_reads</span><span class="p">(</span><span class="n">overrep_reads</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk overrep_reads" src="../figure/overrep_reads-1.png" /></p>
+<h2 id="overrep-kmers">Overrepresented kmers</h2>
+<p><em>overrep_kmer</em> generates a data frame of overrepresented kmers with its maximum log2(observed/expected) ratio and the position of the maximum obs/exp ratio in descending order. Only those kmers with a ratio greater than 2 are returned in the data frame. We can also create a boxplot of the obs/exp ratio thatn includes plotting the top 2 (or n) kmer outliers.</p>
+<div class="codehilite"><pre><span></span><span class="n">overkm</span> <span class="o">&lt;-</span><span class="nf">overrep_kmer</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span><span class="m">7</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="err">##</span><span class="w"> </span><span class="o">[</span><span class="n">fastqq</span><span class="o">]</span><span class="w"> </span><span class="k">File</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;/home/travis/miniconda/envs/test-env/lib/R/library/qckitfastq/extdata/10^5_reads_test.fq.gz&#39;</span><span class="w">   </span><span class="n">done</span><span class="p">.</span><span class="w"></span>
+<span class="err">##</span><span class="w"> </span><span class="o">[</span><span class="n">fastq_Klocs</span><span class="o">]</span><span class="w"> </span><span class="k">File</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;/home/travis/miniconda/envs/test-env/lib/R/library/qckitfastq/extdata/10^5_reads_test.fq.gz&#39;</span><span class="w">  </span><span class="n">done</span><span class="p">.</span><span class="w"></span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">knitr</span><span class="o">::</span><span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">overkm</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+</pre></div>
+
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> row </th>
+   <th style="text-align:right;"> position </th>
+   <th style="text-align:right;"> obsexp_ratio </th>
+   <th style="text-align:left;"> kmer </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 15353 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 11.109619 </td>
+   <td style="text-align:left;"> TGTTTGA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 16316 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 10.580131 </td>
+   <td style="text-align:left;"> TTTGTGT </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8175 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 10.552171 </td>
+   <td style="text-align:left;"> CTTTGTG </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12031 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 9.685497 </td>
+   <td style="text-align:left;"> GTGTTTG </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12259 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 9.638035 </td>
+   <td style="text-align:left;"> GTTTGAG </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 15296 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 9.565904 </td>
+   <td style="text-align:left;"> TGTGTTT </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8066 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 9.445229 </td>
+   <td style="text-align:left;"> CTTGAAC </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 16112 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 9.444925 </td>
+   <td style="text-align:left;"> TTGTGTT </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12108 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 9.314122 </td>
+   <td style="text-align:left;"> GTTCAGT </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2553 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 9.278962 </td>
+   <td style="text-align:left;"> AGCTTGA </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="codehilite"><pre><span></span><span class="nf">plot_overrep_kmer</span><span class="p">(</span><span class="n">overkm</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk overrep_kmer" src="../figure/overrep_kmer-1.png" /></p>
+<h2 id="adapter-content">Adapter content</h2>
+<p><em>adapter_content</em> computes the counts of a pre-determined set of adapter sequences and reports back any exceeding 0.1% of the total reads, sorted from most abundant to least abundant. <em>plot_adapter_content</em> creates a bar plot of the top 5 most common adapters. In this instance we will use a different file to compute adapter content, as the first example has no adapter contamination. This function is only available for macOS/Linux due to a dependency on RSeqAn/C++14, which is not supported on current Bioconductor Windows build machines.</p>
+<div class="codehilite"><pre><span></span><span class="nf">if</span><span class="p">(</span><span class="n">.Platform</span><span class="o">$</span><span class="n">OS.type</span> <span class="o">!=</span> <span class="s">&quot;windows&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">infile2</span> <span class="o">&lt;-</span> <span class="nf">system.file</span><span class="p">(</span><span class="s">&quot;extdata&quot;</span><span class="p">,</span> <span class="s">&quot;test.fq.gz&quot;</span><span class="p">,</span> <span class="n">package</span> <span class="o">=</span> <span class="s">&quot;qckitfastq&quot;</span><span class="p">)</span>
+    <span class="n">ac_sorted</span> <span class="o">&lt;-</span> <span class="nf">adapter_content</span><span class="p">(</span><span class="n">infile2</span><span class="p">)</span>
+    <span class="nf">kable</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">ac_sorted</span><span class="p">))</span> <span class="o">%&gt;%</span> <span class="nf">kable_styling</span><span class="p">()</span>
+    <span class="nf">plot_adapter_content</span><span class="p">(</span><span class="n">ac_sorted</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><img alt="plot of chunk adapter_content" src="../figure/adapter_content-1.png" /></p>
+<h1 id="references">References</h1>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../adapter_content/" title="`adapter_content`: Creates a sorted from most frequent to least frequent abundance table" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                `adapter_content`: Creates a sorted from most frequent to least frequent abundance table
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-115983496-2","compbiocore.github.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>
