@@ -32,17 +32,17 @@ BiocManager::install(c("RSeqAn","seqTools","zlibbioc")
 
 ## Installing
 
+### From Bioconductor
+
+`qckitfastq` release version is on Bioconductor. To install from, follow instructions on the [package page](https://bioconductor.org/packages/release/bioc/html/qckitfastq.html).
+
 ### From Github repo
 
-Currently this is the only way to install `qckitfastq`. You will need `devtools`. Once the package is approved on Bioconductor, this repository will contain the development version rather than the release version.
+This repository contains the development version. You will need `devtools` to install.
 ```{r}
 devtools::install_github("compbiocore/qckitfastq",build_vignettes=TRUE)
 library(qckitfastq)
 ```
-
-### From Bioconductor
-
-Package has been submitted and is currently pending review on Bioconductor.
 
 ## Usage
 
